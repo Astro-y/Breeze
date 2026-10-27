@@ -4,6 +4,7 @@ import 'dart:ffi';
 import 'dart:io';
 import 'dart:ui' show AppExitResponse;
 
+import 'package:auto_route/auto_route.dart';
 import 'package:desktop_webview_linux/desktop_webview_linux.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dynamic_color/dynamic_color.dart';
@@ -18,12 +19,12 @@ import 'package:flutter_socks_proxy/socks_proxy.dart';
 import 'package:logger/logger.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:worker_manager/worker_manager.dart';
 import 'package:zephyr/config/global/global.dart';
 import 'package:zephyr/config/global/global_setting.dart';
 import 'package:zephyr/config/router/router.dart';
+import 'package:zephyr/cubit/comic_read_preference_cubit.dart';
 import 'package:zephyr/cubit/plugin_registry_cubit.dart';
 import 'package:zephyr/i18n/i18n_helper.dart';
 import 'package:zephyr/i18n/strings.g.dart';
@@ -36,6 +37,7 @@ import 'package:zephyr/page/comic_follow/cubit/comic_follow_cubit.dart';
 import 'package:zephyr/platform/desktop/native_window.dart';
 import 'package:zephyr/platform/desktop/system_tray.dart';
 import 'package:zephyr/platform/desktop/window_logic.dart';
+import 'package:zephyr/platform/eink/eink_device.dart';
 import 'package:zephyr/service/reader/reader_desktop_fullscreen_service.dart';
 import 'package:zephyr/service/startup_database_snapshot_service.dart';
 import 'package:zephyr/src/rust/api/qjs.dart';
@@ -49,6 +51,7 @@ import 'package:zephyr/util/manage_cache.dart';
 import 'package:zephyr/util/rust_loader.dart';
 import 'package:zephyr/widgets/desktop/custom_title_bar.dart';
 import 'package:zephyr/widgets/desktop/intent.dart';
+import 'package:zephyr/main.dart';
 
 export 'package:zephyr/network/http/wind_http.dart'
     show WindHttp, FetchResponse, fetch, fetchDirect;
@@ -72,7 +75,9 @@ List<String> cfIpList = [];
 
 final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-final navigatorKey = GlobalKey<NavigatorState>();
+/// 直接复用路由自己的 Navigator key：MaterialApp.router 会自建 Navigator，
+/// 传进来的独立 GlobalKey 不会被挂上，只有这个 key 拿得到当前 overlay。
+final navigatorKey = appRouter.navigatorKey;
 
 class AppScrollBehavior extends MaterialScrollBehavior {
   const AppScrollBehavior();
@@ -153,6 +158,7 @@ Future<void> main(List<String> args) async {
       final (globalSettingCubit, pluginRegistryCubit) = await _initServices();
 
       final comicFollowCubit = ComicFollowCubit();
+      final comicReadPreferenceCubit = ComicReadPreferenceCubit();
 
       runApp(
         MultiBlocProvider(
@@ -160,6 +166,7 @@ Future<void> main(List<String> args) async {
             BlocProvider.value(value: globalSettingCubit),
             BlocProvider.value(value: pluginRegistryCubit),
             BlocProvider.value(value: comicFollowCubit),
+            BlocProvider.value(value: comicReadPreferenceCubit),
           ],
           child: const MyApp(),
         ),
@@ -209,6 +216,7 @@ Future<void> main(List<String> args) async {
       try {
         final (globalSettingCubit, pluginRegistryCubit) = await _initServices();
         final comicFollowCubit = ComicFollowCubit();
+        final comicReadPreferenceCubit = ComicReadPreferenceCubit();
 
         await addArchitectureTagsToSentry();
 
@@ -219,6 +227,7 @@ Future<void> main(List<String> args) async {
                 BlocProvider.value(value: globalSettingCubit),
                 BlocProvider.value(value: pluginRegistryCubit),
                 BlocProvider.value(value: comicFollowCubit),
+                BlocProvider.value(value: comicReadPreferenceCubit),
               ],
               child: MyApp(),
             ),
@@ -352,6 +361,8 @@ Future<(GlobalSettingCubit, PluginRegistryCubit)> _initServices() async {
 
   setTlsVerifyEnabled(enabled: false);
 
+  await applyEinkAutoDetection(globalSettingCubit);
+
   // Rust 已在本函数开头初始化；快照查询和 Brotli 压缩均在后台执行。
   unawaited(saveStartupDatabaseSnapshot());
 
@@ -470,7 +481,7 @@ class MyApp extends StatefulWidget with WindowListener {
 }
 
 class _MyAppState extends State<MyApp>
-    with WindowListener, TrayListener, WidgetsBindingObserver {
+    with WindowListener, WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
@@ -482,8 +493,10 @@ class _MyAppState extends State<MyApp>
         windowManager.setPreventClose(true);
       });
     }
-    trayManager.addListener(this);
-    initSystemTray();
+    initSystemTray(
+      onShowWindow: showMainWindow,
+      onExitApp: _performGracefulExit,
+    );
 
     if (Platform.isLinux) {
       _linuxWindowChannel.setMethodCallHandler((call) async {
@@ -508,7 +521,7 @@ class _MyAppState extends State<MyApp>
     WidgetsBinding.instance.removeObserver(this);
     if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
       windowManager.removeListener(this);
-      trayManager.removeListener(this);
+      disposeSystemTray();
     }
     super.dispose();
   }
@@ -683,26 +696,6 @@ class _MyAppState extends State<MyApp>
     setState(() {});
   }
 
-  @override
-  void onTrayIconMouseDown() {
-    showMainWindow();
-  }
-
-  @override
-  void onTrayIconRightMouseDown() {
-    trayManager.popUpContextMenu();
-  }
-
-  @override
-  void onTrayMenuItemClick(MenuItem menuItem) {
-    if (menuItem.key == 'show_window') {
-      showMainWindow();
-    } else if (menuItem.key == 'exit_app') {
-      // 真正退出：清理资源后退出
-      _performGracefulExit();
-    }
-  }
-
   void _init() async {
     if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
       await windowManager.setPreventClose(true);
@@ -768,7 +761,9 @@ class _MyAppState extends State<MyApp>
               }
 
               return MaterialApp.router(
-                routerConfig: appRouter.config(),
+                routerConfig: appRouter.config(
+                  navigatorObservers: () => [AutoRouteObserver()],
+                ),
                 scrollBehavior: const AppScrollBehavior(),
                 builder: (context, child) {
                   Widget content = Actions(
@@ -832,6 +827,11 @@ class _MyAppState extends State<MyApp>
                 supportedLocales: AppLocaleUtils.supportedLocales,
                 localizationsDelegates: GlobalMaterialLocalizations.delegates,
                 theme: ThemeData.light().copyWith(
+                  // 墨水屏：水波纹是一圈纯装饰动画，在 EPD 上只会糊成残影。
+                  // 传 null 走 copyWith 的保留语义，非墨水屏时不改默认 SplashFactory。
+                  splashFactory: globalSettingState.eInkSetting.enabled
+                      ? NoSplash.splashFactory
+                      : null,
                   primaryColor: lightColorScheme.primary,
                   colorScheme: lightColorScheme,
                   scaffoldBackgroundColor: lightColorScheme.surface,
@@ -849,6 +849,9 @@ class _MyAppState extends State<MyApp>
                   ),
                 ),
                 darkTheme: ThemeData.dark().copyWith(
+                  splashFactory: globalSettingState.eInkSetting.enabled
+                      ? NoSplash.splashFactory
+                      : null,
                   scaffoldBackgroundColor: globalSettingState.isAMOLED
                       ? Colors.black
                       : darkColorScheme.surface,

@@ -1,18 +1,17 @@
 import 'dart:convert';
 
 import 'package:material_ui/material_ui.dart';
-import 'package:zephyr/main.dart';
 import 'package:zephyr/page/comic_info/models/favorite_workflow.dart';
 import 'package:zephyr/network/http/plugin/unified_comic_plugin.dart';
 import 'package:zephyr/object_box/model.dart';
 import 'package:zephyr/object_box/objectbox.g.dart';
 import 'package:zephyr/page/bookshelf/service/comic_link_service.dart';
-import 'package:zephyr/page/bookshelf/service/favorite_folder_service.dart';
 import 'package:zephyr/util/json/json_sanitize.dart';
 import 'package:zephyr/util/path_util.dart';
 import 'package:zephyr/page/comic_info/json/normal/normal_comic_all_info.dart';
 import 'package:zephyr/widgets/toast.dart';
 import 'package:zephyr/i18n/strings.g.dart';
+import 'package:zephyr/main.dart';
 
 Future<bool> isLocalComicCollected({
   required String from,
@@ -49,7 +48,6 @@ Future<bool> toggleLocalComicFavorite({
     unified.deleted = true;
     unified.updatedAt = now;
     objectbox.unifiedFavoriteBox.put(unified);
-    FavoriteFolderService.removeMemberFromAllFolders(key);
     ComicLinkService.removeComicFromAll(key, ComicFolderType.favorite);
     if (showToast) {
       // showSuccessToast('已取消本地收藏');
@@ -168,6 +166,7 @@ Map<String, dynamic> _titleMetaToMap(ComicInfoActionItem item) {
   return sanitizeDynamic({
     'name': item.name,
     'onTap': item.onTap,
+    'onLongPress': item.onLongPress,
     'extern': item.extern,
   });
 }
@@ -181,6 +180,7 @@ Map<String, dynamic> _metadataToMap(ComicInfoMetadata item) {
           (entry) => sanitizeDynamic({
             'name': entry.name,
             'onTap': entry.onTap,
+            'onLongPress': entry.onLongPress,
             'extern': entry.extern,
           }),
         )
@@ -195,6 +195,7 @@ Future<bool> toggleCloudComicFavorite({
   required String comicId,
   required bool currentStatus,
   bool legacyAllowCollected = true,
+  String legacyAllowCollectedReason = '',
   String? collectionTargetId,
   String? collectionTargetName,
 }) async {
@@ -211,6 +212,7 @@ Future<bool> toggleCloudComicFavorite({
         : FavoriteWorkflowAction.add,
     currentStatus: currentStatus,
     legacyAllowCollected: legacyAllowCollected,
+    legacyAllowCollectedReason: legacyAllowCollectedReason,
     collectionTargetId: collectionTargetId,
     collectionTargetName: collectionTargetName,
   );
@@ -232,6 +234,7 @@ Future<FavoriteWorkflowExecutionResult> executeCloudFavoriteWorkflow({
   required FavoriteWorkflowAction action,
   required bool currentStatus,
   bool legacyAllowCollected = true,
+  String legacyAllowCollectedReason = '',
   String? collectionTargetId,
   String? collectionTargetName,
 }) async {
@@ -255,7 +258,7 @@ Future<FavoriteWorkflowExecutionResult> executeCloudFavoriteWorkflow({
     if (!legacyAllowCollected ||
         (action != FavoriteWorkflowAction.add &&
             action != FavoriteWorkflowAction.removeAll)) {
-      throw const FavoriteWorkflowUnsupportedException();
+      throw FavoriteWorkflowUnsupportedException(legacyAllowCollectedReason);
     }
     return _runLegacyFavoriteWorkflow(
       context: context,
@@ -306,7 +309,10 @@ Future<FavoriteWorkflowExecutionResult> _runFavoriteWorkflow({
       case FavoriteWorkflowStatus.cancelled:
         final executionResult = _toExecutionResult(result);
         if (result.status == FavoriteWorkflowStatus.failed) {
-          throw StateError(result.message ?? t.error.operationFailed);
+          final message = result.message?.trim() ?? '';
+          throw StateError(
+            message.isNotEmpty ? message : t.error.executionFailed,
+          );
         }
         throw FavoriteWorkflowIncompleteException(executionResult);
       case FavoriteWorkflowStatus.awaitingInput:
@@ -456,7 +462,7 @@ Future<Map<String, dynamic>?> _showFavoriteWorkflowSelect(
             title: Text(input.title ?? t.comicInfo.addToCustomFolder),
             content: ConstrainedBox(
               constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(ctx).size.height * 0.6,
+                maxHeight: MediaQuery.sizeOf(ctx).height * 0.6,
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -775,7 +781,7 @@ Future<Map<String, dynamic>?> _showFavoriteWorkflowForm(
             title: Text(input.title ?? t.common.confirm),
             content: ConstrainedBox(
               constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(ctx).size.height * 0.65,
+                maxHeight: MediaQuery.sizeOf(ctx).height * 0.65,
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -890,7 +896,7 @@ Future<_FavoriteFolder?> _showFolderSelectionDialog(
             title: Text(t.comicInfo.addToCustomFolder),
             content: ConstrainedBox(
               constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(ctx).size.height * 0.5,
+                maxHeight: MediaQuery.sizeOf(ctx).height * 0.5,
               ),
               child: SizedBox(
                 width: double.maxFinite,

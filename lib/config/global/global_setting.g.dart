@@ -44,8 +44,6 @@ _GlobalSettingState _$GlobalSettingStateFromJson(
   backPressExitEnabled: json['backPressExitEnabled'] as bool? ?? false,
   updateAccelerate: json['updateAccelerate'] as bool? ?? true,
   retryDownloadUntilSuccess: json['retryDownloadUntilSuccess'] as bool? ?? true,
-  oldPageRollbackEnabled: json['oldPageRollbackEnabled'] as bool? ?? false,
-  cloudFavoritePreferred: json['cloudFavoritePreferred'] as bool? ?? false,
   autoFollowOnCollect: json['autoFollowOnCollect'] as bool? ?? false,
   leftHandModeEnabled: json['leftHandModeEnabled'] as bool? ?? false,
   clickCoverToStartReading: json['clickCoverToStartReading'] as bool? ?? false,
@@ -89,6 +87,9 @@ _GlobalSettingState _$GlobalSettingStateFromJson(
       : BookshelfSettingState.fromJson(
           json['bookshelfSetting'] as Map<String, dynamic>,
         ),
+  eInkSetting: json['eInkSetting'] == null
+      ? const EInkSettingState()
+      : EInkSettingState.fromJson(json['eInkSetting'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$GlobalSettingStateToJson(_GlobalSettingState instance) =>
@@ -116,8 +117,6 @@ Map<String, dynamic> _$GlobalSettingStateToJson(_GlobalSettingState instance) =>
       'backPressExitEnabled': instance.backPressExitEnabled,
       'updateAccelerate': instance.updateAccelerate,
       'retryDownloadUntilSuccess': instance.retryDownloadUntilSuccess,
-      'oldPageRollbackEnabled': instance.oldPageRollbackEnabled,
-      'cloudFavoritePreferred': instance.cloudFavoritePreferred,
       'autoFollowOnCollect': instance.autoFollowOnCollect,
       'leftHandModeEnabled': instance.leftHandModeEnabled,
       'clickCoverToStartReading': instance.clickCoverToStartReading,
@@ -135,6 +134,7 @@ Map<String, dynamic> _$GlobalSettingStateToJson(_GlobalSettingState instance) =>
       'chineseConvertMode':
           _$ChineseConvertModeEnumMap[instance.chineseConvertMode]!,
       'bookshelfSetting': instance.bookshelfSetting.toJson(),
+      'eInkSetting': instance.eInkSetting.toJson(),
     };
 
 const _$ThemeModeEnumMap = {
@@ -284,6 +284,8 @@ _ReadSettingState _$ReadSettingStateFromJson(Map<String, dynamic> json) =>
           ) ??
           ReaderTapPageTurnMode.rightHand,
       tapPageTurnInWebtoon: json['tapPageTurnInWebtoon'] as bool? ?? false,
+      reverseHorizontalPageTurn:
+          json['reverseHorizontalPageTurn'] as bool? ?? false,
       readerBackgroundMode:
           $enumDecodeNullable(
             _$ReaderBackgroundModeEnumMap,
@@ -349,6 +351,7 @@ Map<String, dynamic> _$ReadSettingStateToJson(
   'readMode': instance.readMode,
   'tapPageTurnMode': _$ReaderTapPageTurnModeEnumMap[instance.tapPageTurnMode]!,
   'tapPageTurnInWebtoon': instance.tapPageTurnInWebtoon,
+  'reverseHorizontalPageTurn': instance.reverseHorizontalPageTurn,
   'readerBackgroundMode':
       _$ReaderBackgroundModeEnumMap[instance.readerBackgroundMode]!,
   'readFilterEnabled': instance.readFilterEnabled,
@@ -412,6 +415,39 @@ const _$ReaderInfoHorizontalPositionEnumMap = {
   ReaderInfoHorizontalPosition.right: 'right',
 };
 
+_EInkSettingState _$EInkSettingStateFromJson(Map<String, dynamic> json) =>
+    _EInkSettingState(
+      enabled: json['enabled'] as bool? ?? false,
+      detectionHandled: json['detectionHandled'] as bool? ?? false,
+      noRouteTransition: json['noRouteTransition'] as bool? ?? true,
+      noScrollBounce: json['noScrollBounce'] as bool? ?? true,
+      noLoadingSpinner: json['noLoadingSpinner'] as bool? ?? true,
+      refreshMode:
+          $enumDecodeNullable(_$EinkRefreshModeEnumMap, json['refreshMode']) ??
+          EinkRefreshMode.fullFlash,
+      autoRefreshEveryNTurns:
+          (json['autoRefreshEveryNTurns'] as num?)?.toInt() ?? 5,
+      showRefreshButton: json['showRefreshButton'] as bool? ?? true,
+    );
+
+Map<String, dynamic> _$EInkSettingStateToJson(_EInkSettingState instance) =>
+    <String, dynamic>{
+      'enabled': instance.enabled,
+      'detectionHandled': instance.detectionHandled,
+      'noRouteTransition': instance.noRouteTransition,
+      'noScrollBounce': instance.noScrollBounce,
+      'noLoadingSpinner': instance.noLoadingSpinner,
+      'refreshMode': _$EinkRefreshModeEnumMap[instance.refreshMode]!,
+      'autoRefreshEveryNTurns': instance.autoRefreshEveryNTurns,
+      'showRefreshButton': instance.showRefreshButton,
+    };
+
+const _$EinkRefreshModeEnumMap = {
+  EinkRefreshMode.none: 'none',
+  EinkRefreshMode.whiteFlash: 'whiteFlash',
+  EinkRefreshMode.fullFlash: 'fullFlash',
+};
+
 _BookshelfSettingState _$BookshelfSettingStateFromJson(
   Map<String, dynamic> json,
 ) => _BookshelfSettingState(
@@ -422,6 +458,8 @@ _BookshelfSettingState _$BookshelfSettingStateFromJson(
   historySort: json['historySort'] as String? ?? 'dd',
   rememberDownloadSort: json['rememberDownloadSort'] as bool? ?? false,
   downloadSort: json['downloadSort'] as String? ?? 'dd',
+  detailLayout: json['detailLayout'] as bool? ?? false,
+  reverseChapters: json['reverseChapters'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$BookshelfSettingStateToJson(
@@ -434,4 +472,6 @@ Map<String, dynamic> _$BookshelfSettingStateToJson(
   'historySort': instance.historySort,
   'rememberDownloadSort': instance.rememberDownloadSort,
   'downloadSort': instance.downloadSort,
+  'detailLayout': instance.detailLayout,
+  'reverseChapters': instance.reverseChapters,
 };

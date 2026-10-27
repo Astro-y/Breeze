@@ -66,6 +66,27 @@ extension ChineseConvertModeExtension on ChineseConvertMode {
   }
 }
 
+/// 墨水屏整屏刷新方式。
+///
+/// 应用拿不到厂商的 EPD 局部刷新接口，只能靠整屏色块切换迫使驱动走一次全刷。
+enum EinkRefreshMode { none, whiteFlash, fullFlash }
+
+extension EinkRefreshModeExtension on EinkRefreshMode {
+  String get label {
+    switch (this) {
+      case EinkRefreshMode.none:
+        return t.settings.einkRefreshNone;
+      case EinkRefreshMode.whiteFlash:
+        return t.settings.einkRefreshWhite;
+      case EinkRefreshMode.fullFlash:
+        return t.settings.einkRefreshFull;
+    }
+  }
+}
+
+/// 路由构建器拿不到 BuildContext，瞬时切页开关在这里留一份同步好的镜像。
+bool eInkInstantRoutes = false;
+
 const Color readerBackgroundBlack = Colors.black;
 const Color readerBackgroundWhite = Colors.white;
 const Color readerBackgroundGrey = Color(0xFF2D2D2D);
@@ -124,8 +145,6 @@ abstract class GlobalSettingState with _$GlobalSettingState {
     @Default(false) bool backPressExitEnabled,
     @Default(true) bool updateAccelerate,
     @Default(true) bool retryDownloadUntilSuccess,
-    @Default(false) bool oldPageRollbackEnabled,
-    @Default(false) bool cloudFavoritePreferred,
     @Default(false) bool autoFollowOnCollect,
     @Default(false) bool leftHandModeEnabled,
     @Default(false) bool clickCoverToStartReading,
@@ -142,6 +161,7 @@ abstract class GlobalSettingState with _$GlobalSettingState {
     @Default(CacheSettingState()) CacheSettingState cacheSetting,
     @Default(ChineseConvertMode.off) ChineseConvertMode chineseConvertMode,
     @Default(BookshelfSettingState()) BookshelfSettingState bookshelfSetting,
+    @Default(EInkSettingState()) EInkSettingState eInkSetting,
   }) = _GlobalSettingState;
 
   factory GlobalSettingState.fromJson(Map<String, dynamic> json) =>
@@ -246,6 +266,7 @@ abstract class ReadSettingState with _$ReadSettingState {
     @Default(ReaderTapPageTurnMode.rightHand)
     ReaderTapPageTurnMode tapPageTurnMode,
     @Default(false) bool tapPageTurnInWebtoon,
+    @Default(false) bool reverseHorizontalPageTurn,
     @Default(ReaderBackgroundMode.auto)
     ReaderBackgroundMode readerBackgroundMode,
     @Default(true) bool readFilterEnabled,
@@ -289,6 +310,48 @@ abstract class ReadSettingState with _$ReadSettingState {
 }
 
 @freezed
+abstract class EInkSettingState with _$EInkSettingState {
+  const EInkSettingState._();
+
+  const factory EInkSettingState({
+    /// 墨水屏模式总开关。命中 e-ink 设备时首启自动打开，用户手动关掉后不再自动开启。
+    @Default(false) bool enabled,
+
+    /// 设备检测是否已经处理过一次，避免每次启动都覆盖用户的选择。
+    @Default(false) bool detectionHandled,
+
+    /// 页面跳转不做滑动/淡入动画，直接出图。
+    @Default(true) bool noRouteTransition,
+
+    /// 滚动到边界不回弹。
+    @Default(true) bool noScrollBounce,
+
+    /// 图片加载占位不转圈（转圈会驱动墨水屏持续局刷，残影很重）。
+    @Default(true) bool noLoadingSpinner,
+
+    @Default(EinkRefreshMode.fullFlash) EinkRefreshMode refreshMode,
+
+    /// 每翻多少页自动整屏刷新一次；0 表示不自动刷新。
+    @Default(5) int autoRefreshEveryNTurns,
+
+    @Default(true) bool showRefreshButton,
+  }) = _EInkSettingState;
+
+  factory EInkSettingState.fromJson(Map<String, dynamic> json) =>
+      _$EInkSettingStateFromJson(json);
+
+  bool get shouldRemoveRouteTransition => enabled && noRouteTransition;
+
+  bool get shouldRemoveScrollBounce => enabled && noScrollBounce;
+
+  bool get shouldRemoveLoadingSpinner => enabled && noLoadingSpinner;
+
+  bool get canFullRefresh => enabled && refreshMode != EinkRefreshMode.none;
+
+  int get autoRefreshTurns => autoRefreshEveryNTurns.clamp(0, 50);
+}
+
+@freezed
 abstract class BookshelfSettingState with _$BookshelfSettingState {
   const factory BookshelfSettingState({
     @Default(0) int homePageIndex,
@@ -298,6 +361,8 @@ abstract class BookshelfSettingState with _$BookshelfSettingState {
     @Default('dd') String historySort,
     @Default(false) bool rememberDownloadSort,
     @Default('dd') String downloadSort,
+    @Default(false) bool detailLayout,
+    @Default(false) bool reverseChapters,
   }) = _BookshelfSettingState;
 
   factory BookshelfSettingState.fromJson(Map<String, dynamic> json) =>
@@ -314,7 +379,9 @@ class GlobalSettingCubit extends Cubit<GlobalSettingState> {
   late final Color _defaultSeedColor = colorThemeList[6].color;
 
   Future<void> initBox() async {
-    emit(objectbox.userSettingBox.get(1)!.globalSetting);
+    final persisted = objectbox.userSettingBox.get(1)!.globalSetting;
+    _syncRuntimeFlags(persisted);
+    emit(persisted);
   }
 
   GlobalSettingState get defaults =>
@@ -365,6 +432,14 @@ class GlobalSettingCubit extends Cubit<GlobalSettingState> {
     );
   }
 
+  void updateEInkSetting(
+    EInkSettingState Function(EInkSettingState current) updates,
+  ) {
+    updateState(
+      (current) => current.copyWith(eInkSetting: updates(current.eInkSetting)),
+    );
+  }
+
   /// 设置应用显示语言。
   ///
   /// [locale] 为目标 Flutter Locale；[followsSystem] 为 true 时表示跟随系统。
@@ -412,6 +487,7 @@ class GlobalSettingCubit extends Cubit<GlobalSettingState> {
 
   void _persistAndEmit(GlobalSettingState newState) {
     final normalizedState = _preserveCompatibleVersion(newState, state);
+    _syncRuntimeFlags(normalizedState);
     if (_withoutSettingsSyncTime(normalizedState) ==
         _withoutSettingsSyncTime(state)) {
       return;
@@ -429,8 +505,13 @@ class GlobalSettingCubit extends Cubit<GlobalSettingState> {
 
   void applySyncedState(GlobalSettingState value) {
     final normalized = _preserveCompatibleVersion(value, state);
+    _syncRuntimeFlags(normalized);
     _updateDataBase(normalized);
     emit(normalized);
+  }
+
+  void _syncRuntimeFlags(GlobalSettingState value) {
+    eInkInstantRoutes = value.eInkSetting.shouldRemoveRouteTransition;
   }
 
   GlobalSettingState _preserveCompatibleVersion(

@@ -12,6 +12,7 @@ import 'package:zephyr/page/comic_read/method/jump_chapter.dart';
 import 'package:zephyr/page/comic_read/widgets/settings/reader_settings_sheet.dart';
 import 'package:zephyr/type/enum.dart';
 import 'package:zephyr/util/context/context_extensions.dart';
+import 'package:zephyr/config/global/global_setting.dart';
 import 'package:zephyr/config/router/router.dart';
 import 'package:zephyr/config/router/router.gr.dart';
 import 'package:zephyr/i18n/strings.g.dart';
@@ -77,6 +78,13 @@ class _BottomWidgetState extends State<BottomWidget> {
     final isMenuVisible = context.select(
       (ReaderCubit cubit) => cubit.state.isMenuVisible,
     );
+    // 墨水屏：控制条滑动的中间帧只会攒成残影，直接出图。
+    final animationDuration =
+        context.select(
+          (GlobalSettingCubit cubit) => cubit.state.eInkSetting.enabled,
+        )
+        ? Duration.zero
+        : _animationDuration;
     final bottomSafeHeight = context.bottomSafeHeight;
     final screenWidth = MediaQuery.sizeOf(context).width;
     final isWideLayout = screenWidth >= 840;
@@ -94,7 +102,7 @@ class _BottomWidgetState extends State<BottomWidget> {
       child: IgnorePointer(
         ignoring: !isMenuVisible,
         child: AnimatedSlide(
-          duration: _animationDuration,
+          duration: animationDuration,
           curve: Curves.easeOutCubic,
           offset: isMenuVisible ? Offset.zero : const Offset(0, 1),
           child: Padding(
@@ -226,6 +234,8 @@ class _BottomWidgetState extends State<BottomWidget> {
         readerCubit.updateSliderChanged(0.0);
       },
       onLandscapeChanged: widget.onLandscapeChanged,
+      source: widget.from,
+      comicId: widget.comicId,
     );
   }
 
@@ -329,19 +339,107 @@ class _ChapterPickerDialog extends StatefulWidget {
 }
 
 class _ChapterPickerDialogState extends State<_ChapterPickerDialog> {
-  late final List<GlobalKey> _itemKeys;
+  // 行高只是估算（章节名可能换行），用于对话框高度与首屏定位；
+  // 精确定位靠 _targetKey + ensureVisible。
+  static const double _estimatedRowHeight = 52.0;
+  static const double _estimatedGroupHeaderHeight = 36.0;
+  static const int _maxRevealAttempts = 3;
+
+  GlobalKey? _targetKey;
+  late final ScrollController _scrollController;
+  int _revealAttempts = 0;
+
+  /// 扁平行：组头（不可点）与章节交错，单组时无组头，与今天一致。
+  late final List<_PickerRow> _rows = _buildRows(widget.refs);
+  late final int _initialRow = _hasValidInitial
+      ? _rows.indexWhere(
+          (row) =>
+              row is _PickerChapterRow &&
+              row.globalIndex == widget.initialIndex,
+        )
+      : -1;
+
+  bool get _hasValidInitial =>
+      widget.initialIndex >= 0 && widget.initialIndex < widget.refs.length;
+
+  static List<_PickerRow> _buildRows(List<UnifiedComicChapterRef> refs) {
+    final groups = groupChaptersByTitle<UnifiedComicChapterRef>(
+      refs,
+      (ref) => ref.groupTitle,
+    );
+    if (groups.length <= 1) {
+      return [
+        for (var i = 0; i < refs.length; i++)
+          _PickerChapterRow(ref: refs[i], globalIndex: i),
+      ];
+    }
+    final rows = <_PickerRow>[];
+    var globalIndex = 0;
+    for (final group in groups) {
+      rows.add(_PickerGroupRow(title: group.title));
+      for (final ref in group.items) {
+        rows.add(_PickerChapterRow(ref: ref, globalIndex: globalIndex));
+        globalIndex++;
+      }
+    }
+    return rows;
+  }
+
+  double _estimatedOffsetForRow(int row) {
+    var offset = 0.0;
+    for (var i = 0; i < row && i < _rows.length; i++) {
+      offset += _rows[i] is _PickerGroupRow
+          ? _estimatedGroupHeaderHeight
+          : _estimatedRowHeight;
+    }
+    return offset;
+  }
 
   @override
   void initState() {
     super.initState();
-    _itemKeys = List.generate(widget.refs.length, (_) => GlobalKey());
-    if (widget.initialIndex < 0) return;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      final context = _itemKeys[widget.initialIndex].currentContext;
-      if (context == null) return;
-      Scrollable.ensureVisible(context, alignment: 0.0);
-    });
+    // 原来是 List.generate(refs.length) 建 N 个 GlobalKey，
+    // 全局注册 + 阻碍复用；现在只给当前章节留 1 个。
+    if (_initialRow >= 0) {
+      _targetKey = GlobalKey();
+      _scrollController = ScrollController(
+        initialScrollOffset: _estimatedOffsetForRow(_initialRow),
+      );
+    } else {
+      _scrollController = ScrollController();
+    }
+    WidgetsBinding.instance.addPostFrameCallback((_) => _revealInitial());
+  }
+
+  /// 直接定位到当前章节（无动画）。目标行还没建出来时先跳到估算位置，
+  /// 下一帧再精确定位；超过次数就停在估算位置附近，不死循环。
+  void _revealInitial() {
+    if (!mounted || _revealAttempts >= _maxRevealAttempts) return;
+    _revealAttempts++;
+    final key = _targetKey;
+    if (key == null || _initialRow < 0) return;
+    final targetContext = key.currentContext;
+    if (targetContext == null) {
+      if (_scrollController.hasClients) {
+        final max = _scrollController.position.maxScrollExtent;
+        _scrollController.jumpTo(
+          _estimatedOffsetForRow(_initialRow).clamp(0.0, max),
+        );
+      }
+      WidgetsBinding.instance.addPostFrameCallback((_) => _revealInitial());
+      return;
+    }
+    Scrollable.ensureVisible(
+      targetContext,
+      alignment: 0.5,
+      alignmentPolicy: ScrollPositionAlignmentPolicy.explicit,
+    );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -353,33 +451,67 @@ class _ChapterPickerDialogState extends State<_ChapterPickerDialog> {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     );
+    // 定高（按估算行高撑，封顶 60% 屏高）：ListView 高度有界，
+    // 不用 shrinkWrap 也能懒加载，只建可视行。
+    final screenSize = MediaQuery.sizeOf(context);
+    final maxHeight = screenSize.height * 0.6;
+    final listHeight = (_estimatedOffsetForRow(_rows.length) + 16).clamp(
+      120.0,
+      maxHeight,
+    );
+    // 桌面端别撑满：最多 440，手机上占 90% 屏宽。
+    final listWidth = (screenSize.width * 0.9).clamp(0.0, 440.0).toDouble();
 
     return AlertDialog(
       title: Text(t.reader.selectChapter),
-      content: SingleChildScrollView(
-        child: ListBody(
-          children: [
-            for (var i = 0; i < widget.refs.length; i++)
-              Padding(
-                key: _itemKeys[i],
-                padding: const EdgeInsets.symmetric(vertical: 2),
-                child: TextButton(
-                  style: i == widget.initialIndex ? highlightStyle : null,
-                  onPressed: () => widget.onSelected(widget.refs[i]),
-                  child: Row(
-                    children: [
-                      Expanded(child: Text(widget.refs[i].name)),
-                      if (i == widget.initialIndex)
-                        Icon(
-                          Icons.check_circle_rounded,
-                          size: 18,
-                          color: colorScheme.primary,
-                        ),
-                    ],
+      content: SizedBox(
+        width: listWidth,
+        height: listHeight,
+        child: ListView.builder(
+          controller: _scrollController,
+          itemCount: _rows.length,
+          itemBuilder: (context, i) {
+            final row = _rows[i];
+            if (row is _PickerGroupRow) {
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(12, 10, 12, 2),
+                child: Text(
+                  chapterGroupDisplayTitle(
+                    row.title,
+                    t.comicInfo.untitledGroup,
                   ),
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              );
+            }
+            final chapterRow = row as _PickerChapterRow;
+            final ref = chapterRow.ref;
+            final isCurrent = i == _initialRow;
+            return Padding(
+              key: isCurrent ? _targetKey : null,
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: TextButton(
+                style: isCurrent ? highlightStyle : null,
+                onPressed: () => widget.onSelected(ref),
+                child: Row(
+                  children: [
+                    Expanded(child: Text(ref.name)),
+                    if (isCurrent)
+                      Icon(
+                        Icons.check_circle_rounded,
+                        size: 18,
+                        color: colorScheme.primary,
+                      ),
+                  ],
                 ),
               ),
-          ],
+            );
+          },
         ),
       ),
       actions: [
@@ -390,6 +522,25 @@ class _ChapterPickerDialogState extends State<_ChapterPickerDialog> {
       ],
     );
   }
+}
+
+sealed class _PickerRow {
+  const _PickerRow();
+}
+
+/// 组头行（不可点）。单组时无此行。
+class _PickerGroupRow extends _PickerRow {
+  const _PickerGroupRow({required this.title});
+
+  final String title;
+}
+
+/// 章节行，[globalIndex] 对应 refs 下标（用于定位当前章）。
+class _PickerChapterRow extends _PickerRow {
+  const _PickerChapterRow({required this.ref, required this.globalIndex});
+
+  final UnifiedComicChapterRef ref;
+  final int globalIndex;
 }
 
 class ChapterNavigationButton extends StatelessWidget {

@@ -2,12 +2,19 @@ import 'package:auto_route/auto_route.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zephyr/cubit/plugin_registry_cubit.dart';
+import 'package:zephyr/config/router/router.gr.dart';
 import 'package:zephyr/network/http/plugin/unified_comic_plugin.dart';
 import 'package:zephyr/page/search/cubit/search_cubit.dart';
 import 'package:zephyr/page/search/method/on_search.dart';
+import 'package:zephyr/page/search/widget/history.dart';
+import 'package:zephyr/page/search/widget/search_input_dialog.dart';
 import 'package:zephyr/page/search/widget/source_select_dialog.dart';
+import 'package:zephyr/page/search_result/bloc/search_bloc.dart';
+import 'package:zephyr/page/search_result/search_cursor/search_cursor.dart';
 import 'package:zephyr/plugin/plugin_registry_service.dart';
 import 'package:zephyr/i18n/strings.g.dart';
+import 'package:zephyr/main.dart';
+import 'package:zephyr/util/debouncer.dart';
 import 'package:zephyr/widgets/multi_choice_list_dialog.dart';
 import 'package:zephyr/widgets/toast.dart';
 
@@ -21,79 +28,43 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-  final _controller = TextEditingController();
-  final _focusNode = FocusNode();
   Map<String, bool> _aggregateSources = const {};
+  // 输入时只同步 TextField 自身状态，cubit 的 keyword 用防抖延迟同步，
+  // 避免每敲一个字母就触发上层 BlocBuilder 全量 rebuild。
+  final _keywordDebouncer = Debouncer(milliseconds: 100);
 
   List<({String pluginId, String title})> _sourceOptions(BuildContext context) {
-    final pluginStates = context.read<PluginRegistryCubit>().state;
+    final registry = context.read<PluginRegistryCubit>().state;
     final states = PluginRegistryService.I.sortPlugins(
-      pluginStates.values.where((state) => !state.isDeleted),
+      registry.plugins.values.where((state) => !state.isDeleted),
     );
-    return states.map((state) {
-      final info = PluginRegistryService.I.getCachedPluginInfo(state.uuid);
-      final title = info?['name']?.toString().trim().isNotEmpty == true
-          ? info!['name'].toString().trim()
-          : state.uuid;
-      return (pluginId: state.uuid, title: title);
-    }).toList();
+    return states
+        .map(
+          (state) =>
+              (pluginId: state.uuid, title: registry.pluginName(state.uuid)),
+        )
+        .toList();
   }
 
   @override
   void initState() {
     super.initState();
     final initialState = context.read<SearchCubit>().state;
-    final initialKeyword = initialState.searchKeyword;
     _aggregateSources = Map<String, bool>.from(initialState.aggregateSources);
-    if (initialKeyword.isNotEmpty) {
-      _controller.text = initialKeyword;
-    }
-    _controller.addListener(() => setState(() {}));
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final route = ModalRoute.of(context);
-      if (route is PageRoute && route.animation != null) {
-        if (route.animation!.isCompleted) {
-          _focusNode.requestFocus();
-        } else {
-          route.animation!.addStatusListener((status) {
-            if (status == AnimationStatus.completed && mounted) {
-              _focusNode.requestFocus();
-            }
-          });
-        }
-      } else {
-        _focusNode.requestFocus();
-      }
-    });
+    HistoryWidget.registerPendingKeywordSyncCanceller(_keywordDebouncer.cancel);
   }
 
   @override
   void dispose() {
-    _controller.dispose();
-    _focusNode.dispose();
+    HistoryWidget.registerPendingKeywordSyncCanceller(null);
+    _keywordDebouncer.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return BlocListener<SearchCubit, SearchStates>(
-      listenWhen: (previous, current) =>
-          previous.searchKeyword != current.searchKeyword,
-      listener: (context, state) {
-        if (_controller.text != state.searchKeyword) {
-          Future.delayed(const Duration(milliseconds: 100), () {
-            if (mounted) {
-              _controller.text = state.searchKeyword;
-              _controller.selection = TextSelection.fromPosition(
-                TextPosition(offset: _controller.text.length),
-              );
-            }
-          });
-        }
-      },
-      child: Padding(
+    return BlocBuilder<SearchCubit, SearchStates>(
+      builder: (context, state) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
@@ -102,55 +73,50 @@ class _SearchBarState extends State<SearchBar> {
               onPressed: () => context.maybePop(),
             ),
             Expanded(
-              child: Container(
-                height: 48,
-                decoration: BoxDecoration(
-                  color: colorScheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: Row(
-                  children: [
-                    const SizedBox(width: 16),
-                    Icon(Icons.search, color: colorScheme.onSurfaceVariant),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: TextField(
-                        controller: _controller,
-                        focusNode: _focusNode,
-                        textInputAction: TextInputAction.search,
-                        onSubmitted: (keyword) => onSearch(
-                          context,
-                          keyword,
-                          aggregateMode: widget.aggregateMode,
-                        ),
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: colorScheme.onSurface,
-                        ),
-                        decoration: InputDecoration(
-                          hintText: t.search.searchHint,
-                          border: InputBorder.none,
-                          isDense: true,
-                          hintStyle: TextStyle(
-                            color: colorScheme.onSurfaceVariant.withValues(
-                              alpha: 0.7,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    if (_controller.text.isNotEmpty)
-                      IconButton(
-                        icon: const Icon(Icons.cancel, size: 20),
-                        onPressed: () => _controller.clear(),
-                      ),
-                  ],
-                ),
+              child: SearchQueryField(
+                query: state.searchKeyword,
+                autoExpand: true,
+                hintText: t.search.searchHint,
+                semanticLabel: t.search.title,
+                onChanged: (keyword) {
+                  // 调度时记基线：开火时 cubit 若已被提交/dialog 回写改过，
+                  // 说明这次输入已过期，直接丢弃，否则旧词盖掉新提交。
+                  final scheduledBase = context
+                      .read<SearchCubit>()
+                      .state
+                      .searchKeyword;
+                  _keywordDebouncer.run(() {
+                    if (!mounted) {
+                      return;
+                    }
+                    final searchCubit = context.read<SearchCubit>();
+                    if (searchCubit.state.searchKeyword != scheduledBase) {
+                      return;
+                    }
+                    if (searchCubit.state.searchKeyword == keyword) {
+                      return;
+                    }
+                    searchCubit.update(
+                      searchCubit.state.copyWith(searchKeyword: keyword),
+                    );
+                  });
+                },
+                onSubmitted: (keyword) {
+                  _keywordDebouncer.cancel();
+                  onSearch(
+                    context,
+                    keyword,
+                    aggregateMode: widget.aggregateMode,
+                    aggregateSources: _aggregateSources,
+                  );
+                },
               ),
             ),
             IconButton(
               icon: const Icon(Icons.tune),
               onPressed: () async {
+                // dialog 回写前丢弃残留输入同步，避免旧防抖把 dialog 回写盖掉。
+                _keywordDebouncer.cancel();
                 final searchCubit = context.read<SearchCubit>();
                 if (widget.aggregateMode) {
                   final options = _sourceOptions(context);
@@ -179,15 +145,6 @@ class _SearchBarState extends State<SearchBar> {
                 await _showSingleSourceAdvancedSearch(context);
               },
             ),
-            TextButton(
-              onPressed: () => onSearch(
-                context,
-                _controller.text,
-                aggregateMode: widget.aggregateMode,
-                aggregateSources: _aggregateSources,
-              ),
-              child: Text(t.search.title),
-            ),
           ],
         ),
       ),
@@ -212,15 +169,46 @@ class _SearchBarState extends State<SearchBar> {
       return;
     }
 
-    final newStates = await showDialog<SearchStates>(
+    final result = await showDialog<_SearchDialogResult>(
       context: context,
       builder: (context) =>
           _PluginAdvancedSearchDialog(initialState: state, scheme: scheme),
     );
 
-    if (newStates != null && context.mounted) {
+    if (result == null || !context.mounted) return;
+    final jumpRecord = result.cursorToJump;
+    if (jumpRecord != null) {
+      logger.d('search page cursor jump: ${jumpRecord.keyword}');
+      final located = await locateCursorWithProgress(context, jumpRecord);
+      logger.d('search page cursor located: $located');
+      if (located == null || !context.mounted) return;
+      final searchCubit = context.read<SearchCubit>();
+      final newStates = searchCubit.state.copyWith(
+        from: jumpRecord.pluginId,
+        searchKeyword: jumpRecord.keyword,
+        sortBy: jumpRecord.sortBy,
+        // 复现记录游标时的完整 extern（含 Bika 分类筛选等）。
+        pluginExtern: Map<String, dynamic>.from(jumpRecord.extern),
+      );
       searchCubit.update(newStates);
+      logger.d(
+        'search page cursor push SearchResultRoute page=${located.page}',
+      );
+      if (located.found) {
+        SearchCursorReveal.request(jumpRecord.anchorComicId);
+      }
+      context.pushRoute(
+        SearchResultRoute(
+          searchEvent: SearchEvent().copyWith(
+            searchStates: newStates,
+            page: located.page,
+          ),
+          searchCubit: searchCubit,
+        ),
+      );
+      return;
     }
+    searchCubit.update(result.states);
   }
 
   Future<_AdvancedSearchScheme?> _loadAdvancedSearchScheme(
@@ -298,6 +286,14 @@ class _AdvancedSearchScheme {
   final Map<String, dynamic> values;
 }
 
+/// 搜索页高级搜索对话框的返回：应用筛选，或请求跳转某个游标。
+class _SearchDialogResult {
+  const _SearchDialogResult({required this.states, this.cursorToJump});
+
+  final SearchStates states;
+  final SearchCursorRecord? cursorToJump;
+}
+
 class _PluginAdvancedSearchDialog extends StatefulWidget {
   const _PluginAdvancedSearchDialog({
     required this.initialState,
@@ -316,6 +312,11 @@ class _PluginAdvancedSearchDialogState
     extends State<_PluginAdvancedSearchDialog> {
   late final Map<String, dynamic> _values;
 
+  bool get _cursorSupported {
+    final from = widget.initialState.from.trim();
+    return from.isEmpty || searchCursorPlugins.containsKey(from);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -331,9 +332,19 @@ class _PluginAdvancedSearchDialogState
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: widget.scheme.fields
-            .map((field) => _buildField(context, field))
-            .toList(),
+        children: [
+          ...widget.scheme.fields.map((field) => _buildField(context, field)),
+          if (_cursorSupported)
+            SearchCursorSection(
+              pluginId: widget.initialState.from.trim(),
+              onJump: (record) => Navigator.of(context).pop(
+                _SearchDialogResult(
+                  states: widget.initialState,
+                  cursorToJump: record,
+                ),
+              ),
+            ),
+        ],
       ),
       actions: [
         TextButton(
@@ -363,9 +374,11 @@ class _PluginAdvancedSearchDialogState
               }
             }
             Navigator.of(context).pop(
-              widget.initialState.copyWith(
-                sortBy: sortBy,
-                pluginExtern: nextExtern,
+              _SearchDialogResult(
+                states: widget.initialState.copyWith(
+                  sortBy: sortBy,
+                  pluginExtern: nextExtern,
+                ),
               ),
             );
           },

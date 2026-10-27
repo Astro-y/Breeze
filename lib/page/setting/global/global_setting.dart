@@ -87,6 +87,15 @@ class _GlobalSettingPageState extends State<GlobalSettingPage> {
           ),
           const Divider(height: 1, thickness: 0.3),
           settingCategoryTile(
+            icon: Icons.tablet_mac_outlined,
+            title: t.settings.eink,
+            subtitle: state.eInkSetting.enabled
+                ? '${t.settings.einkEnabled} · ${state.eInkSetting.refreshMode.label}'
+                : t.settings.einkSubtitle,
+            onTap: () => _openSubPage(const EInkSettingRoute()),
+          ),
+          const Divider(height: 1, thickness: 0.3),
+          settingCategoryTile(
             icon: Icons.collections_bookmark_outlined,
             title: t.settings.bookshelf,
             subtitle: t.settings.bookshelfSubtitle,
@@ -125,26 +134,6 @@ class _GlobalSettingPageState extends State<GlobalSettingPage> {
             title: t.settings.debug,
             subtitle: t.settings.logAddress,
             onTap: () => _openSubPage(const DebugSettingRoute()),
-          ),
-          const Divider(height: 1, thickness: 0.3),
-          settingSectionTitle(
-            context,
-            t.settings.aboutAndMore,
-            icon: Icons.info_outline,
-          ),
-          ListTile(
-            leading: const Icon(Icons.history_outlined),
-            title: Text(t.settings.changelog),
-            subtitle: Text(t.settings.changelogSubtitle),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => context.pushRoute(ChangelogRoute()),
-          ),
-          ListTile(
-            leading: const Icon(Icons.help_outline),
-            title: Text(t.settings.aboutApp),
-            subtitle: Text(t.settings.aboutAppSubtitle),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => context.pushRoute(AboutRoute()),
           ),
           const SizedBox(height: 32),
         ],

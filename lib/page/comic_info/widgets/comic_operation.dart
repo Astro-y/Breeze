@@ -6,7 +6,6 @@ import 'package:zephyr/page/comic_info/models/favorite_workflow.dart';
 import 'package:zephyr/page/comic_info/json/normal/normal_comic_all_info.dart';
 import 'package:zephyr/page/comic_info/models/collect_comic.dart';
 import 'package:zephyr/page/comic_follow/cubit/comic_follow_cubit.dart';
-import 'package:zephyr/page/download/models/unified_comic_download.dart';
 import 'package:zephyr/util/context/context_extensions.dart';
 import 'package:zephyr/util/error_filter.dart';
 import 'package:zephyr/config/router/router.gr.dart';
@@ -14,6 +13,7 @@ import 'package:zephyr/i18n/strings.g.dart';
 
 import 'package:zephyr/widgets/dialog.dart';
 import 'package:zephyr/widgets/toast.dart';
+import 'package:zephyr/main.dart';
 
 class ComicOperationWidget extends StatefulWidget {
   final NormalComicAllInfo normalInfo;
@@ -83,32 +83,24 @@ class _ComicOperationWidgetState extends State<ComicOperationWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // 开启「优先云端收藏」后，收藏按钮执行云端收藏，原逻辑与菜单项互换
-    final cloudFavoritePreferred = context
-        .watch<GlobalSettingCubit>()
-        .state
-        .cloudFavoritePreferred;
-    final collectItem = cloudFavoritePreferred
-        ? _OperationItemData(
-            icon: isCloudCollected
-                ? Icons.cloud_done_outlined
-                : Icons.cloud_outlined,
-            text: isCloudCollected
-                ? t.comicInfo.collected
-                : t.comicInfo.collectToCloud,
-            highlighted: isCloudCollected,
-            accentColor: const Color(0xFFE6A700),
-            enabled: true,
-            onTap: _toggleCloudFavorite,
-          )
-        : _OperationItemData(
-            icon: isCollected ? Icons.star : Icons.star_border,
-            text: isCollected ? t.comicInfo.collected : t.comicInfo.collect,
-            highlighted: isCollected,
-            accentColor: const Color(0xFFE6A700),
-            enabled: true,
-            onTap: _toggleLocalFavorite,
-          );
+    final localCollectItem = _OperationItemData(
+      icon: isCollected ? Icons.star : Icons.star_border,
+      text: isCollected ? t.comicInfo.collected : t.comicInfo.collect,
+      highlighted: isCollected,
+      accentColor: const Color(0xFFE6A700),
+      enabled: true,
+      onTap: _toggleLocalFavorite,
+    );
+    final cloudCollectItem = _OperationItemData(
+      icon: isCloudCollected ? Icons.cloud_done_outlined : Icons.cloud_outlined,
+      text: isCloudCollected
+          ? t.comicInfo.cloudCollected
+          : t.comicInfo.cloudCollect,
+      highlighted: isCloudCollected,
+      accentColor: Colors.pink,
+      enabled: true,
+      onTap: _toggleCloudFavorite,
+    );
     final actions = [
       _OperationItemData(
         icon: isLiked ? Icons.favorite : Icons.favorite_border,
@@ -124,15 +116,8 @@ class _ComicOperationWidgetState extends State<ComicOperationWidget> {
         enabled: normalInfo.allowComments,
         onTap: _openComments,
       ),
-      collectItem,
-      _OperationItemData(
-        icon: Icons.cloud_download_outlined,
-        text: normalInfo.allowDownload
-            ? t.comicInfo.download
-            : t.comicInfo.downloadForbidden,
-        enabled: normalInfo.allowDownload,
-        onTap: _openDownload,
-      ),
+      localCollectItem,
+      cloudCollectItem,
     ];
 
     return SizedBox(
@@ -142,7 +127,6 @@ class _ComicOperationWidgetState extends State<ComicOperationWidget> {
           final isDesktop = constraints.maxWidth >= 900;
           final itemWidth = switch (constraints.maxWidth) {
             < 420 => (constraints.maxWidth - 10) / 2,
-            < 720 => (constraints.maxWidth - 20) / 3,
             < 900 => (constraints.maxWidth - 30) / 4,
             _ => 136.0,
           };
@@ -169,10 +153,11 @@ class _ComicOperationWidgetState extends State<ComicOperationWidget> {
 
   void _openComments() {
     if (!normalInfo.allowComments) {
+      final reason = normalInfo.allowCommentsReason.trim();
       commonDialog(
         context,
         t.comicInfo.commentForbiddenTitle,
-        t.comicInfo.commentForbidden,
+        reason.isNotEmpty ? reason : t.comicInfo.commentForbidden,
       );
       return;
     }
@@ -184,12 +169,6 @@ class _ComicOperationWidgetState extends State<ComicOperationWidget> {
         comicTitle: comicInfoView.title,
       ),
     );
-  }
-
-  void _openDownload() {
-    if (!normalInfo.allowDownload) return;
-    final info = resolveUnifiedDownloadInfo(comicInfo, widget.from);
-    context.pushRoute(DownloadRoute(downloadInfo: info));
   }
 
   Future<void> _toggleLocalFavorite() async {
@@ -221,6 +200,7 @@ class _ComicOperationWidgetState extends State<ComicOperationWidget> {
         showSuccessToast(t.comicInfo.removedFromCollection);
       }
     } catch (error) {
+      logger.e(error);
       if (!mounted) {
         return;
       }
@@ -246,6 +226,7 @@ class _ComicOperationWidgetState extends State<ComicOperationWidget> {
         comicId: comicInfoView.id,
         currentStatus: isCloudCollected,
         legacyAllowCollected: normalInfo.allowCollected,
+        legacyAllowCollectedReason: normalInfo.allowCollectedReason,
         collectionTargetId: widget.collectionTargetId,
         collectionTargetName: widget.collectionTargetName,
       );
@@ -263,19 +244,30 @@ class _ComicOperationWidgetState extends State<ComicOperationWidget> {
             ? t.comicInfo.cloudCollectSuccess
             : t.comicInfo.cloudUncollectSuccess,
       );
-    } on FavoriteWorkflowUnsupportedException {
+    } on FavoriteWorkflowUnsupportedException catch (error) {
+      logger.e(error);
       if (mounted) {
-        showInfoToast(t.comicInfo.cloudCollectDisabled);
+        final reason = error.reason.trim();
+        showInfoToast(
+          reason.isNotEmpty ? reason : t.comicInfo.cloudCollectDisabled,
+        );
       }
     } on FavoriteWorkflowIncompleteException catch (error) {
+      logger.e(error);
       if (mounted) {
-        showInfoToast(error.result.message ?? '云端收藏操作未完成');
+        showInfoToast(
+          error.result.message ?? t.comicInfo.cloudCollectIncomplete,
+        );
       }
     } catch (error) {
+      logger.e(error);
       if (!mounted) {
         return;
       }
-      showErrorToast(t.error.operationFailed);
+      showErrorToast(
+        normalizeSearchErrorMessage(error),
+        duration: const Duration(seconds: 5),
+      );
     }
   }
 
@@ -304,6 +296,8 @@ class _ComicOperationWidgetState extends State<ComicOperationWidget> {
 
   Future<void> _toggleCloudLike() async {
     if (!normalInfo.allowLike) {
+      final reason = normalInfo.allowLikeReason.trim();
+      showInfoToast(reason.isNotEmpty ? reason : t.comicInfo.likeDisabled);
       return;
     }
     try {
@@ -323,6 +317,7 @@ class _ComicOperationWidgetState extends State<ComicOperationWidget> {
         next ? t.comicInfo.likeSuccess : t.comicInfo.unlikeSuccess,
       );
     } catch (error) {
+      logger.e(error);
       if (!mounted) {
         return;
       }

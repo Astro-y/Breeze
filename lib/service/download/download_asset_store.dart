@@ -5,6 +5,7 @@ import 'package:path/path.dart' as file_path;
 import 'package:zephyr/src/rust/api/simple.dart';
 import 'package:zephyr/type/enum.dart';
 import 'package:zephyr/util/get_path.dart';
+import 'package:zephyr/main.dart';
 
 /// 资产在本地磁盘上的候选位置。
 ///
@@ -154,7 +155,8 @@ class DownloadAssetStore {
         if (await file.exists() && await file.length() > 0) {
           return candidate;
         }
-      } catch (_) {
+      } catch (e, st) {
+        logger.e(e, stackTrace: st);
         // 读取失败时继续尝试下一个兼容路径。
       }
     }
@@ -260,6 +262,39 @@ class DownloadAssetStore {
     } catch (_) {
       await _deleteIfExists(temporaryFile);
       rethrow;
+    }
+  }
+
+  /// 按 doc path 逐个删除已落盘的章节散图（取消下载时用）。
+  ///
+  /// 只删 canonical 下载路径命中的文件；共享目录（如 EH 的 Gallery）下
+  /// 其他章节的文件不受影响。
+  static Future<void> deleteDownloadedFiles({
+    required String from,
+    required String cartoonId,
+    required String effectiveStorageChapterId,
+    required Iterable<String> docPaths,
+  }) async {
+    for (final docPath in docPaths) {
+      final trimmed = docPath.trim();
+      if (trimmed.isEmpty) continue;
+      try {
+        final store = DownloadAssetStore(
+          from: from,
+          path: trimmed,
+          cartoonId: cartoonId,
+          chapterId: '',
+          storageChapterId: effectiveStorageChapterId,
+          pictureType: PictureType.page,
+        );
+        final candidate = await store.findCanonicalDownload();
+        if (candidate != null) {
+          await File(candidate.path).delete();
+        }
+      } catch (e, st) {
+        logger.e(e, stackTrace: st);
+        // 单个文件删除失败不影响整体取消流程。
+      }
     }
   }
 
@@ -386,7 +421,8 @@ Future<void> cleanupDownloadTaskTemporaryFiles(String taskKey) async {
       if (!name.endsWith('.part.$suffix')) continue;
       try {
         await entity.delete();
-      } catch (_) {
+      } catch (e, st) {
+        logger.e(e, stackTrace: st);
         // 临时文件清理失败不应影响任务状态迁移。
       }
     }

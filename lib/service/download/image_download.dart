@@ -1,10 +1,11 @@
 import 'package:pool/pool.dart';
-import 'package:zephyr/network/http/picture/picture.dart';
-import 'package:zephyr/type/enum.dart';
-
 import 'package:zephyr/i18n/strings.g.dart';
+import 'package:zephyr/network/http/picture/picture.dart';
+import 'package:zephyr/network/http/plugin/unified_comic_plugin.dart';
 import 'package:zephyr/service/download/download_progress_reporter.dart';
 import 'package:zephyr/service/download/download_retry.dart';
+import 'package:zephyr/type/enum.dart';
+import 'package:zephyr/main.dart';
 
 class DownloadImageJob {
   const DownloadImageJob({
@@ -63,11 +64,15 @@ class DownloadImageJobsResult {
     required this.completed,
     required this.downloaded,
     required this.reused,
+    required this.skipped,
   });
 
   final int completed;
   final int downloaded;
   final int reused;
+
+  /// 真 404 / 空数据而跳过的图片数（不计入失败，不阻塞完成）。
+  final int skipped;
 }
 
 Future<String> downloadCoverAsset({
@@ -92,6 +97,33 @@ Future<String> downloadCoverAsset({
   );
 }
 
+/// 图片下载并发数：优先调用插件 `getDownloadConcurrency` 获取
+///（插件返回 `{concurrency: number}`），插件未实现、返回非法或调用失败时回落为 5。
+Future<int> resolveDownloadConcurrency({
+  required String from,
+  String? pluginId,
+}) async {
+  const fallback = 5;
+  try {
+    final data = await callUnifiedComicPlugin(
+      from: from,
+      pluginId: pluginId,
+      fnPath: 'getDownloadConcurrency',
+      core: const <String, dynamic>{},
+    );
+    Object? raw = data['concurrency'] ?? data['value'];
+    if (raw == null && data['data'] is Map) {
+      final nested = Map<String, dynamic>.from(data['data'] as Map);
+      raw = nested['concurrency'] ?? nested['value'];
+    }
+    final parsed = int.tryParse(raw?.toString().trim() ?? '');
+    if (parsed == null) return fallback;
+    return parsed.clamp(1, 32);
+  } catch (_) {
+    return fallback;
+  }
+}
+
 Future<DownloadImageJobsResult> downloadImageJobs({
   required String from,
   required List<DownloadImageJob> jobs,
@@ -102,7 +134,14 @@ Future<DownloadImageJobsResult> downloadImageJobs({
   bool Function()? shouldRetryUntilSuccess,
   required DownloadProgressReporter reporter,
   Future<void> Function(Object error, DownloadImageJob job)? onError,
-  Future<void> Function(int completed, int downloaded, int reused)? onProgress,
+  Future<void> Function(
+    int completed,
+    int downloaded,
+    int reused,
+    DownloadImageJob completedJob,
+    bool jobSkipped,
+  )?
+  onProgress,
 }) async {
   void updateProgress(String message) {
     reporter.updateMessage(message);
@@ -116,6 +155,7 @@ Future<DownloadImageJobsResult> downloadImageJobs({
       completed: 0,
       downloaded: 0,
       reused: 0,
+      skipped: 0,
     );
   }
 
@@ -124,6 +164,7 @@ Future<DownloadImageJobsResult> downloadImageJobs({
   var progress = 0;
   var downloaded = 0;
   var reused = 0;
+  var skipped = 0;
   var lastReportedPercent = 0;
   var nextIndex = 0;
   Object? firstError;
@@ -141,27 +182,47 @@ Future<DownloadImageJobsResult> downloadImageJobs({
           job = jobs[nextIndex];
           nextIndex += 1;
         });
-        if (job == null) {
+        final currentJob = job;
+        if (currentJob == null) {
           return;
         }
-        final result = await _downloadSingleJob(
-          from: from,
-          job: job!,
-          qjsRuntimeName: qjsRuntimeName,
-          qjsTaskGroupKey: qjsTaskGroupKey,
-          ensureTaskRunning: ensureTaskRunning,
-          shouldRetryUntilSuccess: shouldRetryUntilSuccess,
-          onError: onError,
-          pictureType: PictureType.page,
-        );
-        progress++;
-        if (result.status == DownloadPictureResultStatus.existing) {
-          reused++;
-        } else {
-          downloaded++;
+        var jobSkipped = false;
+        try {
+          final result = await _downloadSingleJob(
+            from: from,
+            job: currentJob,
+            qjsRuntimeName: qjsRuntimeName,
+            qjsTaskGroupKey: qjsTaskGroupKey,
+            ensureTaskRunning: ensureTaskRunning,
+            shouldRetryUntilSuccess: shouldRetryUntilSuccess,
+            onError: onError,
+            pictureType: PictureType.page,
+          );
+          progress++;
+          if (result.status == DownloadPictureResultStatus.existing) {
+            reused++;
+          } else {
+            downloaded++;
+          }
+        } on DownloadImageJobException catch (e) {
+          // 真 404 / 空数据：记跳过，不失败整章。
+          if (e.result.status == DownloadPictureResultStatus.notFound ||
+              e.result.status == DownloadPictureResultStatus.emptyData) {
+            progress++;
+            skipped++;
+            jobSkipped = true;
+          } else {
+            rethrow;
+          }
         }
         if (onProgress != null) {
-          await onProgress(progress, downloaded, reused);
+          await onProgress(
+            progress,
+            downloaded,
+            reused,
+            currentJob,
+            jobSkipped,
+          );
         }
         final currentPercent = (progress / jobs.length * 100).floor();
         if (onProgress == null && currentPercent > lastReportedPercent) {
@@ -173,6 +234,7 @@ Future<DownloadImageJobsResult> downloadImageJobs({
         await ensureTaskRunning();
       }
     } catch (error, stackTrace) {
+      logger.e(error, stackTrace: stackTrace);
       firstError ??= error;
       firstErrorStackTrace ??= stackTrace;
     }
@@ -188,6 +250,7 @@ Future<DownloadImageJobsResult> downloadImageJobs({
     completed: progress,
     downloaded: downloaded,
     reused: reused,
+    skipped: skipped,
   );
 }
 

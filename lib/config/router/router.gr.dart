@@ -10,11 +10,12 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i53;
+import 'dart:async' as _i52;
 
 import 'package:auto_route/auto_route.dart' as _i44;
 import 'package:collection/collection.dart' as _i47;
 import 'package:flutter/foundation.dart' as _i49;
+import 'package:flutter/rendering.dart' as _i55;
 import 'package:material_ui/material_ui.dart' as _i45;
 import 'package:zephyr/cubit/string_select.dart' as _i51;
 import 'package:zephyr/debug/coreml_upscale_debug_page.dart' as _i15;
@@ -32,28 +33,26 @@ import 'package:zephyr/page/comic_read/type/chapter_extern.dart' as _i50;
 import 'package:zephyr/page/comic_read/view/comic_read.dart' as _i12;
 import 'package:zephyr/page/comments/view/comments.dart' as _i13;
 import 'package:zephyr/page/comments/view/plugin_comments_scaffold.dart'
-    as _i29;
+    as _i28;
 import 'package:zephyr/page/discover/view/discover_page.dart' as _i18;
-import 'package:zephyr/page/donwload_task/view/download_task.dart' as _i20;
-import 'package:zephyr/page/download/models/unified_comic_download.dart'
-    as _i52;
-import 'package:zephyr/page/download/view/download.dart' as _i19;
+import 'package:zephyr/page/donwload_task/view/download_task.dart' as _i19;
 import 'package:zephyr/page/font_setting/view/font_setting_page.dart' as _i21;
 import 'package:zephyr/page/login_page.dart' as _i24;
 import 'package:zephyr/page/more/view/more.dart' as _i25;
 import 'package:zephyr/page/navigation_bar.dart' as _i26;
-import 'package:zephyr/page/old_page/old_home/old_home_page.dart' as _i27;
-import 'package:zephyr/page/old_page/old_ranking/old_ranking_page.dart' as _i28;
 import 'package:zephyr/page/plugin_function/view/plugin_function_page.dart'
     as _i30;
+import 'package:zephyr/page/plugin_home/view/plugin_home_pages.dart' as _i27;
+import 'package:zephyr/page/plugin_settings/view/plugin_detail_page.dart'
+    as _i29;
 import 'package:zephyr/page/plugin_settings/view/plugin_settings_page.dart'
     as _i31;
 import 'package:zephyr/page/plugin_store/view/plugin_store_page.dart' as _i32;
-import 'package:zephyr/page/search/cubit/search_cubit.dart' as _i55;
+import 'package:zephyr/page/search/cubit/search_cubit.dart' as _i54;
 import 'package:zephyr/page/search/view/search_page.dart' as _i36;
 import 'package:zephyr/page/search_aggregate/view/search_aggregate_result_page.dart'
     as _i35;
-import 'package:zephyr/page/search_result/bloc/search_bloc.dart' as _i54;
+import 'package:zephyr/page/search_result/bloc/search_bloc.dart' as _i53;
 import 'package:zephyr/page/search_result/search_result.dart' as _i56;
 import 'package:zephyr/page/search_result/view/search_result_page.dart' as _i37;
 import 'package:zephyr/page/setting/bookshelf/bookshelf_setting_page.dart'
@@ -66,6 +65,7 @@ import 'package:zephyr/page/setting/global/appearance_setting_page.dart' as _i4;
 import 'package:zephyr/page/setting/global/content_network_setting_page.dart'
     as _i14;
 import 'package:zephyr/page/setting/global/debug_setting_page.dart' as _i17;
+import 'package:zephyr/page/setting/global/eink_setting_page.dart' as _i20;
 import 'package:zephyr/page/setting/global/global_setting.dart' as _i23;
 import 'package:zephyr/page/setting/global/storage_setting_page.dart' as _i39;
 import 'package:zephyr/page/setting/global/sync_setting_page.dart' as _i40;
@@ -707,54 +707,7 @@ class DiscoverRoute extends _i44.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i19.DownloadPage]
-class DownloadRoute extends _i44.PageRouteInfo<DownloadRouteArgs> {
-  DownloadRoute({
-    _i45.Key? key,
-    required _i52.UnifiedComicDownloadInfo downloadInfo,
-    List<_i44.PageRouteInfo>? children,
-  }) : super(
-         DownloadRoute.name,
-         args: DownloadRouteArgs(key: key, downloadInfo: downloadInfo),
-         initialChildren: children,
-       );
-
-  static const String name = 'DownloadRoute';
-
-  static _i44.PageInfo page = _i44.PageInfo(
-    name,
-    builder: (data) {
-      final args = data.argsAs<DownloadRouteArgs>();
-      return _i19.DownloadPage(key: args.key, downloadInfo: args.downloadInfo);
-    },
-  );
-}
-
-class DownloadRouteArgs {
-  const DownloadRouteArgs({this.key, required this.downloadInfo});
-
-  final _i45.Key? key;
-
-  final _i52.UnifiedComicDownloadInfo downloadInfo;
-
-  @override
-  String toString() {
-    return 'DownloadRouteArgs{key: $key, downloadInfo: $downloadInfo}';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    if (other is! DownloadRouteArgs) return false;
-    return key == other.key && downloadInfo == other.downloadInfo;
-  }
-
-  @override
-  int get hashCode => key.hashCode ^ downloadInfo.hashCode;
-}
-
-/// generated route for
-/// [_i20.DownloadTaskPage]
+/// [_i19.DownloadTaskPage]
 class DownloadTaskRoute extends _i44.PageRouteInfo<void> {
   const DownloadTaskRoute({List<_i44.PageRouteInfo>? children})
     : super(DownloadTaskRoute.name, initialChildren: children);
@@ -764,7 +717,23 @@ class DownloadTaskRoute extends _i44.PageRouteInfo<void> {
   static _i44.PageInfo page = _i44.PageInfo(
     name,
     builder: (data) {
-      return const _i20.DownloadTaskPage();
+      return const _i19.DownloadTaskPage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i20.EInkSettingPage]
+class EInkSettingRoute extends _i44.PageRouteInfo<void> {
+  const EInkSettingRoute({List<_i44.PageRouteInfo>? children})
+    : super(EInkSettingRoute.name, initialChildren: children);
+
+  static const String name = 'EInkSettingRoute';
+
+  static _i44.PageInfo page = _i44.PageInfo(
+    name,
+    builder: (data) {
+      return const _i20.EInkSettingPage();
     },
   );
 }
@@ -851,22 +820,12 @@ class GlobalSettingRoute extends _i44.PageRouteInfo<void> {
 /// generated route for
 /// [_i24.LoginPage]
 class LoginRoute extends _i44.PageRouteInfo<LoginRouteArgs> {
-  LoginRoute({
-    _i45.Key? key,
-    String? from,
-    Map<String, dynamic>? loginScheme,
-    Map<String, dynamic>? loginData,
-    List<_i44.PageRouteInfo>? children,
-  }) : super(
-         LoginRoute.name,
-         args: LoginRouteArgs(
-           key: key,
-           from: from,
-           loginScheme: loginScheme,
-           loginData: loginData,
-         ),
-         initialChildren: children,
-       );
+  LoginRoute({_i45.Key? key, String? from, List<_i44.PageRouteInfo>? children})
+    : super(
+        LoginRoute.name,
+        args: LoginRouteArgs(key: key, from: from),
+        initialChildren: children,
+      );
 
   static const String name = 'LoginRoute';
 
@@ -876,54 +835,32 @@ class LoginRoute extends _i44.PageRouteInfo<LoginRouteArgs> {
       final args = data.argsAs<LoginRouteArgs>(
         orElse: () => const LoginRouteArgs(),
       );
-      return _i24.LoginPage(
-        key: args.key,
-        from: args.from,
-        loginScheme: args.loginScheme,
-        loginData: args.loginData,
-      );
+      return _i24.LoginPage(key: args.key, from: args.from);
     },
   );
 }
 
 class LoginRouteArgs {
-  const LoginRouteArgs({this.key, this.from, this.loginScheme, this.loginData});
+  const LoginRouteArgs({this.key, this.from});
 
   final _i45.Key? key;
 
   final String? from;
 
-  final Map<String, dynamic>? loginScheme;
-
-  final Map<String, dynamic>? loginData;
-
   @override
   String toString() {
-    return 'LoginRouteArgs{key: $key, from: $from, loginScheme: $loginScheme, loginData: $loginData}';
+    return 'LoginRouteArgs{key: $key, from: $from}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! LoginRouteArgs) return false;
-    return key == other.key &&
-        from == other.from &&
-        const _i47.MapEquality<String, dynamic>().equals(
-          loginScheme,
-          other.loginScheme,
-        ) &&
-        const _i47.MapEquality<String, dynamic>().equals(
-          loginData,
-          other.loginData,
-        );
+    return key == other.key && from == other.from;
   }
 
   @override
-  int get hashCode =>
-      key.hashCode ^
-      from.hashCode ^
-      const _i47.MapEquality<String, dynamic>().hash(loginScheme) ^
-      const _i47.MapEquality<String, dynamic>().hash(loginData);
+  int get hashCode => key.hashCode ^ from.hashCode;
 }
 
 /// generated route for
@@ -959,39 +896,23 @@ class NavigationBar extends _i44.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i27.OldHomePage]
-class OldHomeRoute extends _i44.PageRouteInfo<void> {
-  const OldHomeRoute({List<_i44.PageRouteInfo>? children})
-    : super(OldHomeRoute.name, initialChildren: children);
+/// [_i27.PluginCloudFavoritePage]
+class PluginCloudFavoriteRoute extends _i44.PageRouteInfo<void> {
+  const PluginCloudFavoriteRoute({List<_i44.PageRouteInfo>? children})
+    : super(PluginCloudFavoriteRoute.name, initialChildren: children);
 
-  static const String name = 'OldHomeRoute';
+  static const String name = 'PluginCloudFavoriteRoute';
 
   static _i44.PageInfo page = _i44.PageInfo(
     name,
     builder: (data) {
-      return const _i27.OldHomePage();
+      return const _i27.PluginCloudFavoritePage();
     },
   );
 }
 
 /// generated route for
-/// [_i28.OldRankingPage]
-class OldRankingRoute extends _i44.PageRouteInfo<void> {
-  const OldRankingRoute({List<_i44.PageRouteInfo>? children})
-    : super(OldRankingRoute.name, initialChildren: children);
-
-  static const String name = 'OldRankingRoute';
-
-  static _i44.PageInfo page = _i44.PageInfo(
-    name,
-    builder: (data) {
-      return const _i28.OldRankingPage();
-    },
-  );
-}
-
-/// generated route for
-/// [_i29.PluginCommentsScaffold]
+/// [_i28.PluginCommentsScaffold]
 class PluginCommentsScaffoldRoute
     extends _i44.PageRouteInfo<PluginCommentsScaffoldRouteArgs> {
   PluginCommentsScaffoldRoute({
@@ -1017,7 +938,7 @@ class PluginCommentsScaffoldRoute
     name,
     builder: (data) {
       final args = data.argsAs<PluginCommentsScaffoldRouteArgs>();
-      return _i29.PluginCommentsScaffold(
+      return _i28.PluginCommentsScaffold(
         key: args.key,
         from: args.from,
         comicId: args.comicId,
@@ -1064,6 +985,81 @@ class PluginCommentsScaffoldRouteArgs {
 }
 
 /// generated route for
+/// [_i29.PluginDetailPage]
+class PluginDetailRoute extends _i44.PageRouteInfo<PluginDetailRouteArgs> {
+  PluginDetailRoute({
+    _i45.Key? key,
+    required String from,
+    required String pluginUuid,
+    required String pluginDisplayName,
+    List<_i44.PageRouteInfo>? children,
+  }) : super(
+         PluginDetailRoute.name,
+         args: PluginDetailRouteArgs(
+           key: key,
+           from: from,
+           pluginUuid: pluginUuid,
+           pluginDisplayName: pluginDisplayName,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'PluginDetailRoute';
+
+  static _i44.PageInfo page = _i44.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<PluginDetailRouteArgs>();
+      return _i29.PluginDetailPage(
+        key: args.key,
+        from: args.from,
+        pluginUuid: args.pluginUuid,
+        pluginDisplayName: args.pluginDisplayName,
+      );
+    },
+  );
+}
+
+class PluginDetailRouteArgs {
+  const PluginDetailRouteArgs({
+    this.key,
+    required this.from,
+    required this.pluginUuid,
+    required this.pluginDisplayName,
+  });
+
+  final _i45.Key? key;
+
+  final String from;
+
+  final String pluginUuid;
+
+  final String pluginDisplayName;
+
+  @override
+  String toString() {
+    return 'PluginDetailRouteArgs{key: $key, from: $from, pluginUuid: $pluginUuid, pluginDisplayName: $pluginDisplayName}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! PluginDetailRouteArgs) return false;
+    return key == other.key &&
+        from == other.from &&
+        pluginUuid == other.pluginUuid &&
+        pluginDisplayName == other.pluginDisplayName;
+  }
+
+  @override
+  int get hashCode =>
+      key.hashCode ^
+      from.hashCode ^
+      pluginUuid.hashCode ^
+      pluginDisplayName.hashCode;
+}
+
+/// generated route for
 /// [_i30.PluginFunctionPage]
 class PluginFunctionRoute extends _i44.PageRouteInfo<PluginFunctionRouteArgs> {
   PluginFunctionRoute({
@@ -1071,7 +1067,7 @@ class PluginFunctionRoute extends _i44.PageRouteInfo<PluginFunctionRouteArgs> {
     required String from,
     required String functionId,
     required String title,
-    required _i53.Future<void> Function(Map<String, dynamic>) onAction,
+    required _i52.Future<void> Function(Map<String, dynamic>) onAction,
     List<_i44.PageRouteInfo>? children,
   }) : super(
          PluginFunctionRoute.name,
@@ -1119,7 +1115,7 @@ class PluginFunctionRouteArgs {
 
   final String title;
 
-  final _i53.Future<void> Function(Map<String, dynamic>) onAction;
+  final _i52.Future<void> Function(Map<String, dynamic>) onAction;
 
   @override
   String toString() {
@@ -1139,6 +1135,22 @@ class PluginFunctionRouteArgs {
   @override
   int get hashCode =>
       key.hashCode ^ from.hashCode ^ functionId.hashCode ^ title.hashCode;
+}
+
+/// generated route for
+/// [_i27.PluginHomePage]
+class PluginHomeRoute extends _i44.PageRouteInfo<void> {
+  const PluginHomeRoute({List<_i44.PageRouteInfo>? children})
+    : super(PluginHomeRoute.name, initialChildren: children);
+
+  static const String name = 'PluginHomeRoute';
+
+  static _i44.PageInfo page = _i44.PageInfo(
+    name,
+    builder: (data) {
+      return const _i27.PluginHomePage();
+    },
+  );
 }
 
 /// generated route for
@@ -1278,8 +1290,8 @@ class SearchAggregateResultRoute
     extends _i44.PageRouteInfo<SearchAggregateResultRouteArgs> {
   SearchAggregateResultRoute({
     _i45.Key? key,
-    required _i54.SearchEvent searchEvent,
-    _i55.SearchCubit? searchCubit,
+    required _i53.SearchEvent searchEvent,
+    _i54.SearchCubit? searchCubit,
     Map<String, bool> selectedSources = const {},
     List<_i44.PageRouteInfo>? children,
   }) : super(
@@ -1321,9 +1333,9 @@ class SearchAggregateResultRouteArgs {
 
   final _i45.Key? key;
 
-  final _i54.SearchEvent searchEvent;
+  final _i53.SearchEvent searchEvent;
 
-  final _i55.SearchCubit? searchCubit;
+  final _i54.SearchCubit? searchCubit;
 
   final Map<String, bool> selectedSources;
 
@@ -1358,7 +1370,7 @@ class SearchAggregateResultRouteArgs {
 class SearchRoute extends _i44.PageRouteInfo<SearchRouteArgs> {
   SearchRoute({
     _i45.Key? key,
-    required _i55.SearchStates searchState,
+    required _i54.SearchStates searchState,
     bool aggregateMode = true,
     List<_i44.PageRouteInfo>? children,
   }) : super(
@@ -1395,7 +1407,7 @@ class SearchRouteArgs {
 
   final _i45.Key? key;
 
-  final _i55.SearchStates searchState;
+  final _i54.SearchStates searchState;
 
   final bool aggregateMode;
 
@@ -1422,9 +1434,9 @@ class SearchRouteArgs {
 /// [_i37.SearchResultPage]
 class SearchResultRoute extends _i44.PageRouteInfo<SearchResultRouteArgs> {
   SearchResultRoute({
-    _i45.Key? key,
+    _i55.Key? key,
     required _i56.SearchEvent searchEvent,
-    _i55.SearchCubit? searchCubit,
+    _i54.SearchCubit? searchCubit,
     List<_i44.PageRouteInfo>? children,
   }) : super(
          SearchResultRoute.name,
@@ -1460,11 +1472,11 @@ class SearchResultRouteArgs {
     this.searchCubit,
   });
 
-  final _i45.Key? key;
+  final _i55.Key? key;
 
   final _i56.SearchEvent searchEvent;
 
-  final _i55.SearchCubit? searchCubit;
+  final _i54.SearchCubit? searchCubit;
 
   @override
   String toString() {

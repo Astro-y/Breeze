@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$GlobalSettingState {
 
- bool get dynamicColor; ThemeMode get themeMode; bool get isAMOLED;@ColorConverter() Color get seedColor; int get themeInitState;@LocaleConverter() Locale get locale; bool get localeFollowsSystem; int get welcomePageNum; SyncSettingState get syncSetting; List<String> get maskedKeywords; bool get socks5ProxyEnabled; String get socks5Proxy; bool get needCleanCache; int get comicChoice; bool get disableBika; bool get enableMemoryDebug; bool get blockRustHttpRequests; String get logAddress; bool get forceEnableImpeller; bool get androidKeepAliveEnabled; bool get backPressExitEnabled; bool get updateAccelerate; bool get retryDownloadUntilSuccess; bool get oldPageRollbackEnabled; bool get cloudFavoritePreferred; bool get autoFollowOnCollect; bool get leftHandModeEnabled; bool get clickCoverToStartReading; List<String> get searchHistory; ProxySettingState get proxySetting; double get windowWidth; double get windowHeight; double get windowX; double get windowY; ReadSettingState get readSetting; String get customExportPath; AppLockSettingState get appLockSetting; String get compatibleVersion; CacheSettingState get cacheSetting; ChineseConvertMode get chineseConvertMode; BookshelfSettingState get bookshelfSetting;
+ bool get dynamicColor; ThemeMode get themeMode; bool get isAMOLED;@ColorConverter() Color get seedColor; int get themeInitState;@LocaleConverter() Locale get locale; bool get localeFollowsSystem; int get welcomePageNum; SyncSettingState get syncSetting; List<String> get maskedKeywords; bool get socks5ProxyEnabled; String get socks5Proxy; bool get needCleanCache; int get comicChoice; bool get disableBika; bool get enableMemoryDebug; bool get blockRustHttpRequests; String get logAddress; bool get forceEnableImpeller; bool get androidKeepAliveEnabled; bool get backPressExitEnabled; bool get updateAccelerate; bool get retryDownloadUntilSuccess; bool get autoFollowOnCollect; bool get leftHandModeEnabled; bool get clickCoverToStartReading; List<String> get searchHistory; ProxySettingState get proxySetting; double get windowWidth; double get windowHeight; double get windowX; double get windowY; ReadSettingState get readSetting; String get customExportPath; AppLockSettingState get appLockSetting; String get compatibleVersion; CacheSettingState get cacheSetting; ChineseConvertMode get chineseConvertMode; BookshelfSettingState get bookshelfSetting; EInkSettingState get eInkSetting;
 /// Create a copy of GlobalSettingState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $GlobalSettingStateCopyWith<GlobalSettingState> get copyWith => _$GlobalSettingS
 @override
 bool operator ==(Object other) {
   final _this = this as GlobalSettingState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GlobalSettingState&&(identical(other.dynamicColor, _this.dynamicColor) || other.dynamicColor == _this.dynamicColor)&&(identical(other.themeMode, _this.themeMode) || other.themeMode == _this.themeMode)&&(identical(other.isAMOLED, _this.isAMOLED) || other.isAMOLED == _this.isAMOLED)&&(identical(other.seedColor, _this.seedColor) || other.seedColor == _this.seedColor)&&(identical(other.themeInitState, _this.themeInitState) || other.themeInitState == _this.themeInitState)&&(identical(other.locale, _this.locale) || other.locale == _this.locale)&&(identical(other.localeFollowsSystem, _this.localeFollowsSystem) || other.localeFollowsSystem == _this.localeFollowsSystem)&&(identical(other.welcomePageNum, _this.welcomePageNum) || other.welcomePageNum == _this.welcomePageNum)&&(identical(other.syncSetting, _this.syncSetting) || other.syncSetting == _this.syncSetting)&&const DeepCollectionEquality().equals(other.maskedKeywords, _this.maskedKeywords)&&(identical(other.socks5ProxyEnabled, _this.socks5ProxyEnabled) || other.socks5ProxyEnabled == _this.socks5ProxyEnabled)&&(identical(other.socks5Proxy, _this.socks5Proxy) || other.socks5Proxy == _this.socks5Proxy)&&(identical(other.needCleanCache, _this.needCleanCache) || other.needCleanCache == _this.needCleanCache)&&(identical(other.comicChoice, _this.comicChoice) || other.comicChoice == _this.comicChoice)&&(identical(other.disableBika, _this.disableBika) || other.disableBika == _this.disableBika)&&(identical(other.enableMemoryDebug, _this.enableMemoryDebug) || other.enableMemoryDebug == _this.enableMemoryDebug)&&(identical(other.blockRustHttpRequests, _this.blockRustHttpRequests) || other.blockRustHttpRequests == _this.blockRustHttpRequests)&&(identical(other.logAddress, _this.logAddress) || other.logAddress == _this.logAddress)&&(identical(other.forceEnableImpeller, _this.forceEnableImpeller) || other.forceEnableImpeller == _this.forceEnableImpeller)&&(identical(other.androidKeepAliveEnabled, _this.androidKeepAliveEnabled) || other.androidKeepAliveEnabled == _this.androidKeepAliveEnabled)&&(identical(other.backPressExitEnabled, _this.backPressExitEnabled) || other.backPressExitEnabled == _this.backPressExitEnabled)&&(identical(other.updateAccelerate, _this.updateAccelerate) || other.updateAccelerate == _this.updateAccelerate)&&(identical(other.retryDownloadUntilSuccess, _this.retryDownloadUntilSuccess) || other.retryDownloadUntilSuccess == _this.retryDownloadUntilSuccess)&&(identical(other.oldPageRollbackEnabled, _this.oldPageRollbackEnabled) || other.oldPageRollbackEnabled == _this.oldPageRollbackEnabled)&&(identical(other.cloudFavoritePreferred, _this.cloudFavoritePreferred) || other.cloudFavoritePreferred == _this.cloudFavoritePreferred)&&(identical(other.autoFollowOnCollect, _this.autoFollowOnCollect) || other.autoFollowOnCollect == _this.autoFollowOnCollect)&&(identical(other.leftHandModeEnabled, _this.leftHandModeEnabled) || other.leftHandModeEnabled == _this.leftHandModeEnabled)&&(identical(other.clickCoverToStartReading, _this.clickCoverToStartReading) || other.clickCoverToStartReading == _this.clickCoverToStartReading)&&const DeepCollectionEquality().equals(other.searchHistory, _this.searchHistory)&&(identical(other.proxySetting, _this.proxySetting) || other.proxySetting == _this.proxySetting)&&(identical(other.windowWidth, _this.windowWidth) || other.windowWidth == _this.windowWidth)&&(identical(other.windowHeight, _this.windowHeight) || other.windowHeight == _this.windowHeight)&&(identical(other.windowX, _this.windowX) || other.windowX == _this.windowX)&&(identical(other.windowY, _this.windowY) || other.windowY == _this.windowY)&&(identical(other.readSetting, _this.readSetting) || other.readSetting == _this.readSetting)&&(identical(other.customExportPath, _this.customExportPath) || other.customExportPath == _this.customExportPath)&&(identical(other.appLockSetting, _this.appLockSetting) || other.appLockSetting == _this.appLockSetting)&&(identical(other.compatibleVersion, _this.compatibleVersion) || other.compatibleVersion == _this.compatibleVersion)&&(identical(other.cacheSetting, _this.cacheSetting) || other.cacheSetting == _this.cacheSetting)&&(identical(other.chineseConvertMode, _this.chineseConvertMode) || other.chineseConvertMode == _this.chineseConvertMode)&&(identical(other.bookshelfSetting, _this.bookshelfSetting) || other.bookshelfSetting == _this.bookshelfSetting));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GlobalSettingState&&(identical(other.dynamicColor, _this.dynamicColor) || other.dynamicColor == _this.dynamicColor)&&(identical(other.themeMode, _this.themeMode) || other.themeMode == _this.themeMode)&&(identical(other.isAMOLED, _this.isAMOLED) || other.isAMOLED == _this.isAMOLED)&&(identical(other.seedColor, _this.seedColor) || other.seedColor == _this.seedColor)&&(identical(other.themeInitState, _this.themeInitState) || other.themeInitState == _this.themeInitState)&&(identical(other.locale, _this.locale) || other.locale == _this.locale)&&(identical(other.localeFollowsSystem, _this.localeFollowsSystem) || other.localeFollowsSystem == _this.localeFollowsSystem)&&(identical(other.welcomePageNum, _this.welcomePageNum) || other.welcomePageNum == _this.welcomePageNum)&&(identical(other.syncSetting, _this.syncSetting) || other.syncSetting == _this.syncSetting)&&const DeepCollectionEquality().equals(other.maskedKeywords, _this.maskedKeywords)&&(identical(other.socks5ProxyEnabled, _this.socks5ProxyEnabled) || other.socks5ProxyEnabled == _this.socks5ProxyEnabled)&&(identical(other.socks5Proxy, _this.socks5Proxy) || other.socks5Proxy == _this.socks5Proxy)&&(identical(other.needCleanCache, _this.needCleanCache) || other.needCleanCache == _this.needCleanCache)&&(identical(other.comicChoice, _this.comicChoice) || other.comicChoice == _this.comicChoice)&&(identical(other.disableBika, _this.disableBika) || other.disableBika == _this.disableBika)&&(identical(other.enableMemoryDebug, _this.enableMemoryDebug) || other.enableMemoryDebug == _this.enableMemoryDebug)&&(identical(other.blockRustHttpRequests, _this.blockRustHttpRequests) || other.blockRustHttpRequests == _this.blockRustHttpRequests)&&(identical(other.logAddress, _this.logAddress) || other.logAddress == _this.logAddress)&&(identical(other.forceEnableImpeller, _this.forceEnableImpeller) || other.forceEnableImpeller == _this.forceEnableImpeller)&&(identical(other.androidKeepAliveEnabled, _this.androidKeepAliveEnabled) || other.androidKeepAliveEnabled == _this.androidKeepAliveEnabled)&&(identical(other.backPressExitEnabled, _this.backPressExitEnabled) || other.backPressExitEnabled == _this.backPressExitEnabled)&&(identical(other.updateAccelerate, _this.updateAccelerate) || other.updateAccelerate == _this.updateAccelerate)&&(identical(other.retryDownloadUntilSuccess, _this.retryDownloadUntilSuccess) || other.retryDownloadUntilSuccess == _this.retryDownloadUntilSuccess)&&(identical(other.autoFollowOnCollect, _this.autoFollowOnCollect) || other.autoFollowOnCollect == _this.autoFollowOnCollect)&&(identical(other.leftHandModeEnabled, _this.leftHandModeEnabled) || other.leftHandModeEnabled == _this.leftHandModeEnabled)&&(identical(other.clickCoverToStartReading, _this.clickCoverToStartReading) || other.clickCoverToStartReading == _this.clickCoverToStartReading)&&const DeepCollectionEquality().equals(other.searchHistory, _this.searchHistory)&&(identical(other.proxySetting, _this.proxySetting) || other.proxySetting == _this.proxySetting)&&(identical(other.windowWidth, _this.windowWidth) || other.windowWidth == _this.windowWidth)&&(identical(other.windowHeight, _this.windowHeight) || other.windowHeight == _this.windowHeight)&&(identical(other.windowX, _this.windowX) || other.windowX == _this.windowX)&&(identical(other.windowY, _this.windowY) || other.windowY == _this.windowY)&&(identical(other.readSetting, _this.readSetting) || other.readSetting == _this.readSetting)&&(identical(other.customExportPath, _this.customExportPath) || other.customExportPath == _this.customExportPath)&&(identical(other.appLockSetting, _this.appLockSetting) || other.appLockSetting == _this.appLockSetting)&&(identical(other.compatibleVersion, _this.compatibleVersion) || other.compatibleVersion == _this.compatibleVersion)&&(identical(other.cacheSetting, _this.cacheSetting) || other.cacheSetting == _this.cacheSetting)&&(identical(other.chineseConvertMode, _this.chineseConvertMode) || other.chineseConvertMode == _this.chineseConvertMode)&&(identical(other.bookshelfSetting, _this.bookshelfSetting) || other.bookshelfSetting == _this.bookshelfSetting)&&(identical(other.eInkSetting, _this.eInkSetting) || other.eInkSetting == _this.eInkSetting));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as GlobalSettingState;
-  return Object.hashAll([runtimeType,_this.dynamicColor,_this.themeMode,_this.isAMOLED,_this.seedColor,_this.themeInitState,_this.locale,_this.localeFollowsSystem,_this.welcomePageNum,_this.syncSetting,const DeepCollectionEquality().hash(_this.maskedKeywords),_this.socks5ProxyEnabled,_this.socks5Proxy,_this.needCleanCache,_this.comicChoice,_this.disableBika,_this.enableMemoryDebug,_this.blockRustHttpRequests,_this.logAddress,_this.forceEnableImpeller,_this.androidKeepAliveEnabled,_this.backPressExitEnabled,_this.updateAccelerate,_this.retryDownloadUntilSuccess,_this.oldPageRollbackEnabled,_this.cloudFavoritePreferred,_this.autoFollowOnCollect,_this.leftHandModeEnabled,_this.clickCoverToStartReading,const DeepCollectionEquality().hash(_this.searchHistory),_this.proxySetting,_this.windowWidth,_this.windowHeight,_this.windowX,_this.windowY,_this.readSetting,_this.customExportPath,_this.appLockSetting,_this.compatibleVersion,_this.cacheSetting,_this.chineseConvertMode,_this.bookshelfSetting]);
+  return Object.hashAll([runtimeType,_this.dynamicColor,_this.themeMode,_this.isAMOLED,_this.seedColor,_this.themeInitState,_this.locale,_this.localeFollowsSystem,_this.welcomePageNum,_this.syncSetting,const DeepCollectionEquality().hash(_this.maskedKeywords),_this.socks5ProxyEnabled,_this.socks5Proxy,_this.needCleanCache,_this.comicChoice,_this.disableBika,_this.enableMemoryDebug,_this.blockRustHttpRequests,_this.logAddress,_this.forceEnableImpeller,_this.androidKeepAliveEnabled,_this.backPressExitEnabled,_this.updateAccelerate,_this.retryDownloadUntilSuccess,_this.autoFollowOnCollect,_this.leftHandModeEnabled,_this.clickCoverToStartReading,const DeepCollectionEquality().hash(_this.searchHistory),_this.proxySetting,_this.windowWidth,_this.windowHeight,_this.windowX,_this.windowY,_this.readSetting,_this.customExportPath,_this.appLockSetting,_this.compatibleVersion,_this.cacheSetting,_this.chineseConvertMode,_this.bookshelfSetting,_this.eInkSetting]);
 }
 
 @override
 String toString() {
   final _this = this as GlobalSettingState;
-  return 'GlobalSettingState(dynamicColor: ${_this.dynamicColor}, themeMode: ${_this.themeMode}, isAMOLED: ${_this.isAMOLED}, seedColor: ${_this.seedColor}, themeInitState: ${_this.themeInitState}, locale: ${_this.locale}, localeFollowsSystem: ${_this.localeFollowsSystem}, welcomePageNum: ${_this.welcomePageNum}, syncSetting: ${_this.syncSetting}, maskedKeywords: ${_this.maskedKeywords}, socks5ProxyEnabled: ${_this.socks5ProxyEnabled}, socks5Proxy: ${_this.socks5Proxy}, needCleanCache: ${_this.needCleanCache}, comicChoice: ${_this.comicChoice}, disableBika: ${_this.disableBika}, enableMemoryDebug: ${_this.enableMemoryDebug}, blockRustHttpRequests: ${_this.blockRustHttpRequests}, logAddress: ${_this.logAddress}, forceEnableImpeller: ${_this.forceEnableImpeller}, androidKeepAliveEnabled: ${_this.androidKeepAliveEnabled}, backPressExitEnabled: ${_this.backPressExitEnabled}, updateAccelerate: ${_this.updateAccelerate}, retryDownloadUntilSuccess: ${_this.retryDownloadUntilSuccess}, oldPageRollbackEnabled: ${_this.oldPageRollbackEnabled}, cloudFavoritePreferred: ${_this.cloudFavoritePreferred}, autoFollowOnCollect: ${_this.autoFollowOnCollect}, leftHandModeEnabled: ${_this.leftHandModeEnabled}, clickCoverToStartReading: ${_this.clickCoverToStartReading}, searchHistory: ${_this.searchHistory}, proxySetting: ${_this.proxySetting}, windowWidth: ${_this.windowWidth}, windowHeight: ${_this.windowHeight}, windowX: ${_this.windowX}, windowY: ${_this.windowY}, readSetting: ${_this.readSetting}, customExportPath: ${_this.customExportPath}, appLockSetting: ${_this.appLockSetting}, compatibleVersion: ${_this.compatibleVersion}, cacheSetting: ${_this.cacheSetting}, chineseConvertMode: ${_this.chineseConvertMode}, bookshelfSetting: ${_this.bookshelfSetting})';
+  return 'GlobalSettingState(dynamicColor: ${_this.dynamicColor}, themeMode: ${_this.themeMode}, isAMOLED: ${_this.isAMOLED}, seedColor: ${_this.seedColor}, themeInitState: ${_this.themeInitState}, locale: ${_this.locale}, localeFollowsSystem: ${_this.localeFollowsSystem}, welcomePageNum: ${_this.welcomePageNum}, syncSetting: ${_this.syncSetting}, maskedKeywords: ${_this.maskedKeywords}, socks5ProxyEnabled: ${_this.socks5ProxyEnabled}, socks5Proxy: ${_this.socks5Proxy}, needCleanCache: ${_this.needCleanCache}, comicChoice: ${_this.comicChoice}, disableBika: ${_this.disableBika}, enableMemoryDebug: ${_this.enableMemoryDebug}, blockRustHttpRequests: ${_this.blockRustHttpRequests}, logAddress: ${_this.logAddress}, forceEnableImpeller: ${_this.forceEnableImpeller}, androidKeepAliveEnabled: ${_this.androidKeepAliveEnabled}, backPressExitEnabled: ${_this.backPressExitEnabled}, updateAccelerate: ${_this.updateAccelerate}, retryDownloadUntilSuccess: ${_this.retryDownloadUntilSuccess}, autoFollowOnCollect: ${_this.autoFollowOnCollect}, leftHandModeEnabled: ${_this.leftHandModeEnabled}, clickCoverToStartReading: ${_this.clickCoverToStartReading}, searchHistory: ${_this.searchHistory}, proxySetting: ${_this.proxySetting}, windowWidth: ${_this.windowWidth}, windowHeight: ${_this.windowHeight}, windowX: ${_this.windowX}, windowY: ${_this.windowY}, readSetting: ${_this.readSetting}, customExportPath: ${_this.customExportPath}, appLockSetting: ${_this.appLockSetting}, compatibleVersion: ${_this.compatibleVersion}, cacheSetting: ${_this.cacheSetting}, chineseConvertMode: ${_this.chineseConvertMode}, bookshelfSetting: ${_this.bookshelfSetting}, eInkSetting: ${_this.eInkSetting})';
 }
 
 
@@ -54,11 +54,11 @@ abstract mixin class $GlobalSettingStateCopyWith<$Res>  {
   factory $GlobalSettingStateCopyWith(GlobalSettingState value, $Res Function(GlobalSettingState) _then) = _$GlobalSettingStateCopyWithImpl;
 @useResult
 $Res call({
- bool dynamicColor, ThemeMode themeMode, bool isAMOLED,@ColorConverter() Color seedColor, int themeInitState,@LocaleConverter() Locale locale, bool localeFollowsSystem, int welcomePageNum, SyncSettingState syncSetting, List<String> maskedKeywords, bool socks5ProxyEnabled, String socks5Proxy, bool needCleanCache, int comicChoice, bool disableBika, bool enableMemoryDebug, bool blockRustHttpRequests, String logAddress, bool forceEnableImpeller, bool androidKeepAliveEnabled, bool backPressExitEnabled, bool updateAccelerate, bool retryDownloadUntilSuccess, bool oldPageRollbackEnabled, bool cloudFavoritePreferred, bool autoFollowOnCollect, bool leftHandModeEnabled, bool clickCoverToStartReading, List<String> searchHistory, ProxySettingState proxySetting, double windowWidth, double windowHeight, double windowX, double windowY, ReadSettingState readSetting, String customExportPath, AppLockSettingState appLockSetting, String compatibleVersion, CacheSettingState cacheSetting, ChineseConvertMode chineseConvertMode, BookshelfSettingState bookshelfSetting
+ bool dynamicColor, ThemeMode themeMode, bool isAMOLED,@ColorConverter() Color seedColor, int themeInitState,@LocaleConverter() Locale locale, bool localeFollowsSystem, int welcomePageNum, SyncSettingState syncSetting, List<String> maskedKeywords, bool socks5ProxyEnabled, String socks5Proxy, bool needCleanCache, int comicChoice, bool disableBika, bool enableMemoryDebug, bool blockRustHttpRequests, String logAddress, bool forceEnableImpeller, bool androidKeepAliveEnabled, bool backPressExitEnabled, bool updateAccelerate, bool retryDownloadUntilSuccess, bool autoFollowOnCollect, bool leftHandModeEnabled, bool clickCoverToStartReading, List<String> searchHistory, ProxySettingState proxySetting, double windowWidth, double windowHeight, double windowX, double windowY, ReadSettingState readSetting, String customExportPath, AppLockSettingState appLockSetting, String compatibleVersion, CacheSettingState cacheSetting, ChineseConvertMode chineseConvertMode, BookshelfSettingState bookshelfSetting, EInkSettingState eInkSetting
 });
 
 
-$SyncSettingStateCopyWith<$Res> get syncSetting;$ProxySettingStateCopyWith<$Res> get proxySetting;$ReadSettingStateCopyWith<$Res> get readSetting;$AppLockSettingStateCopyWith<$Res> get appLockSetting;$CacheSettingStateCopyWith<$Res> get cacheSetting;$BookshelfSettingStateCopyWith<$Res> get bookshelfSetting;
+$SyncSettingStateCopyWith<$Res> get syncSetting;$ProxySettingStateCopyWith<$Res> get proxySetting;$ReadSettingStateCopyWith<$Res> get readSetting;$AppLockSettingStateCopyWith<$Res> get appLockSetting;$CacheSettingStateCopyWith<$Res> get cacheSetting;$BookshelfSettingStateCopyWith<$Res> get bookshelfSetting;$EInkSettingStateCopyWith<$Res> get eInkSetting;
 
 }
 /// @nodoc
@@ -71,7 +71,7 @@ class _$GlobalSettingStateCopyWithImpl<$Res>
 
 /// Create a copy of GlobalSettingState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? dynamicColor = null,Object? themeMode = null,Object? isAMOLED = null,Object? seedColor = null,Object? themeInitState = null,Object? locale = null,Object? localeFollowsSystem = null,Object? welcomePageNum = null,Object? syncSetting = null,Object? maskedKeywords = null,Object? socks5ProxyEnabled = null,Object? socks5Proxy = null,Object? needCleanCache = null,Object? comicChoice = null,Object? disableBika = null,Object? enableMemoryDebug = null,Object? blockRustHttpRequests = null,Object? logAddress = null,Object? forceEnableImpeller = null,Object? androidKeepAliveEnabled = null,Object? backPressExitEnabled = null,Object? updateAccelerate = null,Object? retryDownloadUntilSuccess = null,Object? oldPageRollbackEnabled = null,Object? cloudFavoritePreferred = null,Object? autoFollowOnCollect = null,Object? leftHandModeEnabled = null,Object? clickCoverToStartReading = null,Object? searchHistory = null,Object? proxySetting = null,Object? windowWidth = null,Object? windowHeight = null,Object? windowX = null,Object? windowY = null,Object? readSetting = null,Object? customExportPath = null,Object? appLockSetting = null,Object? compatibleVersion = null,Object? cacheSetting = null,Object? chineseConvertMode = null,Object? bookshelfSetting = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? dynamicColor = null,Object? themeMode = null,Object? isAMOLED = null,Object? seedColor = null,Object? themeInitState = null,Object? locale = null,Object? localeFollowsSystem = null,Object? welcomePageNum = null,Object? syncSetting = null,Object? maskedKeywords = null,Object? socks5ProxyEnabled = null,Object? socks5Proxy = null,Object? needCleanCache = null,Object? comicChoice = null,Object? disableBika = null,Object? enableMemoryDebug = null,Object? blockRustHttpRequests = null,Object? logAddress = null,Object? forceEnableImpeller = null,Object? androidKeepAliveEnabled = null,Object? backPressExitEnabled = null,Object? updateAccelerate = null,Object? retryDownloadUntilSuccess = null,Object? autoFollowOnCollect = null,Object? leftHandModeEnabled = null,Object? clickCoverToStartReading = null,Object? searchHistory = null,Object? proxySetting = null,Object? windowWidth = null,Object? windowHeight = null,Object? windowX = null,Object? windowY = null,Object? readSetting = null,Object? customExportPath = null,Object? appLockSetting = null,Object? compatibleVersion = null,Object? cacheSetting = null,Object? chineseConvertMode = null,Object? bookshelfSetting = null,Object? eInkSetting = null,}) {
   return _then(GlobalSettingState(
 dynamicColor: null == dynamicColor ? _self.dynamicColor : dynamicColor // ignore: cast_nullable_to_non_nullable
 as bool,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
@@ -96,8 +96,6 @@ as bool,androidKeepAliveEnabled: null == androidKeepAliveEnabled ? _self.android
 as bool,backPressExitEnabled: null == backPressExitEnabled ? _self.backPressExitEnabled : backPressExitEnabled // ignore: cast_nullable_to_non_nullable
 as bool,updateAccelerate: null == updateAccelerate ? _self.updateAccelerate : updateAccelerate // ignore: cast_nullable_to_non_nullable
 as bool,retryDownloadUntilSuccess: null == retryDownloadUntilSuccess ? _self.retryDownloadUntilSuccess : retryDownloadUntilSuccess // ignore: cast_nullable_to_non_nullable
-as bool,oldPageRollbackEnabled: null == oldPageRollbackEnabled ? _self.oldPageRollbackEnabled : oldPageRollbackEnabled // ignore: cast_nullable_to_non_nullable
-as bool,cloudFavoritePreferred: null == cloudFavoritePreferred ? _self.cloudFavoritePreferred : cloudFavoritePreferred // ignore: cast_nullable_to_non_nullable
 as bool,autoFollowOnCollect: null == autoFollowOnCollect ? _self.autoFollowOnCollect : autoFollowOnCollect // ignore: cast_nullable_to_non_nullable
 as bool,leftHandModeEnabled: null == leftHandModeEnabled ? _self.leftHandModeEnabled : leftHandModeEnabled // ignore: cast_nullable_to_non_nullable
 as bool,clickCoverToStartReading: null == clickCoverToStartReading ? _self.clickCoverToStartReading : clickCoverToStartReading // ignore: cast_nullable_to_non_nullable
@@ -114,7 +112,8 @@ as AppLockSettingState,compatibleVersion: null == compatibleVersion ? _self.comp
 as String,cacheSetting: null == cacheSetting ? _self.cacheSetting : cacheSetting // ignore: cast_nullable_to_non_nullable
 as CacheSettingState,chineseConvertMode: null == chineseConvertMode ? _self.chineseConvertMode : chineseConvertMode // ignore: cast_nullable_to_non_nullable
 as ChineseConvertMode,bookshelfSetting: null == bookshelfSetting ? _self.bookshelfSetting : bookshelfSetting // ignore: cast_nullable_to_non_nullable
-as BookshelfSettingState,
+as BookshelfSettingState,eInkSetting: null == eInkSetting ? _self.eInkSetting : eInkSetting // ignore: cast_nullable_to_non_nullable
+as EInkSettingState,
   ));
 }
 /// Create a copy of GlobalSettingState
@@ -170,6 +169,15 @@ $BookshelfSettingStateCopyWith<$Res> get bookshelfSetting {
   
   return $BookshelfSettingStateCopyWith<$Res>(_self.bookshelfSetting, (value) {
     return _then(_self.copyWith(bookshelfSetting: value));
+  });
+}/// Create a copy of GlobalSettingState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$EInkSettingStateCopyWith<$Res> get eInkSetting {
+  
+  return $EInkSettingStateCopyWith<$Res>(_self.eInkSetting, (value) {
+    return _then(_self.copyWith(eInkSetting: value));
   });
 }
 }
@@ -253,10 +261,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool dynamicColor,  ThemeMode themeMode,  bool isAMOLED, @ColorConverter()  Color seedColor,  int themeInitState, @LocaleConverter()  Locale locale,  bool localeFollowsSystem,  int welcomePageNum,  SyncSettingState syncSetting,  List<String> maskedKeywords,  bool socks5ProxyEnabled,  String socks5Proxy,  bool needCleanCache,  int comicChoice,  bool disableBika,  bool enableMemoryDebug,  bool blockRustHttpRequests,  String logAddress,  bool forceEnableImpeller,  bool androidKeepAliveEnabled,  bool backPressExitEnabled,  bool updateAccelerate,  bool retryDownloadUntilSuccess,  bool oldPageRollbackEnabled,  bool cloudFavoritePreferred,  bool autoFollowOnCollect,  bool leftHandModeEnabled,  bool clickCoverToStartReading,  List<String> searchHistory,  ProxySettingState proxySetting,  double windowWidth,  double windowHeight,  double windowX,  double windowY,  ReadSettingState readSetting,  String customExportPath,  AppLockSettingState appLockSetting,  String compatibleVersion,  CacheSettingState cacheSetting,  ChineseConvertMode chineseConvertMode,  BookshelfSettingState bookshelfSetting)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool dynamicColor,  ThemeMode themeMode,  bool isAMOLED, @ColorConverter()  Color seedColor,  int themeInitState, @LocaleConverter()  Locale locale,  bool localeFollowsSystem,  int welcomePageNum,  SyncSettingState syncSetting,  List<String> maskedKeywords,  bool socks5ProxyEnabled,  String socks5Proxy,  bool needCleanCache,  int comicChoice,  bool disableBika,  bool enableMemoryDebug,  bool blockRustHttpRequests,  String logAddress,  bool forceEnableImpeller,  bool androidKeepAliveEnabled,  bool backPressExitEnabled,  bool updateAccelerate,  bool retryDownloadUntilSuccess,  bool autoFollowOnCollect,  bool leftHandModeEnabled,  bool clickCoverToStartReading,  List<String> searchHistory,  ProxySettingState proxySetting,  double windowWidth,  double windowHeight,  double windowX,  double windowY,  ReadSettingState readSetting,  String customExportPath,  AppLockSettingState appLockSetting,  String compatibleVersion,  CacheSettingState cacheSetting,  ChineseConvertMode chineseConvertMode,  BookshelfSettingState bookshelfSetting,  EInkSettingState eInkSetting)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GlobalSettingState() when $default != null:
-return $default(_that.dynamicColor,_that.themeMode,_that.isAMOLED,_that.seedColor,_that.themeInitState,_that.locale,_that.localeFollowsSystem,_that.welcomePageNum,_that.syncSetting,_that.maskedKeywords,_that.socks5ProxyEnabled,_that.socks5Proxy,_that.needCleanCache,_that.comicChoice,_that.disableBika,_that.enableMemoryDebug,_that.blockRustHttpRequests,_that.logAddress,_that.forceEnableImpeller,_that.androidKeepAliveEnabled,_that.backPressExitEnabled,_that.updateAccelerate,_that.retryDownloadUntilSuccess,_that.oldPageRollbackEnabled,_that.cloudFavoritePreferred,_that.autoFollowOnCollect,_that.leftHandModeEnabled,_that.clickCoverToStartReading,_that.searchHistory,_that.proxySetting,_that.windowWidth,_that.windowHeight,_that.windowX,_that.windowY,_that.readSetting,_that.customExportPath,_that.appLockSetting,_that.compatibleVersion,_that.cacheSetting,_that.chineseConvertMode,_that.bookshelfSetting);case _:
+return $default(_that.dynamicColor,_that.themeMode,_that.isAMOLED,_that.seedColor,_that.themeInitState,_that.locale,_that.localeFollowsSystem,_that.welcomePageNum,_that.syncSetting,_that.maskedKeywords,_that.socks5ProxyEnabled,_that.socks5Proxy,_that.needCleanCache,_that.comicChoice,_that.disableBika,_that.enableMemoryDebug,_that.blockRustHttpRequests,_that.logAddress,_that.forceEnableImpeller,_that.androidKeepAliveEnabled,_that.backPressExitEnabled,_that.updateAccelerate,_that.retryDownloadUntilSuccess,_that.autoFollowOnCollect,_that.leftHandModeEnabled,_that.clickCoverToStartReading,_that.searchHistory,_that.proxySetting,_that.windowWidth,_that.windowHeight,_that.windowX,_that.windowY,_that.readSetting,_that.customExportPath,_that.appLockSetting,_that.compatibleVersion,_that.cacheSetting,_that.chineseConvertMode,_that.bookshelfSetting,_that.eInkSetting);case _:
   return orElse();
 
 }
@@ -274,10 +282,10 @@ return $default(_that.dynamicColor,_that.themeMode,_that.isAMOLED,_that.seedColo
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool dynamicColor,  ThemeMode themeMode,  bool isAMOLED, @ColorConverter()  Color seedColor,  int themeInitState, @LocaleConverter()  Locale locale,  bool localeFollowsSystem,  int welcomePageNum,  SyncSettingState syncSetting,  List<String> maskedKeywords,  bool socks5ProxyEnabled,  String socks5Proxy,  bool needCleanCache,  int comicChoice,  bool disableBika,  bool enableMemoryDebug,  bool blockRustHttpRequests,  String logAddress,  bool forceEnableImpeller,  bool androidKeepAliveEnabled,  bool backPressExitEnabled,  bool updateAccelerate,  bool retryDownloadUntilSuccess,  bool oldPageRollbackEnabled,  bool cloudFavoritePreferred,  bool autoFollowOnCollect,  bool leftHandModeEnabled,  bool clickCoverToStartReading,  List<String> searchHistory,  ProxySettingState proxySetting,  double windowWidth,  double windowHeight,  double windowX,  double windowY,  ReadSettingState readSetting,  String customExportPath,  AppLockSettingState appLockSetting,  String compatibleVersion,  CacheSettingState cacheSetting,  ChineseConvertMode chineseConvertMode,  BookshelfSettingState bookshelfSetting)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool dynamicColor,  ThemeMode themeMode,  bool isAMOLED, @ColorConverter()  Color seedColor,  int themeInitState, @LocaleConverter()  Locale locale,  bool localeFollowsSystem,  int welcomePageNum,  SyncSettingState syncSetting,  List<String> maskedKeywords,  bool socks5ProxyEnabled,  String socks5Proxy,  bool needCleanCache,  int comicChoice,  bool disableBika,  bool enableMemoryDebug,  bool blockRustHttpRequests,  String logAddress,  bool forceEnableImpeller,  bool androidKeepAliveEnabled,  bool backPressExitEnabled,  bool updateAccelerate,  bool retryDownloadUntilSuccess,  bool autoFollowOnCollect,  bool leftHandModeEnabled,  bool clickCoverToStartReading,  List<String> searchHistory,  ProxySettingState proxySetting,  double windowWidth,  double windowHeight,  double windowX,  double windowY,  ReadSettingState readSetting,  String customExportPath,  AppLockSettingState appLockSetting,  String compatibleVersion,  CacheSettingState cacheSetting,  ChineseConvertMode chineseConvertMode,  BookshelfSettingState bookshelfSetting,  EInkSettingState eInkSetting)  $default,) {final _that = this;
 switch (_that) {
 case _GlobalSettingState():
-return $default(_that.dynamicColor,_that.themeMode,_that.isAMOLED,_that.seedColor,_that.themeInitState,_that.locale,_that.localeFollowsSystem,_that.welcomePageNum,_that.syncSetting,_that.maskedKeywords,_that.socks5ProxyEnabled,_that.socks5Proxy,_that.needCleanCache,_that.comicChoice,_that.disableBika,_that.enableMemoryDebug,_that.blockRustHttpRequests,_that.logAddress,_that.forceEnableImpeller,_that.androidKeepAliveEnabled,_that.backPressExitEnabled,_that.updateAccelerate,_that.retryDownloadUntilSuccess,_that.oldPageRollbackEnabled,_that.cloudFavoritePreferred,_that.autoFollowOnCollect,_that.leftHandModeEnabled,_that.clickCoverToStartReading,_that.searchHistory,_that.proxySetting,_that.windowWidth,_that.windowHeight,_that.windowX,_that.windowY,_that.readSetting,_that.customExportPath,_that.appLockSetting,_that.compatibleVersion,_that.cacheSetting,_that.chineseConvertMode,_that.bookshelfSetting);case _:
+return $default(_that.dynamicColor,_that.themeMode,_that.isAMOLED,_that.seedColor,_that.themeInitState,_that.locale,_that.localeFollowsSystem,_that.welcomePageNum,_that.syncSetting,_that.maskedKeywords,_that.socks5ProxyEnabled,_that.socks5Proxy,_that.needCleanCache,_that.comicChoice,_that.disableBika,_that.enableMemoryDebug,_that.blockRustHttpRequests,_that.logAddress,_that.forceEnableImpeller,_that.androidKeepAliveEnabled,_that.backPressExitEnabled,_that.updateAccelerate,_that.retryDownloadUntilSuccess,_that.autoFollowOnCollect,_that.leftHandModeEnabled,_that.clickCoverToStartReading,_that.searchHistory,_that.proxySetting,_that.windowWidth,_that.windowHeight,_that.windowX,_that.windowY,_that.readSetting,_that.customExportPath,_that.appLockSetting,_that.compatibleVersion,_that.cacheSetting,_that.chineseConvertMode,_that.bookshelfSetting,_that.eInkSetting);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -294,10 +302,10 @@ return $default(_that.dynamicColor,_that.themeMode,_that.isAMOLED,_that.seedColo
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool dynamicColor,  ThemeMode themeMode,  bool isAMOLED, @ColorConverter()  Color seedColor,  int themeInitState, @LocaleConverter()  Locale locale,  bool localeFollowsSystem,  int welcomePageNum,  SyncSettingState syncSetting,  List<String> maskedKeywords,  bool socks5ProxyEnabled,  String socks5Proxy,  bool needCleanCache,  int comicChoice,  bool disableBika,  bool enableMemoryDebug,  bool blockRustHttpRequests,  String logAddress,  bool forceEnableImpeller,  bool androidKeepAliveEnabled,  bool backPressExitEnabled,  bool updateAccelerate,  bool retryDownloadUntilSuccess,  bool oldPageRollbackEnabled,  bool cloudFavoritePreferred,  bool autoFollowOnCollect,  bool leftHandModeEnabled,  bool clickCoverToStartReading,  List<String> searchHistory,  ProxySettingState proxySetting,  double windowWidth,  double windowHeight,  double windowX,  double windowY,  ReadSettingState readSetting,  String customExportPath,  AppLockSettingState appLockSetting,  String compatibleVersion,  CacheSettingState cacheSetting,  ChineseConvertMode chineseConvertMode,  BookshelfSettingState bookshelfSetting)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool dynamicColor,  ThemeMode themeMode,  bool isAMOLED, @ColorConverter()  Color seedColor,  int themeInitState, @LocaleConverter()  Locale locale,  bool localeFollowsSystem,  int welcomePageNum,  SyncSettingState syncSetting,  List<String> maskedKeywords,  bool socks5ProxyEnabled,  String socks5Proxy,  bool needCleanCache,  int comicChoice,  bool disableBika,  bool enableMemoryDebug,  bool blockRustHttpRequests,  String logAddress,  bool forceEnableImpeller,  bool androidKeepAliveEnabled,  bool backPressExitEnabled,  bool updateAccelerate,  bool retryDownloadUntilSuccess,  bool autoFollowOnCollect,  bool leftHandModeEnabled,  bool clickCoverToStartReading,  List<String> searchHistory,  ProxySettingState proxySetting,  double windowWidth,  double windowHeight,  double windowX,  double windowY,  ReadSettingState readSetting,  String customExportPath,  AppLockSettingState appLockSetting,  String compatibleVersion,  CacheSettingState cacheSetting,  ChineseConvertMode chineseConvertMode,  BookshelfSettingState bookshelfSetting,  EInkSettingState eInkSetting)?  $default,) {final _that = this;
 switch (_that) {
 case _GlobalSettingState() when $default != null:
-return $default(_that.dynamicColor,_that.themeMode,_that.isAMOLED,_that.seedColor,_that.themeInitState,_that.locale,_that.localeFollowsSystem,_that.welcomePageNum,_that.syncSetting,_that.maskedKeywords,_that.socks5ProxyEnabled,_that.socks5Proxy,_that.needCleanCache,_that.comicChoice,_that.disableBika,_that.enableMemoryDebug,_that.blockRustHttpRequests,_that.logAddress,_that.forceEnableImpeller,_that.androidKeepAliveEnabled,_that.backPressExitEnabled,_that.updateAccelerate,_that.retryDownloadUntilSuccess,_that.oldPageRollbackEnabled,_that.cloudFavoritePreferred,_that.autoFollowOnCollect,_that.leftHandModeEnabled,_that.clickCoverToStartReading,_that.searchHistory,_that.proxySetting,_that.windowWidth,_that.windowHeight,_that.windowX,_that.windowY,_that.readSetting,_that.customExportPath,_that.appLockSetting,_that.compatibleVersion,_that.cacheSetting,_that.chineseConvertMode,_that.bookshelfSetting);case _:
+return $default(_that.dynamicColor,_that.themeMode,_that.isAMOLED,_that.seedColor,_that.themeInitState,_that.locale,_that.localeFollowsSystem,_that.welcomePageNum,_that.syncSetting,_that.maskedKeywords,_that.socks5ProxyEnabled,_that.socks5Proxy,_that.needCleanCache,_that.comicChoice,_that.disableBika,_that.enableMemoryDebug,_that.blockRustHttpRequests,_that.logAddress,_that.forceEnableImpeller,_that.androidKeepAliveEnabled,_that.backPressExitEnabled,_that.updateAccelerate,_that.retryDownloadUntilSuccess,_that.autoFollowOnCollect,_that.leftHandModeEnabled,_that.clickCoverToStartReading,_that.searchHistory,_that.proxySetting,_that.windowWidth,_that.windowHeight,_that.windowX,_that.windowY,_that.readSetting,_that.customExportPath,_that.appLockSetting,_that.compatibleVersion,_that.cacheSetting,_that.chineseConvertMode,_that.bookshelfSetting,_that.eInkSetting);case _:
   return null;
 
 }
@@ -309,7 +317,7 @@ return $default(_that.dynamicColor,_that.themeMode,_that.isAMOLED,_that.seedColo
 @JsonSerializable()
 
 class _GlobalSettingState implements GlobalSettingState {
-  const _GlobalSettingState({this.dynamicColor = true, this.themeMode = ThemeMode.system, this.isAMOLED = true, @ColorConverter() this.seedColor = const Color(0xFFEF5350), this.themeInitState = 0, @LocaleConverter() this.locale = const Locale('zh', 'CN'), this.localeFollowsSystem = true, this.welcomePageNum = 0, this.syncSetting = const SyncSettingState(),  List<String> maskedKeywords = const [], this.socks5ProxyEnabled = true, this.socks5Proxy = '', this.needCleanCache = false, this.comicChoice = 1, this.disableBika = false, this.enableMemoryDebug = false, this.blockRustHttpRequests = false, this.logAddress = '', this.forceEnableImpeller = false, this.androidKeepAliveEnabled = false, this.backPressExitEnabled = false, this.updateAccelerate = true, this.retryDownloadUntilSuccess = true, this.oldPageRollbackEnabled = false, this.cloudFavoritePreferred = false, this.autoFollowOnCollect = false, this.leftHandModeEnabled = false, this.clickCoverToStartReading = false,  List<String> searchHistory = const [], this.proxySetting = const ProxySettingState(), this.windowWidth = 1280.0, this.windowHeight = 720.0, this.windowX = 0, this.windowY = 0, this.readSetting = const ReadSettingState(), this.customExportPath = '', this.appLockSetting = const AppLockSettingState(), this.compatibleVersion = "", this.cacheSetting = const CacheSettingState(), this.chineseConvertMode = ChineseConvertMode.off, this.bookshelfSetting = const BookshelfSettingState()}): _maskedKeywords = maskedKeywords,_searchHistory = searchHistory;
+  const _GlobalSettingState({this.dynamicColor = true, this.themeMode = ThemeMode.system, this.isAMOLED = true, @ColorConverter() this.seedColor = const Color(0xFFEF5350), this.themeInitState = 0, @LocaleConverter() this.locale = const Locale('zh', 'CN'), this.localeFollowsSystem = true, this.welcomePageNum = 0, this.syncSetting = const SyncSettingState(),  List<String> maskedKeywords = const [], this.socks5ProxyEnabled = true, this.socks5Proxy = '', this.needCleanCache = false, this.comicChoice = 1, this.disableBika = false, this.enableMemoryDebug = false, this.blockRustHttpRequests = false, this.logAddress = '', this.forceEnableImpeller = false, this.androidKeepAliveEnabled = false, this.backPressExitEnabled = false, this.updateAccelerate = true, this.retryDownloadUntilSuccess = true, this.autoFollowOnCollect = false, this.leftHandModeEnabled = false, this.clickCoverToStartReading = false,  List<String> searchHistory = const [], this.proxySetting = const ProxySettingState(), this.windowWidth = 1280.0, this.windowHeight = 720.0, this.windowX = 0, this.windowY = 0, this.readSetting = const ReadSettingState(), this.customExportPath = '', this.appLockSetting = const AppLockSettingState(), this.compatibleVersion = "", this.cacheSetting = const CacheSettingState(), this.chineseConvertMode = ChineseConvertMode.off, this.bookshelfSetting = const BookshelfSettingState(), this.eInkSetting = const EInkSettingState()}): _maskedKeywords = maskedKeywords,_searchHistory = searchHistory;
   factory _GlobalSettingState.fromJson(Map<String, dynamic> json) => _$GlobalSettingStateFromJson(json);
 
 @override@JsonKey() final  bool dynamicColor;
@@ -341,8 +349,6 @@ class _GlobalSettingState implements GlobalSettingState {
 @override@JsonKey() final  bool backPressExitEnabled;
 @override@JsonKey() final  bool updateAccelerate;
 @override@JsonKey() final  bool retryDownloadUntilSuccess;
-@override@JsonKey() final  bool oldPageRollbackEnabled;
-@override@JsonKey() final  bool cloudFavoritePreferred;
 @override@JsonKey() final  bool autoFollowOnCollect;
 @override@JsonKey() final  bool leftHandModeEnabled;
 @override@JsonKey() final  bool clickCoverToStartReading;
@@ -365,6 +371,7 @@ class _GlobalSettingState implements GlobalSettingState {
 @override@JsonKey() final  CacheSettingState cacheSetting;
 @override@JsonKey() final  ChineseConvertMode chineseConvertMode;
 @override@JsonKey() final  BookshelfSettingState bookshelfSetting;
+@override@JsonKey() final  EInkSettingState eInkSetting;
 
 /// Create a copy of GlobalSettingState
 /// with the given fields replaced by the non-null parameter values.
@@ -379,18 +386,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GlobalSettingState&&(identical(other.dynamicColor, dynamicColor) || other.dynamicColor == dynamicColor)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.isAMOLED, isAMOLED) || other.isAMOLED == isAMOLED)&&(identical(other.seedColor, seedColor) || other.seedColor == seedColor)&&(identical(other.themeInitState, themeInitState) || other.themeInitState == themeInitState)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.localeFollowsSystem, localeFollowsSystem) || other.localeFollowsSystem == localeFollowsSystem)&&(identical(other.welcomePageNum, welcomePageNum) || other.welcomePageNum == welcomePageNum)&&(identical(other.syncSetting, syncSetting) || other.syncSetting == syncSetting)&&const DeepCollectionEquality().equals(other.maskedKeywords, _maskedKeywords)&&(identical(other.socks5ProxyEnabled, socks5ProxyEnabled) || other.socks5ProxyEnabled == socks5ProxyEnabled)&&(identical(other.socks5Proxy, socks5Proxy) || other.socks5Proxy == socks5Proxy)&&(identical(other.needCleanCache, needCleanCache) || other.needCleanCache == needCleanCache)&&(identical(other.comicChoice, comicChoice) || other.comicChoice == comicChoice)&&(identical(other.disableBika, disableBika) || other.disableBika == disableBika)&&(identical(other.enableMemoryDebug, enableMemoryDebug) || other.enableMemoryDebug == enableMemoryDebug)&&(identical(other.blockRustHttpRequests, blockRustHttpRequests) || other.blockRustHttpRequests == blockRustHttpRequests)&&(identical(other.logAddress, logAddress) || other.logAddress == logAddress)&&(identical(other.forceEnableImpeller, forceEnableImpeller) || other.forceEnableImpeller == forceEnableImpeller)&&(identical(other.androidKeepAliveEnabled, androidKeepAliveEnabled) || other.androidKeepAliveEnabled == androidKeepAliveEnabled)&&(identical(other.backPressExitEnabled, backPressExitEnabled) || other.backPressExitEnabled == backPressExitEnabled)&&(identical(other.updateAccelerate, updateAccelerate) || other.updateAccelerate == updateAccelerate)&&(identical(other.retryDownloadUntilSuccess, retryDownloadUntilSuccess) || other.retryDownloadUntilSuccess == retryDownloadUntilSuccess)&&(identical(other.oldPageRollbackEnabled, oldPageRollbackEnabled) || other.oldPageRollbackEnabled == oldPageRollbackEnabled)&&(identical(other.cloudFavoritePreferred, cloudFavoritePreferred) || other.cloudFavoritePreferred == cloudFavoritePreferred)&&(identical(other.autoFollowOnCollect, autoFollowOnCollect) || other.autoFollowOnCollect == autoFollowOnCollect)&&(identical(other.leftHandModeEnabled, leftHandModeEnabled) || other.leftHandModeEnabled == leftHandModeEnabled)&&(identical(other.clickCoverToStartReading, clickCoverToStartReading) || other.clickCoverToStartReading == clickCoverToStartReading)&&const DeepCollectionEquality().equals(other.searchHistory, _searchHistory)&&(identical(other.proxySetting, proxySetting) || other.proxySetting == proxySetting)&&(identical(other.windowWidth, windowWidth) || other.windowWidth == windowWidth)&&(identical(other.windowHeight, windowHeight) || other.windowHeight == windowHeight)&&(identical(other.windowX, windowX) || other.windowX == windowX)&&(identical(other.windowY, windowY) || other.windowY == windowY)&&(identical(other.readSetting, readSetting) || other.readSetting == readSetting)&&(identical(other.customExportPath, customExportPath) || other.customExportPath == customExportPath)&&(identical(other.appLockSetting, appLockSetting) || other.appLockSetting == appLockSetting)&&(identical(other.compatibleVersion, compatibleVersion) || other.compatibleVersion == compatibleVersion)&&(identical(other.cacheSetting, cacheSetting) || other.cacheSetting == cacheSetting)&&(identical(other.chineseConvertMode, chineseConvertMode) || other.chineseConvertMode == chineseConvertMode)&&(identical(other.bookshelfSetting, bookshelfSetting) || other.bookshelfSetting == bookshelfSetting));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GlobalSettingState&&(identical(other.dynamicColor, dynamicColor) || other.dynamicColor == dynamicColor)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.isAMOLED, isAMOLED) || other.isAMOLED == isAMOLED)&&(identical(other.seedColor, seedColor) || other.seedColor == seedColor)&&(identical(other.themeInitState, themeInitState) || other.themeInitState == themeInitState)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.localeFollowsSystem, localeFollowsSystem) || other.localeFollowsSystem == localeFollowsSystem)&&(identical(other.welcomePageNum, welcomePageNum) || other.welcomePageNum == welcomePageNum)&&(identical(other.syncSetting, syncSetting) || other.syncSetting == syncSetting)&&const DeepCollectionEquality().equals(other.maskedKeywords, _maskedKeywords)&&(identical(other.socks5ProxyEnabled, socks5ProxyEnabled) || other.socks5ProxyEnabled == socks5ProxyEnabled)&&(identical(other.socks5Proxy, socks5Proxy) || other.socks5Proxy == socks5Proxy)&&(identical(other.needCleanCache, needCleanCache) || other.needCleanCache == needCleanCache)&&(identical(other.comicChoice, comicChoice) || other.comicChoice == comicChoice)&&(identical(other.disableBika, disableBika) || other.disableBika == disableBika)&&(identical(other.enableMemoryDebug, enableMemoryDebug) || other.enableMemoryDebug == enableMemoryDebug)&&(identical(other.blockRustHttpRequests, blockRustHttpRequests) || other.blockRustHttpRequests == blockRustHttpRequests)&&(identical(other.logAddress, logAddress) || other.logAddress == logAddress)&&(identical(other.forceEnableImpeller, forceEnableImpeller) || other.forceEnableImpeller == forceEnableImpeller)&&(identical(other.androidKeepAliveEnabled, androidKeepAliveEnabled) || other.androidKeepAliveEnabled == androidKeepAliveEnabled)&&(identical(other.backPressExitEnabled, backPressExitEnabled) || other.backPressExitEnabled == backPressExitEnabled)&&(identical(other.updateAccelerate, updateAccelerate) || other.updateAccelerate == updateAccelerate)&&(identical(other.retryDownloadUntilSuccess, retryDownloadUntilSuccess) || other.retryDownloadUntilSuccess == retryDownloadUntilSuccess)&&(identical(other.autoFollowOnCollect, autoFollowOnCollect) || other.autoFollowOnCollect == autoFollowOnCollect)&&(identical(other.leftHandModeEnabled, leftHandModeEnabled) || other.leftHandModeEnabled == leftHandModeEnabled)&&(identical(other.clickCoverToStartReading, clickCoverToStartReading) || other.clickCoverToStartReading == clickCoverToStartReading)&&const DeepCollectionEquality().equals(other.searchHistory, _searchHistory)&&(identical(other.proxySetting, proxySetting) || other.proxySetting == proxySetting)&&(identical(other.windowWidth, windowWidth) || other.windowWidth == windowWidth)&&(identical(other.windowHeight, windowHeight) || other.windowHeight == windowHeight)&&(identical(other.windowX, windowX) || other.windowX == windowX)&&(identical(other.windowY, windowY) || other.windowY == windowY)&&(identical(other.readSetting, readSetting) || other.readSetting == readSetting)&&(identical(other.customExportPath, customExportPath) || other.customExportPath == customExportPath)&&(identical(other.appLockSetting, appLockSetting) || other.appLockSetting == appLockSetting)&&(identical(other.compatibleVersion, compatibleVersion) || other.compatibleVersion == compatibleVersion)&&(identical(other.cacheSetting, cacheSetting) || other.cacheSetting == cacheSetting)&&(identical(other.chineseConvertMode, chineseConvertMode) || other.chineseConvertMode == chineseConvertMode)&&(identical(other.bookshelfSetting, bookshelfSetting) || other.bookshelfSetting == bookshelfSetting)&&(identical(other.eInkSetting, eInkSetting) || other.eInkSetting == eInkSetting));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hashAll([runtimeType,dynamicColor,themeMode,isAMOLED,seedColor,themeInitState,locale,localeFollowsSystem,welcomePageNum,syncSetting,const DeepCollectionEquality().hash(_maskedKeywords),socks5ProxyEnabled,socks5Proxy,needCleanCache,comicChoice,disableBika,enableMemoryDebug,blockRustHttpRequests,logAddress,forceEnableImpeller,androidKeepAliveEnabled,backPressExitEnabled,updateAccelerate,retryDownloadUntilSuccess,oldPageRollbackEnabled,cloudFavoritePreferred,autoFollowOnCollect,leftHandModeEnabled,clickCoverToStartReading,const DeepCollectionEquality().hash(_searchHistory),proxySetting,windowWidth,windowHeight,windowX,windowY,readSetting,customExportPath,appLockSetting,compatibleVersion,cacheSetting,chineseConvertMode,bookshelfSetting]);
+    return Object.hashAll([runtimeType,dynamicColor,themeMode,isAMOLED,seedColor,themeInitState,locale,localeFollowsSystem,welcomePageNum,syncSetting,const DeepCollectionEquality().hash(_maskedKeywords),socks5ProxyEnabled,socks5Proxy,needCleanCache,comicChoice,disableBika,enableMemoryDebug,blockRustHttpRequests,logAddress,forceEnableImpeller,androidKeepAliveEnabled,backPressExitEnabled,updateAccelerate,retryDownloadUntilSuccess,autoFollowOnCollect,leftHandModeEnabled,clickCoverToStartReading,const DeepCollectionEquality().hash(_searchHistory),proxySetting,windowWidth,windowHeight,windowX,windowY,readSetting,customExportPath,appLockSetting,compatibleVersion,cacheSetting,chineseConvertMode,bookshelfSetting,eInkSetting]);
 }
 
 @override
 String toString() {
-    return 'GlobalSettingState(dynamicColor: $dynamicColor, themeMode: $themeMode, isAMOLED: $isAMOLED, seedColor: $seedColor, themeInitState: $themeInitState, locale: $locale, localeFollowsSystem: $localeFollowsSystem, welcomePageNum: $welcomePageNum, syncSetting: $syncSetting, maskedKeywords: $maskedKeywords, socks5ProxyEnabled: $socks5ProxyEnabled, socks5Proxy: $socks5Proxy, needCleanCache: $needCleanCache, comicChoice: $comicChoice, disableBika: $disableBika, enableMemoryDebug: $enableMemoryDebug, blockRustHttpRequests: $blockRustHttpRequests, logAddress: $logAddress, forceEnableImpeller: $forceEnableImpeller, androidKeepAliveEnabled: $androidKeepAliveEnabled, backPressExitEnabled: $backPressExitEnabled, updateAccelerate: $updateAccelerate, retryDownloadUntilSuccess: $retryDownloadUntilSuccess, oldPageRollbackEnabled: $oldPageRollbackEnabled, cloudFavoritePreferred: $cloudFavoritePreferred, autoFollowOnCollect: $autoFollowOnCollect, leftHandModeEnabled: $leftHandModeEnabled, clickCoverToStartReading: $clickCoverToStartReading, searchHistory: $searchHistory, proxySetting: $proxySetting, windowWidth: $windowWidth, windowHeight: $windowHeight, windowX: $windowX, windowY: $windowY, readSetting: $readSetting, customExportPath: $customExportPath, appLockSetting: $appLockSetting, compatibleVersion: $compatibleVersion, cacheSetting: $cacheSetting, chineseConvertMode: $chineseConvertMode, bookshelfSetting: $bookshelfSetting)';
+    return 'GlobalSettingState(dynamicColor: $dynamicColor, themeMode: $themeMode, isAMOLED: $isAMOLED, seedColor: $seedColor, themeInitState: $themeInitState, locale: $locale, localeFollowsSystem: $localeFollowsSystem, welcomePageNum: $welcomePageNum, syncSetting: $syncSetting, maskedKeywords: $maskedKeywords, socks5ProxyEnabled: $socks5ProxyEnabled, socks5Proxy: $socks5Proxy, needCleanCache: $needCleanCache, comicChoice: $comicChoice, disableBika: $disableBika, enableMemoryDebug: $enableMemoryDebug, blockRustHttpRequests: $blockRustHttpRequests, logAddress: $logAddress, forceEnableImpeller: $forceEnableImpeller, androidKeepAliveEnabled: $androidKeepAliveEnabled, backPressExitEnabled: $backPressExitEnabled, updateAccelerate: $updateAccelerate, retryDownloadUntilSuccess: $retryDownloadUntilSuccess, autoFollowOnCollect: $autoFollowOnCollect, leftHandModeEnabled: $leftHandModeEnabled, clickCoverToStartReading: $clickCoverToStartReading, searchHistory: $searchHistory, proxySetting: $proxySetting, windowWidth: $windowWidth, windowHeight: $windowHeight, windowX: $windowX, windowY: $windowY, readSetting: $readSetting, customExportPath: $customExportPath, appLockSetting: $appLockSetting, compatibleVersion: $compatibleVersion, cacheSetting: $cacheSetting, chineseConvertMode: $chineseConvertMode, bookshelfSetting: $bookshelfSetting, eInkSetting: $eInkSetting)';
 }
 
 
@@ -401,11 +408,11 @@ abstract mixin class _$GlobalSettingStateCopyWith<$Res> implements $GlobalSettin
   factory _$GlobalSettingStateCopyWith(_GlobalSettingState value, $Res Function(_GlobalSettingState) _then) = __$GlobalSettingStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool dynamicColor, ThemeMode themeMode, bool isAMOLED,@ColorConverter() Color seedColor, int themeInitState,@LocaleConverter() Locale locale, bool localeFollowsSystem, int welcomePageNum, SyncSettingState syncSetting, List<String> maskedKeywords, bool socks5ProxyEnabled, String socks5Proxy, bool needCleanCache, int comicChoice, bool disableBika, bool enableMemoryDebug, bool blockRustHttpRequests, String logAddress, bool forceEnableImpeller, bool androidKeepAliveEnabled, bool backPressExitEnabled, bool updateAccelerate, bool retryDownloadUntilSuccess, bool oldPageRollbackEnabled, bool cloudFavoritePreferred, bool autoFollowOnCollect, bool leftHandModeEnabled, bool clickCoverToStartReading, List<String> searchHistory, ProxySettingState proxySetting, double windowWidth, double windowHeight, double windowX, double windowY, ReadSettingState readSetting, String customExportPath, AppLockSettingState appLockSetting, String compatibleVersion, CacheSettingState cacheSetting, ChineseConvertMode chineseConvertMode, BookshelfSettingState bookshelfSetting
+ bool dynamicColor, ThemeMode themeMode, bool isAMOLED,@ColorConverter() Color seedColor, int themeInitState,@LocaleConverter() Locale locale, bool localeFollowsSystem, int welcomePageNum, SyncSettingState syncSetting, List<String> maskedKeywords, bool socks5ProxyEnabled, String socks5Proxy, bool needCleanCache, int comicChoice, bool disableBika, bool enableMemoryDebug, bool blockRustHttpRequests, String logAddress, bool forceEnableImpeller, bool androidKeepAliveEnabled, bool backPressExitEnabled, bool updateAccelerate, bool retryDownloadUntilSuccess, bool autoFollowOnCollect, bool leftHandModeEnabled, bool clickCoverToStartReading, List<String> searchHistory, ProxySettingState proxySetting, double windowWidth, double windowHeight, double windowX, double windowY, ReadSettingState readSetting, String customExportPath, AppLockSettingState appLockSetting, String compatibleVersion, CacheSettingState cacheSetting, ChineseConvertMode chineseConvertMode, BookshelfSettingState bookshelfSetting, EInkSettingState eInkSetting
 });
 
 
-@override $SyncSettingStateCopyWith<$Res> get syncSetting;@override $ProxySettingStateCopyWith<$Res> get proxySetting;@override $ReadSettingStateCopyWith<$Res> get readSetting;@override $AppLockSettingStateCopyWith<$Res> get appLockSetting;@override $CacheSettingStateCopyWith<$Res> get cacheSetting;@override $BookshelfSettingStateCopyWith<$Res> get bookshelfSetting;
+@override $SyncSettingStateCopyWith<$Res> get syncSetting;@override $ProxySettingStateCopyWith<$Res> get proxySetting;@override $ReadSettingStateCopyWith<$Res> get readSetting;@override $AppLockSettingStateCopyWith<$Res> get appLockSetting;@override $CacheSettingStateCopyWith<$Res> get cacheSetting;@override $BookshelfSettingStateCopyWith<$Res> get bookshelfSetting;@override $EInkSettingStateCopyWith<$Res> get eInkSetting;
 
 }
 /// @nodoc
@@ -418,7 +425,7 @@ class __$GlobalSettingStateCopyWithImpl<$Res>
 
 /// Create a copy of GlobalSettingState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? dynamicColor = null,Object? themeMode = null,Object? isAMOLED = null,Object? seedColor = null,Object? themeInitState = null,Object? locale = null,Object? localeFollowsSystem = null,Object? welcomePageNum = null,Object? syncSetting = null,Object? maskedKeywords = null,Object? socks5ProxyEnabled = null,Object? socks5Proxy = null,Object? needCleanCache = null,Object? comicChoice = null,Object? disableBika = null,Object? enableMemoryDebug = null,Object? blockRustHttpRequests = null,Object? logAddress = null,Object? forceEnableImpeller = null,Object? androidKeepAliveEnabled = null,Object? backPressExitEnabled = null,Object? updateAccelerate = null,Object? retryDownloadUntilSuccess = null,Object? oldPageRollbackEnabled = null,Object? cloudFavoritePreferred = null,Object? autoFollowOnCollect = null,Object? leftHandModeEnabled = null,Object? clickCoverToStartReading = null,Object? searchHistory = null,Object? proxySetting = null,Object? windowWidth = null,Object? windowHeight = null,Object? windowX = null,Object? windowY = null,Object? readSetting = null,Object? customExportPath = null,Object? appLockSetting = null,Object? compatibleVersion = null,Object? cacheSetting = null,Object? chineseConvertMode = null,Object? bookshelfSetting = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? dynamicColor = null,Object? themeMode = null,Object? isAMOLED = null,Object? seedColor = null,Object? themeInitState = null,Object? locale = null,Object? localeFollowsSystem = null,Object? welcomePageNum = null,Object? syncSetting = null,Object? maskedKeywords = null,Object? socks5ProxyEnabled = null,Object? socks5Proxy = null,Object? needCleanCache = null,Object? comicChoice = null,Object? disableBika = null,Object? enableMemoryDebug = null,Object? blockRustHttpRequests = null,Object? logAddress = null,Object? forceEnableImpeller = null,Object? androidKeepAliveEnabled = null,Object? backPressExitEnabled = null,Object? updateAccelerate = null,Object? retryDownloadUntilSuccess = null,Object? autoFollowOnCollect = null,Object? leftHandModeEnabled = null,Object? clickCoverToStartReading = null,Object? searchHistory = null,Object? proxySetting = null,Object? windowWidth = null,Object? windowHeight = null,Object? windowX = null,Object? windowY = null,Object? readSetting = null,Object? customExportPath = null,Object? appLockSetting = null,Object? compatibleVersion = null,Object? cacheSetting = null,Object? chineseConvertMode = null,Object? bookshelfSetting = null,Object? eInkSetting = null,}) {
   return _then(_GlobalSettingState(
 dynamicColor: null == dynamicColor ? _self.dynamicColor : dynamicColor // ignore: cast_nullable_to_non_nullable
 as bool,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
@@ -443,8 +450,6 @@ as bool,androidKeepAliveEnabled: null == androidKeepAliveEnabled ? _self.android
 as bool,backPressExitEnabled: null == backPressExitEnabled ? _self.backPressExitEnabled : backPressExitEnabled // ignore: cast_nullable_to_non_nullable
 as bool,updateAccelerate: null == updateAccelerate ? _self.updateAccelerate : updateAccelerate // ignore: cast_nullable_to_non_nullable
 as bool,retryDownloadUntilSuccess: null == retryDownloadUntilSuccess ? _self.retryDownloadUntilSuccess : retryDownloadUntilSuccess // ignore: cast_nullable_to_non_nullable
-as bool,oldPageRollbackEnabled: null == oldPageRollbackEnabled ? _self.oldPageRollbackEnabled : oldPageRollbackEnabled // ignore: cast_nullable_to_non_nullable
-as bool,cloudFavoritePreferred: null == cloudFavoritePreferred ? _self.cloudFavoritePreferred : cloudFavoritePreferred // ignore: cast_nullable_to_non_nullable
 as bool,autoFollowOnCollect: null == autoFollowOnCollect ? _self.autoFollowOnCollect : autoFollowOnCollect // ignore: cast_nullable_to_non_nullable
 as bool,leftHandModeEnabled: null == leftHandModeEnabled ? _self.leftHandModeEnabled : leftHandModeEnabled // ignore: cast_nullable_to_non_nullable
 as bool,clickCoverToStartReading: null == clickCoverToStartReading ? _self.clickCoverToStartReading : clickCoverToStartReading // ignore: cast_nullable_to_non_nullable
@@ -461,7 +466,8 @@ as AppLockSettingState,compatibleVersion: null == compatibleVersion ? _self.comp
 as String,cacheSetting: null == cacheSetting ? _self.cacheSetting : cacheSetting // ignore: cast_nullable_to_non_nullable
 as CacheSettingState,chineseConvertMode: null == chineseConvertMode ? _self.chineseConvertMode : chineseConvertMode // ignore: cast_nullable_to_non_nullable
 as ChineseConvertMode,bookshelfSetting: null == bookshelfSetting ? _self.bookshelfSetting : bookshelfSetting // ignore: cast_nullable_to_non_nullable
-as BookshelfSettingState,
+as BookshelfSettingState,eInkSetting: null == eInkSetting ? _self.eInkSetting : eInkSetting // ignore: cast_nullable_to_non_nullable
+as EInkSettingState,
   ));
 }
 
@@ -518,6 +524,15 @@ $BookshelfSettingStateCopyWith<$Res> get bookshelfSetting {
   
   return $BookshelfSettingStateCopyWith<$Res>(_self.bookshelfSetting, (value) {
     return _then(_self.copyWith(bookshelfSetting: value));
+  });
+}/// Create a copy of GlobalSettingState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$EInkSettingStateCopyWith<$Res> get eInkSetting {
+  
+  return $EInkSettingStateCopyWith<$Res>(_self.eInkSetting, (value) {
+    return _then(_self.copyWith(eInkSetting: value));
   });
 }
 }
@@ -2245,7 +2260,7 @@ $S3SettingStateCopyWith<$Res> get s3Setting {
 /// @nodoc
 mixin _$ReadSettingState {
 
- bool get noAnimation; bool get comicReadTopContainer; int get readMode; ReaderTapPageTurnMode get tapPageTurnMode; bool get tapPageTurnInWebtoon; ReaderBackgroundMode get readerBackgroundMode; bool get readFilterEnabled; int get readFilterOpacityPercent; bool get einkOptimization; int get einkDelayMs; bool get autoScroll; bool get autoScrollHidePauseButton; bool get autoScrollSmooth; int get autoScrollColumnIntervalMs; int get autoScrollPageIntervalMs; int get autoScrollColumnDistancePercent; int get preloadImageCount; int get preloadChapterCount; bool get landscapeReader; bool get doublePageMode; bool get doublePageSeamless; bool get doublePageLeadingBlank; bool get sidePaddingEnabled; int get sidePaddingPercent; bool get volumeKeyPageTurn; int get volumeKeyPageTurnDistancePercent; bool get doubleTapZoom; bool get doubleTapOpenMenu; bool get pageInfoShowPage; bool get pageInfoShowNetwork; bool get pageInfoShowBattery; bool get pageInfoShowTime; ReaderInfoVerticalPosition get pageInfoVerticalPosition; bool get pageInfoTopInStatusBar; ReaderInfoHorizontalPosition get pageInfoHorizontalPosition; int get pageInfoEdgePadding; int get pageInfoOpacityPercent; int get pageInfoFontSize;
+ bool get noAnimation; bool get comicReadTopContainer; int get readMode; ReaderTapPageTurnMode get tapPageTurnMode; bool get tapPageTurnInWebtoon; bool get reverseHorizontalPageTurn; ReaderBackgroundMode get readerBackgroundMode; bool get readFilterEnabled; int get readFilterOpacityPercent; bool get einkOptimization; int get einkDelayMs; bool get autoScroll; bool get autoScrollHidePauseButton; bool get autoScrollSmooth; int get autoScrollColumnIntervalMs; int get autoScrollPageIntervalMs; int get autoScrollColumnDistancePercent; int get preloadImageCount; int get preloadChapterCount; bool get landscapeReader; bool get doublePageMode; bool get doublePageSeamless; bool get doublePageLeadingBlank; bool get sidePaddingEnabled; int get sidePaddingPercent; bool get volumeKeyPageTurn; int get volumeKeyPageTurnDistancePercent; bool get doubleTapZoom; bool get doubleTapOpenMenu; bool get pageInfoShowPage; bool get pageInfoShowNetwork; bool get pageInfoShowBattery; bool get pageInfoShowTime; ReaderInfoVerticalPosition get pageInfoVerticalPosition; bool get pageInfoTopInStatusBar; ReaderInfoHorizontalPosition get pageInfoHorizontalPosition; int get pageInfoEdgePadding; int get pageInfoOpacityPercent; int get pageInfoFontSize;
 /// Create a copy of ReadSettingState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2259,20 +2274,20 @@ $ReadSettingStateCopyWith<ReadSettingState> get copyWith => _$ReadSettingStateCo
 @override
 bool operator ==(Object other) {
   final _this = this as ReadSettingState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadSettingState&&(identical(other.noAnimation, _this.noAnimation) || other.noAnimation == _this.noAnimation)&&(identical(other.comicReadTopContainer, _this.comicReadTopContainer) || other.comicReadTopContainer == _this.comicReadTopContainer)&&(identical(other.readMode, _this.readMode) || other.readMode == _this.readMode)&&(identical(other.tapPageTurnMode, _this.tapPageTurnMode) || other.tapPageTurnMode == _this.tapPageTurnMode)&&(identical(other.tapPageTurnInWebtoon, _this.tapPageTurnInWebtoon) || other.tapPageTurnInWebtoon == _this.tapPageTurnInWebtoon)&&(identical(other.readerBackgroundMode, _this.readerBackgroundMode) || other.readerBackgroundMode == _this.readerBackgroundMode)&&(identical(other.readFilterEnabled, _this.readFilterEnabled) || other.readFilterEnabled == _this.readFilterEnabled)&&(identical(other.readFilterOpacityPercent, _this.readFilterOpacityPercent) || other.readFilterOpacityPercent == _this.readFilterOpacityPercent)&&(identical(other.einkOptimization, _this.einkOptimization) || other.einkOptimization == _this.einkOptimization)&&(identical(other.einkDelayMs, _this.einkDelayMs) || other.einkDelayMs == _this.einkDelayMs)&&(identical(other.autoScroll, _this.autoScroll) || other.autoScroll == _this.autoScroll)&&(identical(other.autoScrollHidePauseButton, _this.autoScrollHidePauseButton) || other.autoScrollHidePauseButton == _this.autoScrollHidePauseButton)&&(identical(other.autoScrollSmooth, _this.autoScrollSmooth) || other.autoScrollSmooth == _this.autoScrollSmooth)&&(identical(other.autoScrollColumnIntervalMs, _this.autoScrollColumnIntervalMs) || other.autoScrollColumnIntervalMs == _this.autoScrollColumnIntervalMs)&&(identical(other.autoScrollPageIntervalMs, _this.autoScrollPageIntervalMs) || other.autoScrollPageIntervalMs == _this.autoScrollPageIntervalMs)&&(identical(other.autoScrollColumnDistancePercent, _this.autoScrollColumnDistancePercent) || other.autoScrollColumnDistancePercent == _this.autoScrollColumnDistancePercent)&&(identical(other.preloadImageCount, _this.preloadImageCount) || other.preloadImageCount == _this.preloadImageCount)&&(identical(other.preloadChapterCount, _this.preloadChapterCount) || other.preloadChapterCount == _this.preloadChapterCount)&&(identical(other.landscapeReader, _this.landscapeReader) || other.landscapeReader == _this.landscapeReader)&&(identical(other.doublePageMode, _this.doublePageMode) || other.doublePageMode == _this.doublePageMode)&&(identical(other.doublePageSeamless, _this.doublePageSeamless) || other.doublePageSeamless == _this.doublePageSeamless)&&(identical(other.doublePageLeadingBlank, _this.doublePageLeadingBlank) || other.doublePageLeadingBlank == _this.doublePageLeadingBlank)&&(identical(other.sidePaddingEnabled, _this.sidePaddingEnabled) || other.sidePaddingEnabled == _this.sidePaddingEnabled)&&(identical(other.sidePaddingPercent, _this.sidePaddingPercent) || other.sidePaddingPercent == _this.sidePaddingPercent)&&(identical(other.volumeKeyPageTurn, _this.volumeKeyPageTurn) || other.volumeKeyPageTurn == _this.volumeKeyPageTurn)&&(identical(other.volumeKeyPageTurnDistancePercent, _this.volumeKeyPageTurnDistancePercent) || other.volumeKeyPageTurnDistancePercent == _this.volumeKeyPageTurnDistancePercent)&&(identical(other.doubleTapZoom, _this.doubleTapZoom) || other.doubleTapZoom == _this.doubleTapZoom)&&(identical(other.doubleTapOpenMenu, _this.doubleTapOpenMenu) || other.doubleTapOpenMenu == _this.doubleTapOpenMenu)&&(identical(other.pageInfoShowPage, _this.pageInfoShowPage) || other.pageInfoShowPage == _this.pageInfoShowPage)&&(identical(other.pageInfoShowNetwork, _this.pageInfoShowNetwork) || other.pageInfoShowNetwork == _this.pageInfoShowNetwork)&&(identical(other.pageInfoShowBattery, _this.pageInfoShowBattery) || other.pageInfoShowBattery == _this.pageInfoShowBattery)&&(identical(other.pageInfoShowTime, _this.pageInfoShowTime) || other.pageInfoShowTime == _this.pageInfoShowTime)&&(identical(other.pageInfoVerticalPosition, _this.pageInfoVerticalPosition) || other.pageInfoVerticalPosition == _this.pageInfoVerticalPosition)&&(identical(other.pageInfoTopInStatusBar, _this.pageInfoTopInStatusBar) || other.pageInfoTopInStatusBar == _this.pageInfoTopInStatusBar)&&(identical(other.pageInfoHorizontalPosition, _this.pageInfoHorizontalPosition) || other.pageInfoHorizontalPosition == _this.pageInfoHorizontalPosition)&&(identical(other.pageInfoEdgePadding, _this.pageInfoEdgePadding) || other.pageInfoEdgePadding == _this.pageInfoEdgePadding)&&(identical(other.pageInfoOpacityPercent, _this.pageInfoOpacityPercent) || other.pageInfoOpacityPercent == _this.pageInfoOpacityPercent)&&(identical(other.pageInfoFontSize, _this.pageInfoFontSize) || other.pageInfoFontSize == _this.pageInfoFontSize));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadSettingState&&(identical(other.noAnimation, _this.noAnimation) || other.noAnimation == _this.noAnimation)&&(identical(other.comicReadTopContainer, _this.comicReadTopContainer) || other.comicReadTopContainer == _this.comicReadTopContainer)&&(identical(other.readMode, _this.readMode) || other.readMode == _this.readMode)&&(identical(other.tapPageTurnMode, _this.tapPageTurnMode) || other.tapPageTurnMode == _this.tapPageTurnMode)&&(identical(other.tapPageTurnInWebtoon, _this.tapPageTurnInWebtoon) || other.tapPageTurnInWebtoon == _this.tapPageTurnInWebtoon)&&(identical(other.reverseHorizontalPageTurn, _this.reverseHorizontalPageTurn) || other.reverseHorizontalPageTurn == _this.reverseHorizontalPageTurn)&&(identical(other.readerBackgroundMode, _this.readerBackgroundMode) || other.readerBackgroundMode == _this.readerBackgroundMode)&&(identical(other.readFilterEnabled, _this.readFilterEnabled) || other.readFilterEnabled == _this.readFilterEnabled)&&(identical(other.readFilterOpacityPercent, _this.readFilterOpacityPercent) || other.readFilterOpacityPercent == _this.readFilterOpacityPercent)&&(identical(other.einkOptimization, _this.einkOptimization) || other.einkOptimization == _this.einkOptimization)&&(identical(other.einkDelayMs, _this.einkDelayMs) || other.einkDelayMs == _this.einkDelayMs)&&(identical(other.autoScroll, _this.autoScroll) || other.autoScroll == _this.autoScroll)&&(identical(other.autoScrollHidePauseButton, _this.autoScrollHidePauseButton) || other.autoScrollHidePauseButton == _this.autoScrollHidePauseButton)&&(identical(other.autoScrollSmooth, _this.autoScrollSmooth) || other.autoScrollSmooth == _this.autoScrollSmooth)&&(identical(other.autoScrollColumnIntervalMs, _this.autoScrollColumnIntervalMs) || other.autoScrollColumnIntervalMs == _this.autoScrollColumnIntervalMs)&&(identical(other.autoScrollPageIntervalMs, _this.autoScrollPageIntervalMs) || other.autoScrollPageIntervalMs == _this.autoScrollPageIntervalMs)&&(identical(other.autoScrollColumnDistancePercent, _this.autoScrollColumnDistancePercent) || other.autoScrollColumnDistancePercent == _this.autoScrollColumnDistancePercent)&&(identical(other.preloadImageCount, _this.preloadImageCount) || other.preloadImageCount == _this.preloadImageCount)&&(identical(other.preloadChapterCount, _this.preloadChapterCount) || other.preloadChapterCount == _this.preloadChapterCount)&&(identical(other.landscapeReader, _this.landscapeReader) || other.landscapeReader == _this.landscapeReader)&&(identical(other.doublePageMode, _this.doublePageMode) || other.doublePageMode == _this.doublePageMode)&&(identical(other.doublePageSeamless, _this.doublePageSeamless) || other.doublePageSeamless == _this.doublePageSeamless)&&(identical(other.doublePageLeadingBlank, _this.doublePageLeadingBlank) || other.doublePageLeadingBlank == _this.doublePageLeadingBlank)&&(identical(other.sidePaddingEnabled, _this.sidePaddingEnabled) || other.sidePaddingEnabled == _this.sidePaddingEnabled)&&(identical(other.sidePaddingPercent, _this.sidePaddingPercent) || other.sidePaddingPercent == _this.sidePaddingPercent)&&(identical(other.volumeKeyPageTurn, _this.volumeKeyPageTurn) || other.volumeKeyPageTurn == _this.volumeKeyPageTurn)&&(identical(other.volumeKeyPageTurnDistancePercent, _this.volumeKeyPageTurnDistancePercent) || other.volumeKeyPageTurnDistancePercent == _this.volumeKeyPageTurnDistancePercent)&&(identical(other.doubleTapZoom, _this.doubleTapZoom) || other.doubleTapZoom == _this.doubleTapZoom)&&(identical(other.doubleTapOpenMenu, _this.doubleTapOpenMenu) || other.doubleTapOpenMenu == _this.doubleTapOpenMenu)&&(identical(other.pageInfoShowPage, _this.pageInfoShowPage) || other.pageInfoShowPage == _this.pageInfoShowPage)&&(identical(other.pageInfoShowNetwork, _this.pageInfoShowNetwork) || other.pageInfoShowNetwork == _this.pageInfoShowNetwork)&&(identical(other.pageInfoShowBattery, _this.pageInfoShowBattery) || other.pageInfoShowBattery == _this.pageInfoShowBattery)&&(identical(other.pageInfoShowTime, _this.pageInfoShowTime) || other.pageInfoShowTime == _this.pageInfoShowTime)&&(identical(other.pageInfoVerticalPosition, _this.pageInfoVerticalPosition) || other.pageInfoVerticalPosition == _this.pageInfoVerticalPosition)&&(identical(other.pageInfoTopInStatusBar, _this.pageInfoTopInStatusBar) || other.pageInfoTopInStatusBar == _this.pageInfoTopInStatusBar)&&(identical(other.pageInfoHorizontalPosition, _this.pageInfoHorizontalPosition) || other.pageInfoHorizontalPosition == _this.pageInfoHorizontalPosition)&&(identical(other.pageInfoEdgePadding, _this.pageInfoEdgePadding) || other.pageInfoEdgePadding == _this.pageInfoEdgePadding)&&(identical(other.pageInfoOpacityPercent, _this.pageInfoOpacityPercent) || other.pageInfoOpacityPercent == _this.pageInfoOpacityPercent)&&(identical(other.pageInfoFontSize, _this.pageInfoFontSize) || other.pageInfoFontSize == _this.pageInfoFontSize));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as ReadSettingState;
-  return Object.hashAll([runtimeType,_this.noAnimation,_this.comicReadTopContainer,_this.readMode,_this.tapPageTurnMode,_this.tapPageTurnInWebtoon,_this.readerBackgroundMode,_this.readFilterEnabled,_this.readFilterOpacityPercent,_this.einkOptimization,_this.einkDelayMs,_this.autoScroll,_this.autoScrollHidePauseButton,_this.autoScrollSmooth,_this.autoScrollColumnIntervalMs,_this.autoScrollPageIntervalMs,_this.autoScrollColumnDistancePercent,_this.preloadImageCount,_this.preloadChapterCount,_this.landscapeReader,_this.doublePageMode,_this.doublePageSeamless,_this.doublePageLeadingBlank,_this.sidePaddingEnabled,_this.sidePaddingPercent,_this.volumeKeyPageTurn,_this.volumeKeyPageTurnDistancePercent,_this.doubleTapZoom,_this.doubleTapOpenMenu,_this.pageInfoShowPage,_this.pageInfoShowNetwork,_this.pageInfoShowBattery,_this.pageInfoShowTime,_this.pageInfoVerticalPosition,_this.pageInfoTopInStatusBar,_this.pageInfoHorizontalPosition,_this.pageInfoEdgePadding,_this.pageInfoOpacityPercent,_this.pageInfoFontSize]);
+  return Object.hashAll([runtimeType,_this.noAnimation,_this.comicReadTopContainer,_this.readMode,_this.tapPageTurnMode,_this.tapPageTurnInWebtoon,_this.reverseHorizontalPageTurn,_this.readerBackgroundMode,_this.readFilterEnabled,_this.readFilterOpacityPercent,_this.einkOptimization,_this.einkDelayMs,_this.autoScroll,_this.autoScrollHidePauseButton,_this.autoScrollSmooth,_this.autoScrollColumnIntervalMs,_this.autoScrollPageIntervalMs,_this.autoScrollColumnDistancePercent,_this.preloadImageCount,_this.preloadChapterCount,_this.landscapeReader,_this.doublePageMode,_this.doublePageSeamless,_this.doublePageLeadingBlank,_this.sidePaddingEnabled,_this.sidePaddingPercent,_this.volumeKeyPageTurn,_this.volumeKeyPageTurnDistancePercent,_this.doubleTapZoom,_this.doubleTapOpenMenu,_this.pageInfoShowPage,_this.pageInfoShowNetwork,_this.pageInfoShowBattery,_this.pageInfoShowTime,_this.pageInfoVerticalPosition,_this.pageInfoTopInStatusBar,_this.pageInfoHorizontalPosition,_this.pageInfoEdgePadding,_this.pageInfoOpacityPercent,_this.pageInfoFontSize]);
 }
 
 @override
 String toString() {
   final _this = this as ReadSettingState;
-  return 'ReadSettingState(noAnimation: ${_this.noAnimation}, comicReadTopContainer: ${_this.comicReadTopContainer}, readMode: ${_this.readMode}, tapPageTurnMode: ${_this.tapPageTurnMode}, tapPageTurnInWebtoon: ${_this.tapPageTurnInWebtoon}, readerBackgroundMode: ${_this.readerBackgroundMode}, readFilterEnabled: ${_this.readFilterEnabled}, readFilterOpacityPercent: ${_this.readFilterOpacityPercent}, einkOptimization: ${_this.einkOptimization}, einkDelayMs: ${_this.einkDelayMs}, autoScroll: ${_this.autoScroll}, autoScrollHidePauseButton: ${_this.autoScrollHidePauseButton}, autoScrollSmooth: ${_this.autoScrollSmooth}, autoScrollColumnIntervalMs: ${_this.autoScrollColumnIntervalMs}, autoScrollPageIntervalMs: ${_this.autoScrollPageIntervalMs}, autoScrollColumnDistancePercent: ${_this.autoScrollColumnDistancePercent}, preloadImageCount: ${_this.preloadImageCount}, preloadChapterCount: ${_this.preloadChapterCount}, landscapeReader: ${_this.landscapeReader}, doublePageMode: ${_this.doublePageMode}, doublePageSeamless: ${_this.doublePageSeamless}, doublePageLeadingBlank: ${_this.doublePageLeadingBlank}, sidePaddingEnabled: ${_this.sidePaddingEnabled}, sidePaddingPercent: ${_this.sidePaddingPercent}, volumeKeyPageTurn: ${_this.volumeKeyPageTurn}, volumeKeyPageTurnDistancePercent: ${_this.volumeKeyPageTurnDistancePercent}, doubleTapZoom: ${_this.doubleTapZoom}, doubleTapOpenMenu: ${_this.doubleTapOpenMenu}, pageInfoShowPage: ${_this.pageInfoShowPage}, pageInfoShowNetwork: ${_this.pageInfoShowNetwork}, pageInfoShowBattery: ${_this.pageInfoShowBattery}, pageInfoShowTime: ${_this.pageInfoShowTime}, pageInfoVerticalPosition: ${_this.pageInfoVerticalPosition}, pageInfoTopInStatusBar: ${_this.pageInfoTopInStatusBar}, pageInfoHorizontalPosition: ${_this.pageInfoHorizontalPosition}, pageInfoEdgePadding: ${_this.pageInfoEdgePadding}, pageInfoOpacityPercent: ${_this.pageInfoOpacityPercent}, pageInfoFontSize: ${_this.pageInfoFontSize})';
+  return 'ReadSettingState(noAnimation: ${_this.noAnimation}, comicReadTopContainer: ${_this.comicReadTopContainer}, readMode: ${_this.readMode}, tapPageTurnMode: ${_this.tapPageTurnMode}, tapPageTurnInWebtoon: ${_this.tapPageTurnInWebtoon}, reverseHorizontalPageTurn: ${_this.reverseHorizontalPageTurn}, readerBackgroundMode: ${_this.readerBackgroundMode}, readFilterEnabled: ${_this.readFilterEnabled}, readFilterOpacityPercent: ${_this.readFilterOpacityPercent}, einkOptimization: ${_this.einkOptimization}, einkDelayMs: ${_this.einkDelayMs}, autoScroll: ${_this.autoScroll}, autoScrollHidePauseButton: ${_this.autoScrollHidePauseButton}, autoScrollSmooth: ${_this.autoScrollSmooth}, autoScrollColumnIntervalMs: ${_this.autoScrollColumnIntervalMs}, autoScrollPageIntervalMs: ${_this.autoScrollPageIntervalMs}, autoScrollColumnDistancePercent: ${_this.autoScrollColumnDistancePercent}, preloadImageCount: ${_this.preloadImageCount}, preloadChapterCount: ${_this.preloadChapterCount}, landscapeReader: ${_this.landscapeReader}, doublePageMode: ${_this.doublePageMode}, doublePageSeamless: ${_this.doublePageSeamless}, doublePageLeadingBlank: ${_this.doublePageLeadingBlank}, sidePaddingEnabled: ${_this.sidePaddingEnabled}, sidePaddingPercent: ${_this.sidePaddingPercent}, volumeKeyPageTurn: ${_this.volumeKeyPageTurn}, volumeKeyPageTurnDistancePercent: ${_this.volumeKeyPageTurnDistancePercent}, doubleTapZoom: ${_this.doubleTapZoom}, doubleTapOpenMenu: ${_this.doubleTapOpenMenu}, pageInfoShowPage: ${_this.pageInfoShowPage}, pageInfoShowNetwork: ${_this.pageInfoShowNetwork}, pageInfoShowBattery: ${_this.pageInfoShowBattery}, pageInfoShowTime: ${_this.pageInfoShowTime}, pageInfoVerticalPosition: ${_this.pageInfoVerticalPosition}, pageInfoTopInStatusBar: ${_this.pageInfoTopInStatusBar}, pageInfoHorizontalPosition: ${_this.pageInfoHorizontalPosition}, pageInfoEdgePadding: ${_this.pageInfoEdgePadding}, pageInfoOpacityPercent: ${_this.pageInfoOpacityPercent}, pageInfoFontSize: ${_this.pageInfoFontSize})';
 }
 
 
@@ -2283,7 +2298,7 @@ abstract mixin class $ReadSettingStateCopyWith<$Res>  {
   factory $ReadSettingStateCopyWith(ReadSettingState value, $Res Function(ReadSettingState) _then) = _$ReadSettingStateCopyWithImpl;
 @useResult
 $Res call({
- bool noAnimation, bool comicReadTopContainer, int readMode, ReaderTapPageTurnMode tapPageTurnMode, bool tapPageTurnInWebtoon, ReaderBackgroundMode readerBackgroundMode, bool readFilterEnabled, int readFilterOpacityPercent, bool einkOptimization, int einkDelayMs, bool autoScroll, bool autoScrollHidePauseButton, bool autoScrollSmooth, int autoScrollColumnIntervalMs, int autoScrollPageIntervalMs, int autoScrollColumnDistancePercent, int preloadImageCount, int preloadChapterCount, bool landscapeReader, bool doublePageMode, bool doublePageSeamless, bool doublePageLeadingBlank, bool sidePaddingEnabled, int sidePaddingPercent, bool volumeKeyPageTurn, int volumeKeyPageTurnDistancePercent, bool doubleTapZoom, bool doubleTapOpenMenu, bool pageInfoShowPage, bool pageInfoShowNetwork, bool pageInfoShowBattery, bool pageInfoShowTime, ReaderInfoVerticalPosition pageInfoVerticalPosition, bool pageInfoTopInStatusBar, ReaderInfoHorizontalPosition pageInfoHorizontalPosition, int pageInfoEdgePadding, int pageInfoOpacityPercent, int pageInfoFontSize
+ bool noAnimation, bool comicReadTopContainer, int readMode, ReaderTapPageTurnMode tapPageTurnMode, bool tapPageTurnInWebtoon, bool reverseHorizontalPageTurn, ReaderBackgroundMode readerBackgroundMode, bool readFilterEnabled, int readFilterOpacityPercent, bool einkOptimization, int einkDelayMs, bool autoScroll, bool autoScrollHidePauseButton, bool autoScrollSmooth, int autoScrollColumnIntervalMs, int autoScrollPageIntervalMs, int autoScrollColumnDistancePercent, int preloadImageCount, int preloadChapterCount, bool landscapeReader, bool doublePageMode, bool doublePageSeamless, bool doublePageLeadingBlank, bool sidePaddingEnabled, int sidePaddingPercent, bool volumeKeyPageTurn, int volumeKeyPageTurnDistancePercent, bool doubleTapZoom, bool doubleTapOpenMenu, bool pageInfoShowPage, bool pageInfoShowNetwork, bool pageInfoShowBattery, bool pageInfoShowTime, ReaderInfoVerticalPosition pageInfoVerticalPosition, bool pageInfoTopInStatusBar, ReaderInfoHorizontalPosition pageInfoHorizontalPosition, int pageInfoEdgePadding, int pageInfoOpacityPercent, int pageInfoFontSize
 });
 
 
@@ -2300,13 +2315,14 @@ class _$ReadSettingStateCopyWithImpl<$Res>
 
 /// Create a copy of ReadSettingState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? noAnimation = null,Object? comicReadTopContainer = null,Object? readMode = null,Object? tapPageTurnMode = null,Object? tapPageTurnInWebtoon = null,Object? readerBackgroundMode = null,Object? readFilterEnabled = null,Object? readFilterOpacityPercent = null,Object? einkOptimization = null,Object? einkDelayMs = null,Object? autoScroll = null,Object? autoScrollHidePauseButton = null,Object? autoScrollSmooth = null,Object? autoScrollColumnIntervalMs = null,Object? autoScrollPageIntervalMs = null,Object? autoScrollColumnDistancePercent = null,Object? preloadImageCount = null,Object? preloadChapterCount = null,Object? landscapeReader = null,Object? doublePageMode = null,Object? doublePageSeamless = null,Object? doublePageLeadingBlank = null,Object? sidePaddingEnabled = null,Object? sidePaddingPercent = null,Object? volumeKeyPageTurn = null,Object? volumeKeyPageTurnDistancePercent = null,Object? doubleTapZoom = null,Object? doubleTapOpenMenu = null,Object? pageInfoShowPage = null,Object? pageInfoShowNetwork = null,Object? pageInfoShowBattery = null,Object? pageInfoShowTime = null,Object? pageInfoVerticalPosition = null,Object? pageInfoTopInStatusBar = null,Object? pageInfoHorizontalPosition = null,Object? pageInfoEdgePadding = null,Object? pageInfoOpacityPercent = null,Object? pageInfoFontSize = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? noAnimation = null,Object? comicReadTopContainer = null,Object? readMode = null,Object? tapPageTurnMode = null,Object? tapPageTurnInWebtoon = null,Object? reverseHorizontalPageTurn = null,Object? readerBackgroundMode = null,Object? readFilterEnabled = null,Object? readFilterOpacityPercent = null,Object? einkOptimization = null,Object? einkDelayMs = null,Object? autoScroll = null,Object? autoScrollHidePauseButton = null,Object? autoScrollSmooth = null,Object? autoScrollColumnIntervalMs = null,Object? autoScrollPageIntervalMs = null,Object? autoScrollColumnDistancePercent = null,Object? preloadImageCount = null,Object? preloadChapterCount = null,Object? landscapeReader = null,Object? doublePageMode = null,Object? doublePageSeamless = null,Object? doublePageLeadingBlank = null,Object? sidePaddingEnabled = null,Object? sidePaddingPercent = null,Object? volumeKeyPageTurn = null,Object? volumeKeyPageTurnDistancePercent = null,Object? doubleTapZoom = null,Object? doubleTapOpenMenu = null,Object? pageInfoShowPage = null,Object? pageInfoShowNetwork = null,Object? pageInfoShowBattery = null,Object? pageInfoShowTime = null,Object? pageInfoVerticalPosition = null,Object? pageInfoTopInStatusBar = null,Object? pageInfoHorizontalPosition = null,Object? pageInfoEdgePadding = null,Object? pageInfoOpacityPercent = null,Object? pageInfoFontSize = null,}) {
   return _then(ReadSettingState(
 noAnimation: null == noAnimation ? _self.noAnimation : noAnimation // ignore: cast_nullable_to_non_nullable
 as bool,comicReadTopContainer: null == comicReadTopContainer ? _self.comicReadTopContainer : comicReadTopContainer // ignore: cast_nullable_to_non_nullable
 as bool,readMode: null == readMode ? _self.readMode : readMode // ignore: cast_nullable_to_non_nullable
 as int,tapPageTurnMode: null == tapPageTurnMode ? _self.tapPageTurnMode : tapPageTurnMode // ignore: cast_nullable_to_non_nullable
 as ReaderTapPageTurnMode,tapPageTurnInWebtoon: null == tapPageTurnInWebtoon ? _self.tapPageTurnInWebtoon : tapPageTurnInWebtoon // ignore: cast_nullable_to_non_nullable
+as bool,reverseHorizontalPageTurn: null == reverseHorizontalPageTurn ? _self.reverseHorizontalPageTurn : reverseHorizontalPageTurn // ignore: cast_nullable_to_non_nullable
 as bool,readerBackgroundMode: null == readerBackgroundMode ? _self.readerBackgroundMode : readerBackgroundMode // ignore: cast_nullable_to_non_nullable
 as ReaderBackgroundMode,readFilterEnabled: null == readFilterEnabled ? _self.readFilterEnabled : readFilterEnabled // ignore: cast_nullable_to_non_nullable
 as bool,readFilterOpacityPercent: null == readFilterOpacityPercent ? _self.readFilterOpacityPercent : readFilterOpacityPercent // ignore: cast_nullable_to_non_nullable
@@ -2425,10 +2441,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool noAnimation,  bool comicReadTopContainer,  int readMode,  ReaderTapPageTurnMode tapPageTurnMode,  bool tapPageTurnInWebtoon,  ReaderBackgroundMode readerBackgroundMode,  bool readFilterEnabled,  int readFilterOpacityPercent,  bool einkOptimization,  int einkDelayMs,  bool autoScroll,  bool autoScrollHidePauseButton,  bool autoScrollSmooth,  int autoScrollColumnIntervalMs,  int autoScrollPageIntervalMs,  int autoScrollColumnDistancePercent,  int preloadImageCount,  int preloadChapterCount,  bool landscapeReader,  bool doublePageMode,  bool doublePageSeamless,  bool doublePageLeadingBlank,  bool sidePaddingEnabled,  int sidePaddingPercent,  bool volumeKeyPageTurn,  int volumeKeyPageTurnDistancePercent,  bool doubleTapZoom,  bool doubleTapOpenMenu,  bool pageInfoShowPage,  bool pageInfoShowNetwork,  bool pageInfoShowBattery,  bool pageInfoShowTime,  ReaderInfoVerticalPosition pageInfoVerticalPosition,  bool pageInfoTopInStatusBar,  ReaderInfoHorizontalPosition pageInfoHorizontalPosition,  int pageInfoEdgePadding,  int pageInfoOpacityPercent,  int pageInfoFontSize)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool noAnimation,  bool comicReadTopContainer,  int readMode,  ReaderTapPageTurnMode tapPageTurnMode,  bool tapPageTurnInWebtoon,  bool reverseHorizontalPageTurn,  ReaderBackgroundMode readerBackgroundMode,  bool readFilterEnabled,  int readFilterOpacityPercent,  bool einkOptimization,  int einkDelayMs,  bool autoScroll,  bool autoScrollHidePauseButton,  bool autoScrollSmooth,  int autoScrollColumnIntervalMs,  int autoScrollPageIntervalMs,  int autoScrollColumnDistancePercent,  int preloadImageCount,  int preloadChapterCount,  bool landscapeReader,  bool doublePageMode,  bool doublePageSeamless,  bool doublePageLeadingBlank,  bool sidePaddingEnabled,  int sidePaddingPercent,  bool volumeKeyPageTurn,  int volumeKeyPageTurnDistancePercent,  bool doubleTapZoom,  bool doubleTapOpenMenu,  bool pageInfoShowPage,  bool pageInfoShowNetwork,  bool pageInfoShowBattery,  bool pageInfoShowTime,  ReaderInfoVerticalPosition pageInfoVerticalPosition,  bool pageInfoTopInStatusBar,  ReaderInfoHorizontalPosition pageInfoHorizontalPosition,  int pageInfoEdgePadding,  int pageInfoOpacityPercent,  int pageInfoFontSize)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ReadSettingState() when $default != null:
-return $default(_that.noAnimation,_that.comicReadTopContainer,_that.readMode,_that.tapPageTurnMode,_that.tapPageTurnInWebtoon,_that.readerBackgroundMode,_that.readFilterEnabled,_that.readFilterOpacityPercent,_that.einkOptimization,_that.einkDelayMs,_that.autoScroll,_that.autoScrollHidePauseButton,_that.autoScrollSmooth,_that.autoScrollColumnIntervalMs,_that.autoScrollPageIntervalMs,_that.autoScrollColumnDistancePercent,_that.preloadImageCount,_that.preloadChapterCount,_that.landscapeReader,_that.doublePageMode,_that.doublePageSeamless,_that.doublePageLeadingBlank,_that.sidePaddingEnabled,_that.sidePaddingPercent,_that.volumeKeyPageTurn,_that.volumeKeyPageTurnDistancePercent,_that.doubleTapZoom,_that.doubleTapOpenMenu,_that.pageInfoShowPage,_that.pageInfoShowNetwork,_that.pageInfoShowBattery,_that.pageInfoShowTime,_that.pageInfoVerticalPosition,_that.pageInfoTopInStatusBar,_that.pageInfoHorizontalPosition,_that.pageInfoEdgePadding,_that.pageInfoOpacityPercent,_that.pageInfoFontSize);case _:
+return $default(_that.noAnimation,_that.comicReadTopContainer,_that.readMode,_that.tapPageTurnMode,_that.tapPageTurnInWebtoon,_that.reverseHorizontalPageTurn,_that.readerBackgroundMode,_that.readFilterEnabled,_that.readFilterOpacityPercent,_that.einkOptimization,_that.einkDelayMs,_that.autoScroll,_that.autoScrollHidePauseButton,_that.autoScrollSmooth,_that.autoScrollColumnIntervalMs,_that.autoScrollPageIntervalMs,_that.autoScrollColumnDistancePercent,_that.preloadImageCount,_that.preloadChapterCount,_that.landscapeReader,_that.doublePageMode,_that.doublePageSeamless,_that.doublePageLeadingBlank,_that.sidePaddingEnabled,_that.sidePaddingPercent,_that.volumeKeyPageTurn,_that.volumeKeyPageTurnDistancePercent,_that.doubleTapZoom,_that.doubleTapOpenMenu,_that.pageInfoShowPage,_that.pageInfoShowNetwork,_that.pageInfoShowBattery,_that.pageInfoShowTime,_that.pageInfoVerticalPosition,_that.pageInfoTopInStatusBar,_that.pageInfoHorizontalPosition,_that.pageInfoEdgePadding,_that.pageInfoOpacityPercent,_that.pageInfoFontSize);case _:
   return orElse();
 
 }
@@ -2446,10 +2462,10 @@ return $default(_that.noAnimation,_that.comicReadTopContainer,_that.readMode,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool noAnimation,  bool comicReadTopContainer,  int readMode,  ReaderTapPageTurnMode tapPageTurnMode,  bool tapPageTurnInWebtoon,  ReaderBackgroundMode readerBackgroundMode,  bool readFilterEnabled,  int readFilterOpacityPercent,  bool einkOptimization,  int einkDelayMs,  bool autoScroll,  bool autoScrollHidePauseButton,  bool autoScrollSmooth,  int autoScrollColumnIntervalMs,  int autoScrollPageIntervalMs,  int autoScrollColumnDistancePercent,  int preloadImageCount,  int preloadChapterCount,  bool landscapeReader,  bool doublePageMode,  bool doublePageSeamless,  bool doublePageLeadingBlank,  bool sidePaddingEnabled,  int sidePaddingPercent,  bool volumeKeyPageTurn,  int volumeKeyPageTurnDistancePercent,  bool doubleTapZoom,  bool doubleTapOpenMenu,  bool pageInfoShowPage,  bool pageInfoShowNetwork,  bool pageInfoShowBattery,  bool pageInfoShowTime,  ReaderInfoVerticalPosition pageInfoVerticalPosition,  bool pageInfoTopInStatusBar,  ReaderInfoHorizontalPosition pageInfoHorizontalPosition,  int pageInfoEdgePadding,  int pageInfoOpacityPercent,  int pageInfoFontSize)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool noAnimation,  bool comicReadTopContainer,  int readMode,  ReaderTapPageTurnMode tapPageTurnMode,  bool tapPageTurnInWebtoon,  bool reverseHorizontalPageTurn,  ReaderBackgroundMode readerBackgroundMode,  bool readFilterEnabled,  int readFilterOpacityPercent,  bool einkOptimization,  int einkDelayMs,  bool autoScroll,  bool autoScrollHidePauseButton,  bool autoScrollSmooth,  int autoScrollColumnIntervalMs,  int autoScrollPageIntervalMs,  int autoScrollColumnDistancePercent,  int preloadImageCount,  int preloadChapterCount,  bool landscapeReader,  bool doublePageMode,  bool doublePageSeamless,  bool doublePageLeadingBlank,  bool sidePaddingEnabled,  int sidePaddingPercent,  bool volumeKeyPageTurn,  int volumeKeyPageTurnDistancePercent,  bool doubleTapZoom,  bool doubleTapOpenMenu,  bool pageInfoShowPage,  bool pageInfoShowNetwork,  bool pageInfoShowBattery,  bool pageInfoShowTime,  ReaderInfoVerticalPosition pageInfoVerticalPosition,  bool pageInfoTopInStatusBar,  ReaderInfoHorizontalPosition pageInfoHorizontalPosition,  int pageInfoEdgePadding,  int pageInfoOpacityPercent,  int pageInfoFontSize)  $default,) {final _that = this;
 switch (_that) {
 case _ReadSettingState():
-return $default(_that.noAnimation,_that.comicReadTopContainer,_that.readMode,_that.tapPageTurnMode,_that.tapPageTurnInWebtoon,_that.readerBackgroundMode,_that.readFilterEnabled,_that.readFilterOpacityPercent,_that.einkOptimization,_that.einkDelayMs,_that.autoScroll,_that.autoScrollHidePauseButton,_that.autoScrollSmooth,_that.autoScrollColumnIntervalMs,_that.autoScrollPageIntervalMs,_that.autoScrollColumnDistancePercent,_that.preloadImageCount,_that.preloadChapterCount,_that.landscapeReader,_that.doublePageMode,_that.doublePageSeamless,_that.doublePageLeadingBlank,_that.sidePaddingEnabled,_that.sidePaddingPercent,_that.volumeKeyPageTurn,_that.volumeKeyPageTurnDistancePercent,_that.doubleTapZoom,_that.doubleTapOpenMenu,_that.pageInfoShowPage,_that.pageInfoShowNetwork,_that.pageInfoShowBattery,_that.pageInfoShowTime,_that.pageInfoVerticalPosition,_that.pageInfoTopInStatusBar,_that.pageInfoHorizontalPosition,_that.pageInfoEdgePadding,_that.pageInfoOpacityPercent,_that.pageInfoFontSize);case _:
+return $default(_that.noAnimation,_that.comicReadTopContainer,_that.readMode,_that.tapPageTurnMode,_that.tapPageTurnInWebtoon,_that.reverseHorizontalPageTurn,_that.readerBackgroundMode,_that.readFilterEnabled,_that.readFilterOpacityPercent,_that.einkOptimization,_that.einkDelayMs,_that.autoScroll,_that.autoScrollHidePauseButton,_that.autoScrollSmooth,_that.autoScrollColumnIntervalMs,_that.autoScrollPageIntervalMs,_that.autoScrollColumnDistancePercent,_that.preloadImageCount,_that.preloadChapterCount,_that.landscapeReader,_that.doublePageMode,_that.doublePageSeamless,_that.doublePageLeadingBlank,_that.sidePaddingEnabled,_that.sidePaddingPercent,_that.volumeKeyPageTurn,_that.volumeKeyPageTurnDistancePercent,_that.doubleTapZoom,_that.doubleTapOpenMenu,_that.pageInfoShowPage,_that.pageInfoShowNetwork,_that.pageInfoShowBattery,_that.pageInfoShowTime,_that.pageInfoVerticalPosition,_that.pageInfoTopInStatusBar,_that.pageInfoHorizontalPosition,_that.pageInfoEdgePadding,_that.pageInfoOpacityPercent,_that.pageInfoFontSize);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2466,10 +2482,10 @@ return $default(_that.noAnimation,_that.comicReadTopContainer,_that.readMode,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool noAnimation,  bool comicReadTopContainer,  int readMode,  ReaderTapPageTurnMode tapPageTurnMode,  bool tapPageTurnInWebtoon,  ReaderBackgroundMode readerBackgroundMode,  bool readFilterEnabled,  int readFilterOpacityPercent,  bool einkOptimization,  int einkDelayMs,  bool autoScroll,  bool autoScrollHidePauseButton,  bool autoScrollSmooth,  int autoScrollColumnIntervalMs,  int autoScrollPageIntervalMs,  int autoScrollColumnDistancePercent,  int preloadImageCount,  int preloadChapterCount,  bool landscapeReader,  bool doublePageMode,  bool doublePageSeamless,  bool doublePageLeadingBlank,  bool sidePaddingEnabled,  int sidePaddingPercent,  bool volumeKeyPageTurn,  int volumeKeyPageTurnDistancePercent,  bool doubleTapZoom,  bool doubleTapOpenMenu,  bool pageInfoShowPage,  bool pageInfoShowNetwork,  bool pageInfoShowBattery,  bool pageInfoShowTime,  ReaderInfoVerticalPosition pageInfoVerticalPosition,  bool pageInfoTopInStatusBar,  ReaderInfoHorizontalPosition pageInfoHorizontalPosition,  int pageInfoEdgePadding,  int pageInfoOpacityPercent,  int pageInfoFontSize)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool noAnimation,  bool comicReadTopContainer,  int readMode,  ReaderTapPageTurnMode tapPageTurnMode,  bool tapPageTurnInWebtoon,  bool reverseHorizontalPageTurn,  ReaderBackgroundMode readerBackgroundMode,  bool readFilterEnabled,  int readFilterOpacityPercent,  bool einkOptimization,  int einkDelayMs,  bool autoScroll,  bool autoScrollHidePauseButton,  bool autoScrollSmooth,  int autoScrollColumnIntervalMs,  int autoScrollPageIntervalMs,  int autoScrollColumnDistancePercent,  int preloadImageCount,  int preloadChapterCount,  bool landscapeReader,  bool doublePageMode,  bool doublePageSeamless,  bool doublePageLeadingBlank,  bool sidePaddingEnabled,  int sidePaddingPercent,  bool volumeKeyPageTurn,  int volumeKeyPageTurnDistancePercent,  bool doubleTapZoom,  bool doubleTapOpenMenu,  bool pageInfoShowPage,  bool pageInfoShowNetwork,  bool pageInfoShowBattery,  bool pageInfoShowTime,  ReaderInfoVerticalPosition pageInfoVerticalPosition,  bool pageInfoTopInStatusBar,  ReaderInfoHorizontalPosition pageInfoHorizontalPosition,  int pageInfoEdgePadding,  int pageInfoOpacityPercent,  int pageInfoFontSize)?  $default,) {final _that = this;
 switch (_that) {
 case _ReadSettingState() when $default != null:
-return $default(_that.noAnimation,_that.comicReadTopContainer,_that.readMode,_that.tapPageTurnMode,_that.tapPageTurnInWebtoon,_that.readerBackgroundMode,_that.readFilterEnabled,_that.readFilterOpacityPercent,_that.einkOptimization,_that.einkDelayMs,_that.autoScroll,_that.autoScrollHidePauseButton,_that.autoScrollSmooth,_that.autoScrollColumnIntervalMs,_that.autoScrollPageIntervalMs,_that.autoScrollColumnDistancePercent,_that.preloadImageCount,_that.preloadChapterCount,_that.landscapeReader,_that.doublePageMode,_that.doublePageSeamless,_that.doublePageLeadingBlank,_that.sidePaddingEnabled,_that.sidePaddingPercent,_that.volumeKeyPageTurn,_that.volumeKeyPageTurnDistancePercent,_that.doubleTapZoom,_that.doubleTapOpenMenu,_that.pageInfoShowPage,_that.pageInfoShowNetwork,_that.pageInfoShowBattery,_that.pageInfoShowTime,_that.pageInfoVerticalPosition,_that.pageInfoTopInStatusBar,_that.pageInfoHorizontalPosition,_that.pageInfoEdgePadding,_that.pageInfoOpacityPercent,_that.pageInfoFontSize);case _:
+return $default(_that.noAnimation,_that.comicReadTopContainer,_that.readMode,_that.tapPageTurnMode,_that.tapPageTurnInWebtoon,_that.reverseHorizontalPageTurn,_that.readerBackgroundMode,_that.readFilterEnabled,_that.readFilterOpacityPercent,_that.einkOptimization,_that.einkDelayMs,_that.autoScroll,_that.autoScrollHidePauseButton,_that.autoScrollSmooth,_that.autoScrollColumnIntervalMs,_that.autoScrollPageIntervalMs,_that.autoScrollColumnDistancePercent,_that.preloadImageCount,_that.preloadChapterCount,_that.landscapeReader,_that.doublePageMode,_that.doublePageSeamless,_that.doublePageLeadingBlank,_that.sidePaddingEnabled,_that.sidePaddingPercent,_that.volumeKeyPageTurn,_that.volumeKeyPageTurnDistancePercent,_that.doubleTapZoom,_that.doubleTapOpenMenu,_that.pageInfoShowPage,_that.pageInfoShowNetwork,_that.pageInfoShowBattery,_that.pageInfoShowTime,_that.pageInfoVerticalPosition,_that.pageInfoTopInStatusBar,_that.pageInfoHorizontalPosition,_that.pageInfoEdgePadding,_that.pageInfoOpacityPercent,_that.pageInfoFontSize);case _:
   return null;
 
 }
@@ -2481,7 +2497,7 @@ return $default(_that.noAnimation,_that.comicReadTopContainer,_that.readMode,_th
 @JsonSerializable()
 
 class _ReadSettingState implements ReadSettingState {
-  const _ReadSettingState({this.noAnimation = false, this.comicReadTopContainer = true, this.readMode = 0, this.tapPageTurnMode = ReaderTapPageTurnMode.rightHand, this.tapPageTurnInWebtoon = false, this.readerBackgroundMode = ReaderBackgroundMode.auto, this.readFilterEnabled = true, this.readFilterOpacityPercent = 50, this.einkOptimization = false, this.einkDelayMs = 120, this.autoScroll = false, this.autoScrollHidePauseButton = false, this.autoScrollSmooth = false, this.autoScrollColumnIntervalMs = 1600, this.autoScrollPageIntervalMs = 3000, this.autoScrollColumnDistancePercent = 72, this.preloadImageCount = 3, this.preloadChapterCount = 1, this.landscapeReader = false, this.doublePageMode = false, this.doublePageSeamless = false, this.doublePageLeadingBlank = false, this.sidePaddingEnabled = false, this.sidePaddingPercent = 10, this.volumeKeyPageTurn = true, this.volumeKeyPageTurnDistancePercent = 72, this.doubleTapZoom = false, this.doubleTapOpenMenu = false, this.pageInfoShowPage = true, this.pageInfoShowNetwork = true, this.pageInfoShowBattery = false, this.pageInfoShowTime = true, this.pageInfoVerticalPosition = ReaderInfoVerticalPosition.bottom, this.pageInfoTopInStatusBar = false, this.pageInfoHorizontalPosition = ReaderInfoHorizontalPosition.left, this.pageInfoEdgePadding = 12, this.pageInfoOpacityPercent = 82, this.pageInfoFontSize = 12});
+  const _ReadSettingState({this.noAnimation = false, this.comicReadTopContainer = true, this.readMode = 0, this.tapPageTurnMode = ReaderTapPageTurnMode.rightHand, this.tapPageTurnInWebtoon = false, this.reverseHorizontalPageTurn = false, this.readerBackgroundMode = ReaderBackgroundMode.auto, this.readFilterEnabled = true, this.readFilterOpacityPercent = 50, this.einkOptimization = false, this.einkDelayMs = 120, this.autoScroll = false, this.autoScrollHidePauseButton = false, this.autoScrollSmooth = false, this.autoScrollColumnIntervalMs = 1600, this.autoScrollPageIntervalMs = 3000, this.autoScrollColumnDistancePercent = 72, this.preloadImageCount = 3, this.preloadChapterCount = 1, this.landscapeReader = false, this.doublePageMode = false, this.doublePageSeamless = false, this.doublePageLeadingBlank = false, this.sidePaddingEnabled = false, this.sidePaddingPercent = 10, this.volumeKeyPageTurn = true, this.volumeKeyPageTurnDistancePercent = 72, this.doubleTapZoom = false, this.doubleTapOpenMenu = false, this.pageInfoShowPage = true, this.pageInfoShowNetwork = true, this.pageInfoShowBattery = false, this.pageInfoShowTime = true, this.pageInfoVerticalPosition = ReaderInfoVerticalPosition.bottom, this.pageInfoTopInStatusBar = false, this.pageInfoHorizontalPosition = ReaderInfoHorizontalPosition.left, this.pageInfoEdgePadding = 12, this.pageInfoOpacityPercent = 82, this.pageInfoFontSize = 12});
   factory _ReadSettingState.fromJson(Map<String, dynamic> json) => _$ReadSettingStateFromJson(json);
 
 @override@JsonKey() final  bool noAnimation;
@@ -2489,6 +2505,7 @@ class _ReadSettingState implements ReadSettingState {
 @override@JsonKey() final  int readMode;
 @override@JsonKey() final  ReaderTapPageTurnMode tapPageTurnMode;
 @override@JsonKey() final  bool tapPageTurnInWebtoon;
+@override@JsonKey() final  bool reverseHorizontalPageTurn;
 @override@JsonKey() final  ReaderBackgroundMode readerBackgroundMode;
 @override@JsonKey() final  bool readFilterEnabled;
 @override@JsonKey() final  int readFilterOpacityPercent;
@@ -2536,18 +2553,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReadSettingState&&(identical(other.noAnimation, noAnimation) || other.noAnimation == noAnimation)&&(identical(other.comicReadTopContainer, comicReadTopContainer) || other.comicReadTopContainer == comicReadTopContainer)&&(identical(other.readMode, readMode) || other.readMode == readMode)&&(identical(other.tapPageTurnMode, tapPageTurnMode) || other.tapPageTurnMode == tapPageTurnMode)&&(identical(other.tapPageTurnInWebtoon, tapPageTurnInWebtoon) || other.tapPageTurnInWebtoon == tapPageTurnInWebtoon)&&(identical(other.readerBackgroundMode, readerBackgroundMode) || other.readerBackgroundMode == readerBackgroundMode)&&(identical(other.readFilterEnabled, readFilterEnabled) || other.readFilterEnabled == readFilterEnabled)&&(identical(other.readFilterOpacityPercent, readFilterOpacityPercent) || other.readFilterOpacityPercent == readFilterOpacityPercent)&&(identical(other.einkOptimization, einkOptimization) || other.einkOptimization == einkOptimization)&&(identical(other.einkDelayMs, einkDelayMs) || other.einkDelayMs == einkDelayMs)&&(identical(other.autoScroll, autoScroll) || other.autoScroll == autoScroll)&&(identical(other.autoScrollHidePauseButton, autoScrollHidePauseButton) || other.autoScrollHidePauseButton == autoScrollHidePauseButton)&&(identical(other.autoScrollSmooth, autoScrollSmooth) || other.autoScrollSmooth == autoScrollSmooth)&&(identical(other.autoScrollColumnIntervalMs, autoScrollColumnIntervalMs) || other.autoScrollColumnIntervalMs == autoScrollColumnIntervalMs)&&(identical(other.autoScrollPageIntervalMs, autoScrollPageIntervalMs) || other.autoScrollPageIntervalMs == autoScrollPageIntervalMs)&&(identical(other.autoScrollColumnDistancePercent, autoScrollColumnDistancePercent) || other.autoScrollColumnDistancePercent == autoScrollColumnDistancePercent)&&(identical(other.preloadImageCount, preloadImageCount) || other.preloadImageCount == preloadImageCount)&&(identical(other.preloadChapterCount, preloadChapterCount) || other.preloadChapterCount == preloadChapterCount)&&(identical(other.landscapeReader, landscapeReader) || other.landscapeReader == landscapeReader)&&(identical(other.doublePageMode, doublePageMode) || other.doublePageMode == doublePageMode)&&(identical(other.doublePageSeamless, doublePageSeamless) || other.doublePageSeamless == doublePageSeamless)&&(identical(other.doublePageLeadingBlank, doublePageLeadingBlank) || other.doublePageLeadingBlank == doublePageLeadingBlank)&&(identical(other.sidePaddingEnabled, sidePaddingEnabled) || other.sidePaddingEnabled == sidePaddingEnabled)&&(identical(other.sidePaddingPercent, sidePaddingPercent) || other.sidePaddingPercent == sidePaddingPercent)&&(identical(other.volumeKeyPageTurn, volumeKeyPageTurn) || other.volumeKeyPageTurn == volumeKeyPageTurn)&&(identical(other.volumeKeyPageTurnDistancePercent, volumeKeyPageTurnDistancePercent) || other.volumeKeyPageTurnDistancePercent == volumeKeyPageTurnDistancePercent)&&(identical(other.doubleTapZoom, doubleTapZoom) || other.doubleTapZoom == doubleTapZoom)&&(identical(other.doubleTapOpenMenu, doubleTapOpenMenu) || other.doubleTapOpenMenu == doubleTapOpenMenu)&&(identical(other.pageInfoShowPage, pageInfoShowPage) || other.pageInfoShowPage == pageInfoShowPage)&&(identical(other.pageInfoShowNetwork, pageInfoShowNetwork) || other.pageInfoShowNetwork == pageInfoShowNetwork)&&(identical(other.pageInfoShowBattery, pageInfoShowBattery) || other.pageInfoShowBattery == pageInfoShowBattery)&&(identical(other.pageInfoShowTime, pageInfoShowTime) || other.pageInfoShowTime == pageInfoShowTime)&&(identical(other.pageInfoVerticalPosition, pageInfoVerticalPosition) || other.pageInfoVerticalPosition == pageInfoVerticalPosition)&&(identical(other.pageInfoTopInStatusBar, pageInfoTopInStatusBar) || other.pageInfoTopInStatusBar == pageInfoTopInStatusBar)&&(identical(other.pageInfoHorizontalPosition, pageInfoHorizontalPosition) || other.pageInfoHorizontalPosition == pageInfoHorizontalPosition)&&(identical(other.pageInfoEdgePadding, pageInfoEdgePadding) || other.pageInfoEdgePadding == pageInfoEdgePadding)&&(identical(other.pageInfoOpacityPercent, pageInfoOpacityPercent) || other.pageInfoOpacityPercent == pageInfoOpacityPercent)&&(identical(other.pageInfoFontSize, pageInfoFontSize) || other.pageInfoFontSize == pageInfoFontSize));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReadSettingState&&(identical(other.noAnimation, noAnimation) || other.noAnimation == noAnimation)&&(identical(other.comicReadTopContainer, comicReadTopContainer) || other.comicReadTopContainer == comicReadTopContainer)&&(identical(other.readMode, readMode) || other.readMode == readMode)&&(identical(other.tapPageTurnMode, tapPageTurnMode) || other.tapPageTurnMode == tapPageTurnMode)&&(identical(other.tapPageTurnInWebtoon, tapPageTurnInWebtoon) || other.tapPageTurnInWebtoon == tapPageTurnInWebtoon)&&(identical(other.reverseHorizontalPageTurn, reverseHorizontalPageTurn) || other.reverseHorizontalPageTurn == reverseHorizontalPageTurn)&&(identical(other.readerBackgroundMode, readerBackgroundMode) || other.readerBackgroundMode == readerBackgroundMode)&&(identical(other.readFilterEnabled, readFilterEnabled) || other.readFilterEnabled == readFilterEnabled)&&(identical(other.readFilterOpacityPercent, readFilterOpacityPercent) || other.readFilterOpacityPercent == readFilterOpacityPercent)&&(identical(other.einkOptimization, einkOptimization) || other.einkOptimization == einkOptimization)&&(identical(other.einkDelayMs, einkDelayMs) || other.einkDelayMs == einkDelayMs)&&(identical(other.autoScroll, autoScroll) || other.autoScroll == autoScroll)&&(identical(other.autoScrollHidePauseButton, autoScrollHidePauseButton) || other.autoScrollHidePauseButton == autoScrollHidePauseButton)&&(identical(other.autoScrollSmooth, autoScrollSmooth) || other.autoScrollSmooth == autoScrollSmooth)&&(identical(other.autoScrollColumnIntervalMs, autoScrollColumnIntervalMs) || other.autoScrollColumnIntervalMs == autoScrollColumnIntervalMs)&&(identical(other.autoScrollPageIntervalMs, autoScrollPageIntervalMs) || other.autoScrollPageIntervalMs == autoScrollPageIntervalMs)&&(identical(other.autoScrollColumnDistancePercent, autoScrollColumnDistancePercent) || other.autoScrollColumnDistancePercent == autoScrollColumnDistancePercent)&&(identical(other.preloadImageCount, preloadImageCount) || other.preloadImageCount == preloadImageCount)&&(identical(other.preloadChapterCount, preloadChapterCount) || other.preloadChapterCount == preloadChapterCount)&&(identical(other.landscapeReader, landscapeReader) || other.landscapeReader == landscapeReader)&&(identical(other.doublePageMode, doublePageMode) || other.doublePageMode == doublePageMode)&&(identical(other.doublePageSeamless, doublePageSeamless) || other.doublePageSeamless == doublePageSeamless)&&(identical(other.doublePageLeadingBlank, doublePageLeadingBlank) || other.doublePageLeadingBlank == doublePageLeadingBlank)&&(identical(other.sidePaddingEnabled, sidePaddingEnabled) || other.sidePaddingEnabled == sidePaddingEnabled)&&(identical(other.sidePaddingPercent, sidePaddingPercent) || other.sidePaddingPercent == sidePaddingPercent)&&(identical(other.volumeKeyPageTurn, volumeKeyPageTurn) || other.volumeKeyPageTurn == volumeKeyPageTurn)&&(identical(other.volumeKeyPageTurnDistancePercent, volumeKeyPageTurnDistancePercent) || other.volumeKeyPageTurnDistancePercent == volumeKeyPageTurnDistancePercent)&&(identical(other.doubleTapZoom, doubleTapZoom) || other.doubleTapZoom == doubleTapZoom)&&(identical(other.doubleTapOpenMenu, doubleTapOpenMenu) || other.doubleTapOpenMenu == doubleTapOpenMenu)&&(identical(other.pageInfoShowPage, pageInfoShowPage) || other.pageInfoShowPage == pageInfoShowPage)&&(identical(other.pageInfoShowNetwork, pageInfoShowNetwork) || other.pageInfoShowNetwork == pageInfoShowNetwork)&&(identical(other.pageInfoShowBattery, pageInfoShowBattery) || other.pageInfoShowBattery == pageInfoShowBattery)&&(identical(other.pageInfoShowTime, pageInfoShowTime) || other.pageInfoShowTime == pageInfoShowTime)&&(identical(other.pageInfoVerticalPosition, pageInfoVerticalPosition) || other.pageInfoVerticalPosition == pageInfoVerticalPosition)&&(identical(other.pageInfoTopInStatusBar, pageInfoTopInStatusBar) || other.pageInfoTopInStatusBar == pageInfoTopInStatusBar)&&(identical(other.pageInfoHorizontalPosition, pageInfoHorizontalPosition) || other.pageInfoHorizontalPosition == pageInfoHorizontalPosition)&&(identical(other.pageInfoEdgePadding, pageInfoEdgePadding) || other.pageInfoEdgePadding == pageInfoEdgePadding)&&(identical(other.pageInfoOpacityPercent, pageInfoOpacityPercent) || other.pageInfoOpacityPercent == pageInfoOpacityPercent)&&(identical(other.pageInfoFontSize, pageInfoFontSize) || other.pageInfoFontSize == pageInfoFontSize));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hashAll([runtimeType,noAnimation,comicReadTopContainer,readMode,tapPageTurnMode,tapPageTurnInWebtoon,readerBackgroundMode,readFilterEnabled,readFilterOpacityPercent,einkOptimization,einkDelayMs,autoScroll,autoScrollHidePauseButton,autoScrollSmooth,autoScrollColumnIntervalMs,autoScrollPageIntervalMs,autoScrollColumnDistancePercent,preloadImageCount,preloadChapterCount,landscapeReader,doublePageMode,doublePageSeamless,doublePageLeadingBlank,sidePaddingEnabled,sidePaddingPercent,volumeKeyPageTurn,volumeKeyPageTurnDistancePercent,doubleTapZoom,doubleTapOpenMenu,pageInfoShowPage,pageInfoShowNetwork,pageInfoShowBattery,pageInfoShowTime,pageInfoVerticalPosition,pageInfoTopInStatusBar,pageInfoHorizontalPosition,pageInfoEdgePadding,pageInfoOpacityPercent,pageInfoFontSize]);
+    return Object.hashAll([runtimeType,noAnimation,comicReadTopContainer,readMode,tapPageTurnMode,tapPageTurnInWebtoon,reverseHorizontalPageTurn,readerBackgroundMode,readFilterEnabled,readFilterOpacityPercent,einkOptimization,einkDelayMs,autoScroll,autoScrollHidePauseButton,autoScrollSmooth,autoScrollColumnIntervalMs,autoScrollPageIntervalMs,autoScrollColumnDistancePercent,preloadImageCount,preloadChapterCount,landscapeReader,doublePageMode,doublePageSeamless,doublePageLeadingBlank,sidePaddingEnabled,sidePaddingPercent,volumeKeyPageTurn,volumeKeyPageTurnDistancePercent,doubleTapZoom,doubleTapOpenMenu,pageInfoShowPage,pageInfoShowNetwork,pageInfoShowBattery,pageInfoShowTime,pageInfoVerticalPosition,pageInfoTopInStatusBar,pageInfoHorizontalPosition,pageInfoEdgePadding,pageInfoOpacityPercent,pageInfoFontSize]);
 }
 
 @override
 String toString() {
-    return 'ReadSettingState(noAnimation: $noAnimation, comicReadTopContainer: $comicReadTopContainer, readMode: $readMode, tapPageTurnMode: $tapPageTurnMode, tapPageTurnInWebtoon: $tapPageTurnInWebtoon, readerBackgroundMode: $readerBackgroundMode, readFilterEnabled: $readFilterEnabled, readFilterOpacityPercent: $readFilterOpacityPercent, einkOptimization: $einkOptimization, einkDelayMs: $einkDelayMs, autoScroll: $autoScroll, autoScrollHidePauseButton: $autoScrollHidePauseButton, autoScrollSmooth: $autoScrollSmooth, autoScrollColumnIntervalMs: $autoScrollColumnIntervalMs, autoScrollPageIntervalMs: $autoScrollPageIntervalMs, autoScrollColumnDistancePercent: $autoScrollColumnDistancePercent, preloadImageCount: $preloadImageCount, preloadChapterCount: $preloadChapterCount, landscapeReader: $landscapeReader, doublePageMode: $doublePageMode, doublePageSeamless: $doublePageSeamless, doublePageLeadingBlank: $doublePageLeadingBlank, sidePaddingEnabled: $sidePaddingEnabled, sidePaddingPercent: $sidePaddingPercent, volumeKeyPageTurn: $volumeKeyPageTurn, volumeKeyPageTurnDistancePercent: $volumeKeyPageTurnDistancePercent, doubleTapZoom: $doubleTapZoom, doubleTapOpenMenu: $doubleTapOpenMenu, pageInfoShowPage: $pageInfoShowPage, pageInfoShowNetwork: $pageInfoShowNetwork, pageInfoShowBattery: $pageInfoShowBattery, pageInfoShowTime: $pageInfoShowTime, pageInfoVerticalPosition: $pageInfoVerticalPosition, pageInfoTopInStatusBar: $pageInfoTopInStatusBar, pageInfoHorizontalPosition: $pageInfoHorizontalPosition, pageInfoEdgePadding: $pageInfoEdgePadding, pageInfoOpacityPercent: $pageInfoOpacityPercent, pageInfoFontSize: $pageInfoFontSize)';
+    return 'ReadSettingState(noAnimation: $noAnimation, comicReadTopContainer: $comicReadTopContainer, readMode: $readMode, tapPageTurnMode: $tapPageTurnMode, tapPageTurnInWebtoon: $tapPageTurnInWebtoon, reverseHorizontalPageTurn: $reverseHorizontalPageTurn, readerBackgroundMode: $readerBackgroundMode, readFilterEnabled: $readFilterEnabled, readFilterOpacityPercent: $readFilterOpacityPercent, einkOptimization: $einkOptimization, einkDelayMs: $einkDelayMs, autoScroll: $autoScroll, autoScrollHidePauseButton: $autoScrollHidePauseButton, autoScrollSmooth: $autoScrollSmooth, autoScrollColumnIntervalMs: $autoScrollColumnIntervalMs, autoScrollPageIntervalMs: $autoScrollPageIntervalMs, autoScrollColumnDistancePercent: $autoScrollColumnDistancePercent, preloadImageCount: $preloadImageCount, preloadChapterCount: $preloadChapterCount, landscapeReader: $landscapeReader, doublePageMode: $doublePageMode, doublePageSeamless: $doublePageSeamless, doublePageLeadingBlank: $doublePageLeadingBlank, sidePaddingEnabled: $sidePaddingEnabled, sidePaddingPercent: $sidePaddingPercent, volumeKeyPageTurn: $volumeKeyPageTurn, volumeKeyPageTurnDistancePercent: $volumeKeyPageTurnDistancePercent, doubleTapZoom: $doubleTapZoom, doubleTapOpenMenu: $doubleTapOpenMenu, pageInfoShowPage: $pageInfoShowPage, pageInfoShowNetwork: $pageInfoShowNetwork, pageInfoShowBattery: $pageInfoShowBattery, pageInfoShowTime: $pageInfoShowTime, pageInfoVerticalPosition: $pageInfoVerticalPosition, pageInfoTopInStatusBar: $pageInfoTopInStatusBar, pageInfoHorizontalPosition: $pageInfoHorizontalPosition, pageInfoEdgePadding: $pageInfoEdgePadding, pageInfoOpacityPercent: $pageInfoOpacityPercent, pageInfoFontSize: $pageInfoFontSize)';
 }
 
 
@@ -2558,7 +2575,7 @@ abstract mixin class _$ReadSettingStateCopyWith<$Res> implements $ReadSettingSta
   factory _$ReadSettingStateCopyWith(_ReadSettingState value, $Res Function(_ReadSettingState) _then) = __$ReadSettingStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool noAnimation, bool comicReadTopContainer, int readMode, ReaderTapPageTurnMode tapPageTurnMode, bool tapPageTurnInWebtoon, ReaderBackgroundMode readerBackgroundMode, bool readFilterEnabled, int readFilterOpacityPercent, bool einkOptimization, int einkDelayMs, bool autoScroll, bool autoScrollHidePauseButton, bool autoScrollSmooth, int autoScrollColumnIntervalMs, int autoScrollPageIntervalMs, int autoScrollColumnDistancePercent, int preloadImageCount, int preloadChapterCount, bool landscapeReader, bool doublePageMode, bool doublePageSeamless, bool doublePageLeadingBlank, bool sidePaddingEnabled, int sidePaddingPercent, bool volumeKeyPageTurn, int volumeKeyPageTurnDistancePercent, bool doubleTapZoom, bool doubleTapOpenMenu, bool pageInfoShowPage, bool pageInfoShowNetwork, bool pageInfoShowBattery, bool pageInfoShowTime, ReaderInfoVerticalPosition pageInfoVerticalPosition, bool pageInfoTopInStatusBar, ReaderInfoHorizontalPosition pageInfoHorizontalPosition, int pageInfoEdgePadding, int pageInfoOpacityPercent, int pageInfoFontSize
+ bool noAnimation, bool comicReadTopContainer, int readMode, ReaderTapPageTurnMode tapPageTurnMode, bool tapPageTurnInWebtoon, bool reverseHorizontalPageTurn, ReaderBackgroundMode readerBackgroundMode, bool readFilterEnabled, int readFilterOpacityPercent, bool einkOptimization, int einkDelayMs, bool autoScroll, bool autoScrollHidePauseButton, bool autoScrollSmooth, int autoScrollColumnIntervalMs, int autoScrollPageIntervalMs, int autoScrollColumnDistancePercent, int preloadImageCount, int preloadChapterCount, bool landscapeReader, bool doublePageMode, bool doublePageSeamless, bool doublePageLeadingBlank, bool sidePaddingEnabled, int sidePaddingPercent, bool volumeKeyPageTurn, int volumeKeyPageTurnDistancePercent, bool doubleTapZoom, bool doubleTapOpenMenu, bool pageInfoShowPage, bool pageInfoShowNetwork, bool pageInfoShowBattery, bool pageInfoShowTime, ReaderInfoVerticalPosition pageInfoVerticalPosition, bool pageInfoTopInStatusBar, ReaderInfoHorizontalPosition pageInfoHorizontalPosition, int pageInfoEdgePadding, int pageInfoOpacityPercent, int pageInfoFontSize
 });
 
 
@@ -2575,13 +2592,14 @@ class __$ReadSettingStateCopyWithImpl<$Res>
 
 /// Create a copy of ReadSettingState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? noAnimation = null,Object? comicReadTopContainer = null,Object? readMode = null,Object? tapPageTurnMode = null,Object? tapPageTurnInWebtoon = null,Object? readerBackgroundMode = null,Object? readFilterEnabled = null,Object? readFilterOpacityPercent = null,Object? einkOptimization = null,Object? einkDelayMs = null,Object? autoScroll = null,Object? autoScrollHidePauseButton = null,Object? autoScrollSmooth = null,Object? autoScrollColumnIntervalMs = null,Object? autoScrollPageIntervalMs = null,Object? autoScrollColumnDistancePercent = null,Object? preloadImageCount = null,Object? preloadChapterCount = null,Object? landscapeReader = null,Object? doublePageMode = null,Object? doublePageSeamless = null,Object? doublePageLeadingBlank = null,Object? sidePaddingEnabled = null,Object? sidePaddingPercent = null,Object? volumeKeyPageTurn = null,Object? volumeKeyPageTurnDistancePercent = null,Object? doubleTapZoom = null,Object? doubleTapOpenMenu = null,Object? pageInfoShowPage = null,Object? pageInfoShowNetwork = null,Object? pageInfoShowBattery = null,Object? pageInfoShowTime = null,Object? pageInfoVerticalPosition = null,Object? pageInfoTopInStatusBar = null,Object? pageInfoHorizontalPosition = null,Object? pageInfoEdgePadding = null,Object? pageInfoOpacityPercent = null,Object? pageInfoFontSize = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? noAnimation = null,Object? comicReadTopContainer = null,Object? readMode = null,Object? tapPageTurnMode = null,Object? tapPageTurnInWebtoon = null,Object? reverseHorizontalPageTurn = null,Object? readerBackgroundMode = null,Object? readFilterEnabled = null,Object? readFilterOpacityPercent = null,Object? einkOptimization = null,Object? einkDelayMs = null,Object? autoScroll = null,Object? autoScrollHidePauseButton = null,Object? autoScrollSmooth = null,Object? autoScrollColumnIntervalMs = null,Object? autoScrollPageIntervalMs = null,Object? autoScrollColumnDistancePercent = null,Object? preloadImageCount = null,Object? preloadChapterCount = null,Object? landscapeReader = null,Object? doublePageMode = null,Object? doublePageSeamless = null,Object? doublePageLeadingBlank = null,Object? sidePaddingEnabled = null,Object? sidePaddingPercent = null,Object? volumeKeyPageTurn = null,Object? volumeKeyPageTurnDistancePercent = null,Object? doubleTapZoom = null,Object? doubleTapOpenMenu = null,Object? pageInfoShowPage = null,Object? pageInfoShowNetwork = null,Object? pageInfoShowBattery = null,Object? pageInfoShowTime = null,Object? pageInfoVerticalPosition = null,Object? pageInfoTopInStatusBar = null,Object? pageInfoHorizontalPosition = null,Object? pageInfoEdgePadding = null,Object? pageInfoOpacityPercent = null,Object? pageInfoFontSize = null,}) {
   return _then(_ReadSettingState(
 noAnimation: null == noAnimation ? _self.noAnimation : noAnimation // ignore: cast_nullable_to_non_nullable
 as bool,comicReadTopContainer: null == comicReadTopContainer ? _self.comicReadTopContainer : comicReadTopContainer // ignore: cast_nullable_to_non_nullable
 as bool,readMode: null == readMode ? _self.readMode : readMode // ignore: cast_nullable_to_non_nullable
 as int,tapPageTurnMode: null == tapPageTurnMode ? _self.tapPageTurnMode : tapPageTurnMode // ignore: cast_nullable_to_non_nullable
 as ReaderTapPageTurnMode,tapPageTurnInWebtoon: null == tapPageTurnInWebtoon ? _self.tapPageTurnInWebtoon : tapPageTurnInWebtoon // ignore: cast_nullable_to_non_nullable
+as bool,reverseHorizontalPageTurn: null == reverseHorizontalPageTurn ? _self.reverseHorizontalPageTurn : reverseHorizontalPageTurn // ignore: cast_nullable_to_non_nullable
 as bool,readerBackgroundMode: null == readerBackgroundMode ? _self.readerBackgroundMode : readerBackgroundMode // ignore: cast_nullable_to_non_nullable
 as ReaderBackgroundMode,readFilterEnabled: null == readFilterEnabled ? _self.readFilterEnabled : readFilterEnabled // ignore: cast_nullable_to_non_nullable
 as bool,readFilterOpacityPercent: null == readFilterOpacityPercent ? _self.readFilterOpacityPercent : readFilterOpacityPercent // ignore: cast_nullable_to_non_nullable
@@ -2624,9 +2642,312 @@ as int,
 
 
 /// @nodoc
+mixin _$EInkSettingState {
+
+/// 墨水屏模式总开关。命中 e-ink 设备时首启自动打开，用户手动关掉后不再自动开启。
+ bool get enabled;/// 设备检测是否已经处理过一次，避免每次启动都覆盖用户的选择。
+ bool get detectionHandled;/// 页面跳转不做滑动/淡入动画，直接出图。
+ bool get noRouteTransition;/// 滚动到边界不回弹。
+ bool get noScrollBounce;/// 图片加载占位不转圈（转圈会驱动墨水屏持续局刷，残影很重）。
+ bool get noLoadingSpinner; EinkRefreshMode get refreshMode;/// 每翻多少页自动整屏刷新一次；0 表示不自动刷新。
+ int get autoRefreshEveryNTurns; bool get showRefreshButton;
+/// Create a copy of EInkSettingState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$EInkSettingStateCopyWith<EInkSettingState> get copyWith => _$EInkSettingStateCopyWithImpl<EInkSettingState>(this as EInkSettingState, _$identity);
+
+  /// Serializes this EInkSettingState to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as EInkSettingState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EInkSettingState&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&(identical(other.detectionHandled, _this.detectionHandled) || other.detectionHandled == _this.detectionHandled)&&(identical(other.noRouteTransition, _this.noRouteTransition) || other.noRouteTransition == _this.noRouteTransition)&&(identical(other.noScrollBounce, _this.noScrollBounce) || other.noScrollBounce == _this.noScrollBounce)&&(identical(other.noLoadingSpinner, _this.noLoadingSpinner) || other.noLoadingSpinner == _this.noLoadingSpinner)&&(identical(other.refreshMode, _this.refreshMode) || other.refreshMode == _this.refreshMode)&&(identical(other.autoRefreshEveryNTurns, _this.autoRefreshEveryNTurns) || other.autoRefreshEveryNTurns == _this.autoRefreshEveryNTurns)&&(identical(other.showRefreshButton, _this.showRefreshButton) || other.showRefreshButton == _this.showRefreshButton));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as EInkSettingState;
+  return Object.hash(runtimeType,_this.enabled,_this.detectionHandled,_this.noRouteTransition,_this.noScrollBounce,_this.noLoadingSpinner,_this.refreshMode,_this.autoRefreshEveryNTurns,_this.showRefreshButton);
+}
+
+@override
+String toString() {
+  final _this = this as EInkSettingState;
+  return 'EInkSettingState(enabled: ${_this.enabled}, detectionHandled: ${_this.detectionHandled}, noRouteTransition: ${_this.noRouteTransition}, noScrollBounce: ${_this.noScrollBounce}, noLoadingSpinner: ${_this.noLoadingSpinner}, refreshMode: ${_this.refreshMode}, autoRefreshEveryNTurns: ${_this.autoRefreshEveryNTurns}, showRefreshButton: ${_this.showRefreshButton})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $EInkSettingStateCopyWith<$Res>  {
+  factory $EInkSettingStateCopyWith(EInkSettingState value, $Res Function(EInkSettingState) _then) = _$EInkSettingStateCopyWithImpl;
+@useResult
+$Res call({
+ bool enabled, bool detectionHandled, bool noRouteTransition, bool noScrollBounce, bool noLoadingSpinner, EinkRefreshMode refreshMode, int autoRefreshEveryNTurns, bool showRefreshButton
+});
+
+
+
+
+}
+/// @nodoc
+class _$EInkSettingStateCopyWithImpl<$Res>
+    implements $EInkSettingStateCopyWith<$Res> {
+  _$EInkSettingStateCopyWithImpl(this._self, this._then);
+
+  final EInkSettingState _self;
+  final $Res Function(EInkSettingState) _then;
+
+/// Create a copy of EInkSettingState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? detectionHandled = null,Object? noRouteTransition = null,Object? noScrollBounce = null,Object? noLoadingSpinner = null,Object? refreshMode = null,Object? autoRefreshEveryNTurns = null,Object? showRefreshButton = null,}) {
+  return _then(EInkSettingState(
+enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
+as bool,detectionHandled: null == detectionHandled ? _self.detectionHandled : detectionHandled // ignore: cast_nullable_to_non_nullable
+as bool,noRouteTransition: null == noRouteTransition ? _self.noRouteTransition : noRouteTransition // ignore: cast_nullable_to_non_nullable
+as bool,noScrollBounce: null == noScrollBounce ? _self.noScrollBounce : noScrollBounce // ignore: cast_nullable_to_non_nullable
+as bool,noLoadingSpinner: null == noLoadingSpinner ? _self.noLoadingSpinner : noLoadingSpinner // ignore: cast_nullable_to_non_nullable
+as bool,refreshMode: null == refreshMode ? _self.refreshMode : refreshMode // ignore: cast_nullable_to_non_nullable
+as EinkRefreshMode,autoRefreshEveryNTurns: null == autoRefreshEveryNTurns ? _self.autoRefreshEveryNTurns : autoRefreshEveryNTurns // ignore: cast_nullable_to_non_nullable
+as int,showRefreshButton: null == showRefreshButton ? _self.showRefreshButton : showRefreshButton // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [EInkSettingState].
+extension EInkSettingStatePatterns on EInkSettingState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _EInkSettingState value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _EInkSettingState() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _EInkSettingState value)  $default,){
+final _that = this;
+switch (_that) {
+case _EInkSettingState():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _EInkSettingState value)?  $default,){
+final _that = this;
+switch (_that) {
+case _EInkSettingState() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool enabled,  bool detectionHandled,  bool noRouteTransition,  bool noScrollBounce,  bool noLoadingSpinner,  EinkRefreshMode refreshMode,  int autoRefreshEveryNTurns,  bool showRefreshButton)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _EInkSettingState() when $default != null:
+return $default(_that.enabled,_that.detectionHandled,_that.noRouteTransition,_that.noScrollBounce,_that.noLoadingSpinner,_that.refreshMode,_that.autoRefreshEveryNTurns,_that.showRefreshButton);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool enabled,  bool detectionHandled,  bool noRouteTransition,  bool noScrollBounce,  bool noLoadingSpinner,  EinkRefreshMode refreshMode,  int autoRefreshEveryNTurns,  bool showRefreshButton)  $default,) {final _that = this;
+switch (_that) {
+case _EInkSettingState():
+return $default(_that.enabled,_that.detectionHandled,_that.noRouteTransition,_that.noScrollBounce,_that.noLoadingSpinner,_that.refreshMode,_that.autoRefreshEveryNTurns,_that.showRefreshButton);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool enabled,  bool detectionHandled,  bool noRouteTransition,  bool noScrollBounce,  bool noLoadingSpinner,  EinkRefreshMode refreshMode,  int autoRefreshEveryNTurns,  bool showRefreshButton)?  $default,) {final _that = this;
+switch (_that) {
+case _EInkSettingState() when $default != null:
+return $default(_that.enabled,_that.detectionHandled,_that.noRouteTransition,_that.noScrollBounce,_that.noLoadingSpinner,_that.refreshMode,_that.autoRefreshEveryNTurns,_that.showRefreshButton);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _EInkSettingState extends EInkSettingState {
+  const _EInkSettingState({this.enabled = false, this.detectionHandled = false, this.noRouteTransition = true, this.noScrollBounce = true, this.noLoadingSpinner = true, this.refreshMode = EinkRefreshMode.fullFlash, this.autoRefreshEveryNTurns = 5, this.showRefreshButton = true}): super._();
+  factory _EInkSettingState.fromJson(Map<String, dynamic> json) => _$EInkSettingStateFromJson(json);
+
+/// 墨水屏模式总开关。命中 e-ink 设备时首启自动打开，用户手动关掉后不再自动开启。
+@override@JsonKey() final  bool enabled;
+/// 设备检测是否已经处理过一次，避免每次启动都覆盖用户的选择。
+@override@JsonKey() final  bool detectionHandled;
+/// 页面跳转不做滑动/淡入动画，直接出图。
+@override@JsonKey() final  bool noRouteTransition;
+/// 滚动到边界不回弹。
+@override@JsonKey() final  bool noScrollBounce;
+/// 图片加载占位不转圈（转圈会驱动墨水屏持续局刷，残影很重）。
+@override@JsonKey() final  bool noLoadingSpinner;
+@override@JsonKey() final  EinkRefreshMode refreshMode;
+/// 每翻多少页自动整屏刷新一次；0 表示不自动刷新。
+@override@JsonKey() final  int autoRefreshEveryNTurns;
+@override@JsonKey() final  bool showRefreshButton;
+
+/// Create a copy of EInkSettingState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$EInkSettingStateCopyWith<_EInkSettingState> get copyWith => __$EInkSettingStateCopyWithImpl<_EInkSettingState>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$EInkSettingStateToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _EInkSettingState&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.detectionHandled, detectionHandled) || other.detectionHandled == detectionHandled)&&(identical(other.noRouteTransition, noRouteTransition) || other.noRouteTransition == noRouteTransition)&&(identical(other.noScrollBounce, noScrollBounce) || other.noScrollBounce == noScrollBounce)&&(identical(other.noLoadingSpinner, noLoadingSpinner) || other.noLoadingSpinner == noLoadingSpinner)&&(identical(other.refreshMode, refreshMode) || other.refreshMode == refreshMode)&&(identical(other.autoRefreshEveryNTurns, autoRefreshEveryNTurns) || other.autoRefreshEveryNTurns == autoRefreshEveryNTurns)&&(identical(other.showRefreshButton, showRefreshButton) || other.showRefreshButton == showRefreshButton));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,enabled,detectionHandled,noRouteTransition,noScrollBounce,noLoadingSpinner,refreshMode,autoRefreshEveryNTurns,showRefreshButton);
+}
+
+@override
+String toString() {
+    return 'EInkSettingState(enabled: $enabled, detectionHandled: $detectionHandled, noRouteTransition: $noRouteTransition, noScrollBounce: $noScrollBounce, noLoadingSpinner: $noLoadingSpinner, refreshMode: $refreshMode, autoRefreshEveryNTurns: $autoRefreshEveryNTurns, showRefreshButton: $showRefreshButton)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$EInkSettingStateCopyWith<$Res> implements $EInkSettingStateCopyWith<$Res> {
+  factory _$EInkSettingStateCopyWith(_EInkSettingState value, $Res Function(_EInkSettingState) _then) = __$EInkSettingStateCopyWithImpl;
+@override @useResult
+$Res call({
+ bool enabled, bool detectionHandled, bool noRouteTransition, bool noScrollBounce, bool noLoadingSpinner, EinkRefreshMode refreshMode, int autoRefreshEveryNTurns, bool showRefreshButton
+});
+
+
+
+
+}
+/// @nodoc
+class __$EInkSettingStateCopyWithImpl<$Res>
+    implements _$EInkSettingStateCopyWith<$Res> {
+  __$EInkSettingStateCopyWithImpl(this._self, this._then);
+
+  final _EInkSettingState _self;
+  final $Res Function(_EInkSettingState) _then;
+
+/// Create a copy of EInkSettingState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? enabled = null,Object? detectionHandled = null,Object? noRouteTransition = null,Object? noScrollBounce = null,Object? noLoadingSpinner = null,Object? refreshMode = null,Object? autoRefreshEveryNTurns = null,Object? showRefreshButton = null,}) {
+  return _then(_EInkSettingState(
+enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
+as bool,detectionHandled: null == detectionHandled ? _self.detectionHandled : detectionHandled // ignore: cast_nullable_to_non_nullable
+as bool,noRouteTransition: null == noRouteTransition ? _self.noRouteTransition : noRouteTransition // ignore: cast_nullable_to_non_nullable
+as bool,noScrollBounce: null == noScrollBounce ? _self.noScrollBounce : noScrollBounce // ignore: cast_nullable_to_non_nullable
+as bool,noLoadingSpinner: null == noLoadingSpinner ? _self.noLoadingSpinner : noLoadingSpinner // ignore: cast_nullable_to_non_nullable
+as bool,refreshMode: null == refreshMode ? _self.refreshMode : refreshMode // ignore: cast_nullable_to_non_nullable
+as EinkRefreshMode,autoRefreshEveryNTurns: null == autoRefreshEveryNTurns ? _self.autoRefreshEveryNTurns : autoRefreshEveryNTurns // ignore: cast_nullable_to_non_nullable
+as int,showRefreshButton: null == showRefreshButton ? _self.showRefreshButton : showRefreshButton // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$BookshelfSettingState {
 
- int get homePageIndex; bool get rememberFavoriteSort; String get favoriteSort; bool get rememberHistorySort; String get historySort; bool get rememberDownloadSort; String get downloadSort;
+ int get homePageIndex; bool get rememberFavoriteSort; String get favoriteSort; bool get rememberHistorySort; String get historySort; bool get rememberDownloadSort; String get downloadSort; bool get detailLayout; bool get reverseChapters;
 /// Create a copy of BookshelfSettingState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2640,20 +2961,20 @@ $BookshelfSettingStateCopyWith<BookshelfSettingState> get copyWith => _$Bookshel
 @override
 bool operator ==(Object other) {
   final _this = this as BookshelfSettingState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BookshelfSettingState&&(identical(other.homePageIndex, _this.homePageIndex) || other.homePageIndex == _this.homePageIndex)&&(identical(other.rememberFavoriteSort, _this.rememberFavoriteSort) || other.rememberFavoriteSort == _this.rememberFavoriteSort)&&(identical(other.favoriteSort, _this.favoriteSort) || other.favoriteSort == _this.favoriteSort)&&(identical(other.rememberHistorySort, _this.rememberHistorySort) || other.rememberHistorySort == _this.rememberHistorySort)&&(identical(other.historySort, _this.historySort) || other.historySort == _this.historySort)&&(identical(other.rememberDownloadSort, _this.rememberDownloadSort) || other.rememberDownloadSort == _this.rememberDownloadSort)&&(identical(other.downloadSort, _this.downloadSort) || other.downloadSort == _this.downloadSort));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BookshelfSettingState&&(identical(other.homePageIndex, _this.homePageIndex) || other.homePageIndex == _this.homePageIndex)&&(identical(other.rememberFavoriteSort, _this.rememberFavoriteSort) || other.rememberFavoriteSort == _this.rememberFavoriteSort)&&(identical(other.favoriteSort, _this.favoriteSort) || other.favoriteSort == _this.favoriteSort)&&(identical(other.rememberHistorySort, _this.rememberHistorySort) || other.rememberHistorySort == _this.rememberHistorySort)&&(identical(other.historySort, _this.historySort) || other.historySort == _this.historySort)&&(identical(other.rememberDownloadSort, _this.rememberDownloadSort) || other.rememberDownloadSort == _this.rememberDownloadSort)&&(identical(other.downloadSort, _this.downloadSort) || other.downloadSort == _this.downloadSort)&&(identical(other.detailLayout, _this.detailLayout) || other.detailLayout == _this.detailLayout)&&(identical(other.reverseChapters, _this.reverseChapters) || other.reverseChapters == _this.reverseChapters));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as BookshelfSettingState;
-  return Object.hash(runtimeType,_this.homePageIndex,_this.rememberFavoriteSort,_this.favoriteSort,_this.rememberHistorySort,_this.historySort,_this.rememberDownloadSort,_this.downloadSort);
+  return Object.hash(runtimeType,_this.homePageIndex,_this.rememberFavoriteSort,_this.favoriteSort,_this.rememberHistorySort,_this.historySort,_this.rememberDownloadSort,_this.downloadSort,_this.detailLayout,_this.reverseChapters);
 }
 
 @override
 String toString() {
   final _this = this as BookshelfSettingState;
-  return 'BookshelfSettingState(homePageIndex: ${_this.homePageIndex}, rememberFavoriteSort: ${_this.rememberFavoriteSort}, favoriteSort: ${_this.favoriteSort}, rememberHistorySort: ${_this.rememberHistorySort}, historySort: ${_this.historySort}, rememberDownloadSort: ${_this.rememberDownloadSort}, downloadSort: ${_this.downloadSort})';
+  return 'BookshelfSettingState(homePageIndex: ${_this.homePageIndex}, rememberFavoriteSort: ${_this.rememberFavoriteSort}, favoriteSort: ${_this.favoriteSort}, rememberHistorySort: ${_this.rememberHistorySort}, historySort: ${_this.historySort}, rememberDownloadSort: ${_this.rememberDownloadSort}, downloadSort: ${_this.downloadSort}, detailLayout: ${_this.detailLayout}, reverseChapters: ${_this.reverseChapters})';
 }
 
 
@@ -2664,7 +2985,7 @@ abstract mixin class $BookshelfSettingStateCopyWith<$Res>  {
   factory $BookshelfSettingStateCopyWith(BookshelfSettingState value, $Res Function(BookshelfSettingState) _then) = _$BookshelfSettingStateCopyWithImpl;
 @useResult
 $Res call({
- int homePageIndex, bool rememberFavoriteSort, String favoriteSort, bool rememberHistorySort, String historySort, bool rememberDownloadSort, String downloadSort
+ int homePageIndex, bool rememberFavoriteSort, String favoriteSort, bool rememberHistorySort, String historySort, bool rememberDownloadSort, String downloadSort, bool detailLayout, bool reverseChapters
 });
 
 
@@ -2681,7 +3002,7 @@ class _$BookshelfSettingStateCopyWithImpl<$Res>
 
 /// Create a copy of BookshelfSettingState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? homePageIndex = null,Object? rememberFavoriteSort = null,Object? favoriteSort = null,Object? rememberHistorySort = null,Object? historySort = null,Object? rememberDownloadSort = null,Object? downloadSort = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? homePageIndex = null,Object? rememberFavoriteSort = null,Object? favoriteSort = null,Object? rememberHistorySort = null,Object? historySort = null,Object? rememberDownloadSort = null,Object? downloadSort = null,Object? detailLayout = null,Object? reverseChapters = null,}) {
   return _then(BookshelfSettingState(
 homePageIndex: null == homePageIndex ? _self.homePageIndex : homePageIndex // ignore: cast_nullable_to_non_nullable
 as int,rememberFavoriteSort: null == rememberFavoriteSort ? _self.rememberFavoriteSort : rememberFavoriteSort // ignore: cast_nullable_to_non_nullable
@@ -2690,7 +3011,9 @@ as String,rememberHistorySort: null == rememberHistorySort ? _self.rememberHisto
 as bool,historySort: null == historySort ? _self.historySort : historySort // ignore: cast_nullable_to_non_nullable
 as String,rememberDownloadSort: null == rememberDownloadSort ? _self.rememberDownloadSort : rememberDownloadSort // ignore: cast_nullable_to_non_nullable
 as bool,downloadSort: null == downloadSort ? _self.downloadSort : downloadSort // ignore: cast_nullable_to_non_nullable
-as String,
+as String,detailLayout: null == detailLayout ? _self.detailLayout : detailLayout // ignore: cast_nullable_to_non_nullable
+as bool,reverseChapters: null == reverseChapters ? _self.reverseChapters : reverseChapters // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -2775,10 +3098,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int homePageIndex,  bool rememberFavoriteSort,  String favoriteSort,  bool rememberHistorySort,  String historySort,  bool rememberDownloadSort,  String downloadSort)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int homePageIndex,  bool rememberFavoriteSort,  String favoriteSort,  bool rememberHistorySort,  String historySort,  bool rememberDownloadSort,  String downloadSort,  bool detailLayout,  bool reverseChapters)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _BookshelfSettingState() when $default != null:
-return $default(_that.homePageIndex,_that.rememberFavoriteSort,_that.favoriteSort,_that.rememberHistorySort,_that.historySort,_that.rememberDownloadSort,_that.downloadSort);case _:
+return $default(_that.homePageIndex,_that.rememberFavoriteSort,_that.favoriteSort,_that.rememberHistorySort,_that.historySort,_that.rememberDownloadSort,_that.downloadSort,_that.detailLayout,_that.reverseChapters);case _:
   return orElse();
 
 }
@@ -2796,10 +3119,10 @@ return $default(_that.homePageIndex,_that.rememberFavoriteSort,_that.favoriteSor
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int homePageIndex,  bool rememberFavoriteSort,  String favoriteSort,  bool rememberHistorySort,  String historySort,  bool rememberDownloadSort,  String downloadSort)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int homePageIndex,  bool rememberFavoriteSort,  String favoriteSort,  bool rememberHistorySort,  String historySort,  bool rememberDownloadSort,  String downloadSort,  bool detailLayout,  bool reverseChapters)  $default,) {final _that = this;
 switch (_that) {
 case _BookshelfSettingState():
-return $default(_that.homePageIndex,_that.rememberFavoriteSort,_that.favoriteSort,_that.rememberHistorySort,_that.historySort,_that.rememberDownloadSort,_that.downloadSort);case _:
+return $default(_that.homePageIndex,_that.rememberFavoriteSort,_that.favoriteSort,_that.rememberHistorySort,_that.historySort,_that.rememberDownloadSort,_that.downloadSort,_that.detailLayout,_that.reverseChapters);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2816,10 +3139,10 @@ return $default(_that.homePageIndex,_that.rememberFavoriteSort,_that.favoriteSor
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int homePageIndex,  bool rememberFavoriteSort,  String favoriteSort,  bool rememberHistorySort,  String historySort,  bool rememberDownloadSort,  String downloadSort)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int homePageIndex,  bool rememberFavoriteSort,  String favoriteSort,  bool rememberHistorySort,  String historySort,  bool rememberDownloadSort,  String downloadSort,  bool detailLayout,  bool reverseChapters)?  $default,) {final _that = this;
 switch (_that) {
 case _BookshelfSettingState() when $default != null:
-return $default(_that.homePageIndex,_that.rememberFavoriteSort,_that.favoriteSort,_that.rememberHistorySort,_that.historySort,_that.rememberDownloadSort,_that.downloadSort);case _:
+return $default(_that.homePageIndex,_that.rememberFavoriteSort,_that.favoriteSort,_that.rememberHistorySort,_that.historySort,_that.rememberDownloadSort,_that.downloadSort,_that.detailLayout,_that.reverseChapters);case _:
   return null;
 
 }
@@ -2831,7 +3154,7 @@ return $default(_that.homePageIndex,_that.rememberFavoriteSort,_that.favoriteSor
 @JsonSerializable()
 
 class _BookshelfSettingState implements BookshelfSettingState {
-  const _BookshelfSettingState({this.homePageIndex = 0, this.rememberFavoriteSort = false, this.favoriteSort = 'dd', this.rememberHistorySort = false, this.historySort = 'dd', this.rememberDownloadSort = false, this.downloadSort = 'dd'});
+  const _BookshelfSettingState({this.homePageIndex = 0, this.rememberFavoriteSort = false, this.favoriteSort = 'dd', this.rememberHistorySort = false, this.historySort = 'dd', this.rememberDownloadSort = false, this.downloadSort = 'dd', this.detailLayout = false, this.reverseChapters = false});
   factory _BookshelfSettingState.fromJson(Map<String, dynamic> json) => _$BookshelfSettingStateFromJson(json);
 
 @override@JsonKey() final  int homePageIndex;
@@ -2841,6 +3164,8 @@ class _BookshelfSettingState implements BookshelfSettingState {
 @override@JsonKey() final  String historySort;
 @override@JsonKey() final  bool rememberDownloadSort;
 @override@JsonKey() final  String downloadSort;
+@override@JsonKey() final  bool detailLayout;
+@override@JsonKey() final  bool reverseChapters;
 
 /// Create a copy of BookshelfSettingState
 /// with the given fields replaced by the non-null parameter values.
@@ -2855,18 +3180,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _BookshelfSettingState&&(identical(other.homePageIndex, homePageIndex) || other.homePageIndex == homePageIndex)&&(identical(other.rememberFavoriteSort, rememberFavoriteSort) || other.rememberFavoriteSort == rememberFavoriteSort)&&(identical(other.favoriteSort, favoriteSort) || other.favoriteSort == favoriteSort)&&(identical(other.rememberHistorySort, rememberHistorySort) || other.rememberHistorySort == rememberHistorySort)&&(identical(other.historySort, historySort) || other.historySort == historySort)&&(identical(other.rememberDownloadSort, rememberDownloadSort) || other.rememberDownloadSort == rememberDownloadSort)&&(identical(other.downloadSort, downloadSort) || other.downloadSort == downloadSort));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _BookshelfSettingState&&(identical(other.homePageIndex, homePageIndex) || other.homePageIndex == homePageIndex)&&(identical(other.rememberFavoriteSort, rememberFavoriteSort) || other.rememberFavoriteSort == rememberFavoriteSort)&&(identical(other.favoriteSort, favoriteSort) || other.favoriteSort == favoriteSort)&&(identical(other.rememberHistorySort, rememberHistorySort) || other.rememberHistorySort == rememberHistorySort)&&(identical(other.historySort, historySort) || other.historySort == historySort)&&(identical(other.rememberDownloadSort, rememberDownloadSort) || other.rememberDownloadSort == rememberDownloadSort)&&(identical(other.downloadSort, downloadSort) || other.downloadSort == downloadSort)&&(identical(other.detailLayout, detailLayout) || other.detailLayout == detailLayout)&&(identical(other.reverseChapters, reverseChapters) || other.reverseChapters == reverseChapters));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,homePageIndex,rememberFavoriteSort,favoriteSort,rememberHistorySort,historySort,rememberDownloadSort,downloadSort);
+    return Object.hash(runtimeType,homePageIndex,rememberFavoriteSort,favoriteSort,rememberHistorySort,historySort,rememberDownloadSort,downloadSort,detailLayout,reverseChapters);
 }
 
 @override
 String toString() {
-    return 'BookshelfSettingState(homePageIndex: $homePageIndex, rememberFavoriteSort: $rememberFavoriteSort, favoriteSort: $favoriteSort, rememberHistorySort: $rememberHistorySort, historySort: $historySort, rememberDownloadSort: $rememberDownloadSort, downloadSort: $downloadSort)';
+    return 'BookshelfSettingState(homePageIndex: $homePageIndex, rememberFavoriteSort: $rememberFavoriteSort, favoriteSort: $favoriteSort, rememberHistorySort: $rememberHistorySort, historySort: $historySort, rememberDownloadSort: $rememberDownloadSort, downloadSort: $downloadSort, detailLayout: $detailLayout, reverseChapters: $reverseChapters)';
 }
 
 
@@ -2877,7 +3202,7 @@ abstract mixin class _$BookshelfSettingStateCopyWith<$Res> implements $Bookshelf
   factory _$BookshelfSettingStateCopyWith(_BookshelfSettingState value, $Res Function(_BookshelfSettingState) _then) = __$BookshelfSettingStateCopyWithImpl;
 @override @useResult
 $Res call({
- int homePageIndex, bool rememberFavoriteSort, String favoriteSort, bool rememberHistorySort, String historySort, bool rememberDownloadSort, String downloadSort
+ int homePageIndex, bool rememberFavoriteSort, String favoriteSort, bool rememberHistorySort, String historySort, bool rememberDownloadSort, String downloadSort, bool detailLayout, bool reverseChapters
 });
 
 
@@ -2894,7 +3219,7 @@ class __$BookshelfSettingStateCopyWithImpl<$Res>
 
 /// Create a copy of BookshelfSettingState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? homePageIndex = null,Object? rememberFavoriteSort = null,Object? favoriteSort = null,Object? rememberHistorySort = null,Object? historySort = null,Object? rememberDownloadSort = null,Object? downloadSort = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? homePageIndex = null,Object? rememberFavoriteSort = null,Object? favoriteSort = null,Object? rememberHistorySort = null,Object? historySort = null,Object? rememberDownloadSort = null,Object? downloadSort = null,Object? detailLayout = null,Object? reverseChapters = null,}) {
   return _then(_BookshelfSettingState(
 homePageIndex: null == homePageIndex ? _self.homePageIndex : homePageIndex // ignore: cast_nullable_to_non_nullable
 as int,rememberFavoriteSort: null == rememberFavoriteSort ? _self.rememberFavoriteSort : rememberFavoriteSort // ignore: cast_nullable_to_non_nullable
@@ -2903,7 +3228,9 @@ as String,rememberHistorySort: null == rememberHistorySort ? _self.rememberHisto
 as bool,historySort: null == historySort ? _self.historySort : historySort // ignore: cast_nullable_to_non_nullable
 as String,rememberDownloadSort: null == rememberDownloadSort ? _self.rememberDownloadSort : rememberDownloadSort // ignore: cast_nullable_to_non_nullable
 as bool,downloadSort: null == downloadSort ? _self.downloadSort : downloadSort // ignore: cast_nullable_to_non_nullable
-as String,
+as String,detailLayout: null == detailLayout ? _self.detailLayout : detailLayout // ignore: cast_nullable_to_non_nullable
+as bool,reverseChapters: null == reverseChapters ? _self.reverseChapters : reverseChapters // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

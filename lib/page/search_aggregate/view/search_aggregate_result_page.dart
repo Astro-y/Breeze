@@ -6,6 +6,7 @@ import 'package:zephyr/config/global/global_setting.dart';
 import 'package:zephyr/cubit/plugin_registry_cubit.dart';
 import 'package:zephyr/plugin/plugin_registry_service.dart';
 import 'package:zephyr/page/search/cubit/search_cubit.dart';
+import 'package:zephyr/page/search/widget/search_input_dialog.dart';
 import 'package:zephyr/page/search/widget/source_select_dialog.dart';
 import 'package:zephyr/page/search_result/bloc/search_bloc.dart';
 import 'package:zephyr/config/router/router.gr.dart';
@@ -33,9 +34,9 @@ class SearchAggregateResultPage extends StatelessWidget
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    final pluginStates = context.read<PluginRegistryCubit>().state;
+    final registry = context.read<PluginRegistryCubit>().state;
     final visiblePlugins = PluginRegistryService.I.sortPlugins(
-      pluginStates.values.where((state) => !state.isDeleted),
+      registry.plugins.values.where((state) => !state.isDeleted),
     );
     final initial = selectedSources.isNotEmpty
         ? {for (final entry in selectedSources.entries) entry.key: entry.value}
@@ -154,45 +155,11 @@ class _SearchBarTrigger extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: GestureDetector(
-              onTap: () {
-                final stack = context.router.stack;
-                if (stack.length > 1 &&
-                    stack[stack.length - 2].name == SearchRoute.name) {
-                  context.maybePop();
-                  return;
-                }
-
-                context.replaceRoute(
-                  SearchRoute(
-                    key: ValueKey(const Uuid().v4()),
-                    searchState: context.read<SearchCubit>().state,
-                    aggregateMode: true,
-                  ),
-                );
-              },
-              child: Container(
-                height: 42,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(21),
-                ),
-                child: Row(
-                  children: [
-                    const SizedBox(width: 12),
-                    const Icon(Icons.search, size: 18),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        searchEvent.searchStates.searchKeyword,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                  ],
-                ),
-              ),
+            child: SearchQueryField(
+              query: searchEvent.searchStates.searchKeyword,
+              hintText: t.search.searchHint,
+              semanticLabel: t.search.title,
+              onTap: () => _openSearchPage(context),
             ),
           ),
           IconButton(
@@ -201,6 +168,22 @@ class _SearchBarTrigger extends StatelessWidget {
             icon: const Icon(Icons.tune),
           ),
         ],
+      ),
+    );
+  }
+
+  void _openSearchPage(BuildContext context) {
+    final stack = context.router.stack;
+    if (stack.length > 1 && stack[stack.length - 2].name == SearchRoute.name) {
+      context.maybePop();
+      return;
+    }
+
+    context.replaceRoute(
+      SearchRoute(
+        key: ValueKey(const Uuid().v4()),
+        searchState: context.read<SearchCubit>().state,
+        aggregateMode: true,
       ),
     );
   }
@@ -222,9 +205,9 @@ class _SearchBarTrigger extends StatelessWidget {
     BuildContext context,
     Iterable<String> selectedKeys,
   ) {
-    final pluginStates = context.read<PluginRegistryCubit>().state;
+    final registry = context.read<PluginRegistryCubit>().state;
     final ordered = PluginRegistryService.I.sortPlugins(
-      pluginStates.values.where((state) => !state.isDeleted),
+      registry.plugins.values.where((state) => !state.isDeleted),
     );
     final selectedSet = selectedKeys.toSet();
     final result = <({String pluginId, String title})>[];
@@ -232,11 +215,10 @@ class _SearchBarTrigger extends StatelessWidget {
       if (!selectedSet.contains(plugin.uuid)) {
         continue;
       }
-      final info = PluginRegistryService.I.getCachedPluginInfo(plugin.uuid);
-      final title = info?['name']?.toString().trim().isNotEmpty == true
-          ? info!['name'].toString().trim()
-          : plugin.uuid;
-      result.add((pluginId: plugin.uuid, title: title));
+      result.add((
+        pluginId: plugin.uuid,
+        title: registry.pluginName(plugin.uuid),
+      ));
     }
     return result;
   }
@@ -292,11 +274,11 @@ class _ResultList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final children = <Widget>[];
-    final pluginStates = context.watch<PluginRegistryCubit>().state;
+    final registry = context.watch<PluginRegistryCubit>().state;
     final selectedIds = state.selectedSources.keys.toSet();
     final pluginIds = PluginRegistryService.I
         .sortPlugins(
-          pluginStates.values.where(
+          registry.plugins.values.where(
             (plugin) => selectedIds.contains(plugin.uuid),
           ),
         )
@@ -325,7 +307,7 @@ class _ResultList extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SectionHeader(
-                  title: _sourceTitle(pluginId),
+                  title: _sourceTitle(context, pluginId),
                   subtitle: t.search.resultCount(count: items.length),
                   onTap: () => _openSourceSearch(context, pluginId),
                 ),
@@ -358,7 +340,9 @@ class _ResultList extends StatelessWidget {
               child: ListTile(
                 leading: const Icon(Icons.error_outline),
                 title: Text(
-                  t.search.loadFailedForSource(source: _sourceTitle(pluginId)),
+                  t.search.loadFailedForSource(
+                    source: _sourceTitle(context, pluginId),
+                  ),
                 ),
                 subtitle: Text(
                   error,
@@ -392,13 +376,10 @@ class _ResultList extends StatelessWidget {
     return ListView(children: children);
   }
 
-  String _sourceTitle(String pluginId) {
-    final info = PluginRegistryService.I.getCachedPluginInfo(pluginId);
-    final name = info?['name']?.toString().trim() ?? '';
-    if (name.isNotEmpty) {
-      return name;
-    }
-    return pluginId;
+  String _sourceTitle(BuildContext context, String pluginId) {
+    return context.select<PluginRegistryCubit, String>(
+      (cubit) => cubit.state.pluginName(pluginId),
+    );
   }
 
   void _openSourceSearch(BuildContext context, String pluginId) {

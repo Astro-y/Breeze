@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zephyr/config/global/global_setting.dart';
+import 'package:zephyr/cubit/comic_read_preference_cubit.dart';
 import 'package:zephyr/page/comic_read/controller/reader_action_controller.dart';
 
 class ReaderGestureLogic {
@@ -12,7 +12,7 @@ class ReaderGestureLogic {
     required VoidCallback onToggleMenu,
     VoidCallback? onBeforePageTurn,
   }) {
-    final readSetting = context.read<GlobalSettingCubit>().state.readSetting;
+    final readSetting = context.readEffectiveReadSetting();
     final isWebtoon = readSetting.readMode == 0;
     if (isWebtoon && !readSetting.tapPageTurnInWebtoon) {
       onToggleMenu();
@@ -20,9 +20,9 @@ class ReaderGestureLogic {
     }
 
     final Offset tapPosition = details.globalPosition;
-    final mediaQuery = MediaQuery.of(context);
-    final screenWidth = mediaQuery.size.width;
-    final screenHeight = mediaQuery.size.height;
+    final screenSize = MediaQuery.sizeOf(context);
+    final screenWidth = screenSize.width;
+    final screenHeight = screenSize.height;
     final thirdWidth = screenWidth / 3;
     final thirdHeight = screenHeight / 3;
     final inCenterControlArea =

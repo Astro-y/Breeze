@@ -7,6 +7,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollview_observer/scrollview_observer.dart';
 import 'package:zephyr/config/global/global_setting.dart';
+import 'package:zephyr/cubit/comic_read_preference_cubit.dart';
 import 'package:zephyr/cubit/string_select.dart';
 import 'package:zephyr/i18n/strings.g.dart';
 import 'package:zephyr/page/comic_read/comic_read.dart';
@@ -19,6 +20,7 @@ import 'package:zephyr/page/comic_read/controller/reader_orientation_controller.
 import 'package:zephyr/page/comic_read/cubit/reader_state.dart';
 import 'package:zephyr/page/comic_read/model/normal_comic_ep_info.dart';
 import 'package:zephyr/page/comic_read/type/chapter_extern.dart';
+import 'package:zephyr/platform/eink/eink_refresh.dart';
 import 'package:zephyr/util/context/context_extensions.dart';
 import 'package:zephyr/type/enum.dart';
 
@@ -28,6 +30,8 @@ part 'parts/comic_read_auto_read_part.dart';
 part 'parts/comic_read_init_part.dart';
 // 交互相关：手势、缩放、指针事件、阅读模式容器。
 part 'parts/comic_read_interaction_part.dart';
+// 墨水屏相关：整屏刷新按钮与按页数自动刷新。
+part 'parts/comic_read_eink_part.dart';
 // 系统 UI 与音量键拦截相关。
 part 'parts/comic_read_system_ui_part.dart';
 // 页面拼装与历史定位相关。
@@ -171,6 +175,10 @@ class _ComicReadPageState extends State<_ComicReadPage>
   final TransformationController _transformationController =
       TransformationController();
   StreamSubscription<bool>? _volumeKeyPageTurnSubscription;
+  StreamSubscription<dynamic>? _perComicVolumeKeySubscription;
+  StreamSubscription<ReaderState>? _einkRefreshSubscription;
+  int _einkLastSlot = -1;
+  int _einkTurnCount = 0;
   bool _isScrollLockedByMultiTouch = false;
   bool _isUserScrollActive = false; // 用户是否正在拖拽/惯性滚动列表
 
@@ -183,6 +191,8 @@ class _ComicReadPageState extends State<_ComicReadPage>
     super.initState();
     observerController = ListObserverController(controller: scrollController);
     _type = widget.type;
+    // 绑定本漫独立阅读设置（仅 readMode），供有效值计算使用。
+    context.read<ComicReadPreferenceCubit>().bind(widget.from, widget.comicId);
 
     _initAutoReadController();
     _initSystemUiController();
@@ -196,6 +206,7 @@ class _ComicReadPageState extends State<_ComicReadPage>
     _inputController.setActionController(_actionController);
     _inputController.init();
     _initVolumeKeyPageTurnSubscription();
+    _initEinkAutoRefresh();
 
     WidgetsBinding.instance.addObserver(this);
     _lifecycleController.init();
@@ -208,16 +219,32 @@ class _ComicReadPageState extends State<_ComicReadPage>
   }
 
   @override
+  void didUpdateWidget(covariant _ComicReadPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.from != widget.from || oldWidget.comicId != widget.comicId) {
+      context.read<ComicReadPreferenceCubit>().bind(
+        widget.from,
+        widget.comicId,
+      );
+    }
+  }
+
+  @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     unawaited(_lifecycleController.dispose());
     _volumeKeyPageTurnSubscription?.cancel();
+    _perComicVolumeKeySubscription?.cancel();
+    _einkRefreshSubscription?.cancel();
     _inputController.dispose();
     _imagePrefetchController.dispose();
     _volumeController.dispose();
     _pageController.dispose();
     _transformationController.dispose();
     unawaited(_orientationController.restorePortrait());
+    try {
+      context.read<ComicReadPreferenceCubit>().unbind();
+    } catch (_) {}
     super.dispose();
   }
 
@@ -262,10 +289,7 @@ class _ComicReadPageState extends State<_ComicReadPage>
                 _lifecycleController.markReadStateBootstrapped();
                 epInfo = state.epInfo!;
                 _initialEpInfo = state.epInfo!;
-                final readSetting = context
-                    .read<GlobalSettingCubit>()
-                    .state
-                    .readSetting;
+                final readSetting = context.readEffectiveReadSetting();
                 context.read<ReaderSeamlessCubit>().bootstrap(
                   epInfo,
                   widget.order,
@@ -286,6 +310,7 @@ class _ComicReadPageState extends State<_ComicReadPage>
                 buildAppBar: (_) => _comicReadAppBar(),
                 buildBottom: (innerContext) => _bottomWidget(innerContext),
                 buildAutoReadControl: (_) => _autoReadControlWidget(),
+                buildEinkControl: (_) => _einkRefreshControlWidget(),
                 onReady: (innerContext, readSetting, readMode) {
                   _syncAutoRead(readSetting: readSetting, readMode: readMode);
                   _prefetchImagesAroundSlot(
@@ -326,7 +351,7 @@ class _ComicReadPageState extends State<_ComicReadPage>
   }) async {
     if (!mounted) return;
     final cubit = context.read<ReaderCubit>();
-    final readSetting = context.read<GlobalSettingCubit>().state.readSetting;
+    final readSetting = context.readEffectiveReadSetting();
     final seamlessCubit = context.read<ReaderSeamlessCubit>();
     final totalSlots = seamlessCubit.resolveTotalSlots(readSetting);
     final maxSlot = (totalSlots - 1).clamp(0, 999999999);
@@ -345,7 +370,7 @@ class _ComicReadPageState extends State<_ComicReadPage>
       final imageContext = _imageSizeContext;
       if (imageContext != null && imageContext.mounted) {
         final imageSizeCubit = imageContext.read<ImageSizeCubit>();
-        final containerWidth = MediaQuery.of(context).size.width;
+        final containerWidth = MediaQuery.sizeOf(context).width;
         final contentWidth = getConstrainedImageWidth(
           containerWidth: containerWidth,
           enableSidePadding: readSetting.sidePaddingEnabled,

@@ -3,10 +3,14 @@ part of 'reader_settings_sheet.dart';
 class _ReaderSettingsReadTab extends StatelessWidget {
   final ValueChanged<int> changePageIndex;
   final ValueChanged<bool>? onLandscapeChanged;
+  final String source;
+  final String comicId;
 
   const _ReaderSettingsReadTab({
     required this.changePageIndex,
     this.onLandscapeChanged,
+    this.source = '',
+    this.comicId = '',
   });
 
   @override
@@ -35,6 +39,10 @@ class _ReaderSettingsReadTab extends StatelessWidget {
   }
 }
 
+/// 阅读模式区：同一套组件，全局 tab 和本漫 tab 共用。
+///
+/// 读目标值、显示有效值（本漫 tab 无覆盖时显示的即全局值，不搞特殊状态）；
+/// 写走 scope 路由（全局 tab 写全局，本漫 tab 写 patch）。
 class _ReadModeSection extends StatelessWidget {
   final ValueChanged<int> changePageIndex;
   final ValueChanged<bool>? onLandscapeChanged;
@@ -46,13 +54,44 @@ class _ReadModeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final globalSettingState = context.watch<GlobalSettingCubit>().state;
     final globalSettingCubit = context.read<GlobalSettingCubit>();
     final isMobilePlatform =
         !kIsWeb && (Platform.isAndroid || Platform.isIOS) && !isTablet(context);
+    // 本漫 tab 读有效值：无覆盖时显示的即全局值，不搞特殊状态；
+    // 点选即写覆盖（点当前高亮的值 = 再确认一次，无变化不写库）。
+    final effective = context.watchTargetReadSetting();
+    final readMode = effective.readMode;
+
+    Future<void> selectReadMode(int mode) async {
+      HapticFeedback.selectionClick();
+      await context.updateEffectiveReadSetting(
+        effective,
+        (current) => current.copyWith(readMode: mode),
+      );
+      changePageIndex(0);
+    }
 
     return _SettingsSection(
       title: t.reader.readingMode,
+      // 本漫 tab 有覆盖时标题右边挂“跟随全局”：删整行本漫设置，回到全局值。
+      trailing:
+          !context.isEditingPerComic ||
+              context.watch<ComicReadPreferenceCubit>().state.override == null
+          ? null
+          : TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: context.theme.colorScheme.error,
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                minimumSize: Size.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              onPressed: () async {
+                HapticFeedback.selectionClick();
+                await context.read<ComicReadPreferenceCubit>().clearOverride();
+                changePageIndex(0);
+              },
+              child: Text(t.reader.perComicFollowGlobal),
+            ),
       children: [
         Wrap(
           spacing: 10,
@@ -60,50 +99,29 @@ class _ReadModeSection extends StatelessWidget {
           children: [
             _SettingsChoiceChip(
               title: t.reader.webtoon,
-              selected: globalSettingState.readSetting.readMode == 0,
-              onTap: () {
-                if (globalSettingState.readSetting.readMode == 0) {
-                  return;
-                }
-                globalSettingCubit.updateReadSetting(
-                  (current) => current.copyWith(readMode: 0),
-                );
-                changePageIndex(0);
-              },
+              selected: readMode == 0,
+              onTap: () => selectReadMode(0),
             ),
             _SettingsChoiceChip(
               title: t.reader.singlePageLtr,
-              selected: globalSettingState.readSetting.readMode == 1,
-              onTap: () {
-                if (globalSettingState.readSetting.readMode == 1) {
-                  return;
-                }
-                globalSettingCubit.updateReadSetting(
-                  (current) => current.copyWith(readMode: 1),
-                );
-                changePageIndex(0);
-              },
+              selected: readMode == 1,
+              onTap: () => selectReadMode(1),
             ),
             _SettingsChoiceChip(
               title: t.reader.singlePageRtl,
-              selected: globalSettingState.readSetting.readMode == 2,
-              onTap: () {
-                if (globalSettingState.readSetting.readMode == 2) {
-                  return;
-                }
-                globalSettingCubit.updateReadSetting(
-                  (current) => current.copyWith(readMode: 2),
-                );
-                changePageIndex(0);
-              },
+              selected: readMode == 2,
+              onTap: () => selectReadMode(2),
             ),
           ],
         ),
-        if (isMobilePlatform && onLandscapeChanged != null)
+        // 横屏阅读是设备级开关，只写全局；本漫 tab 里隐藏。
+        if (isMobilePlatform &&
+            onLandscapeChanged != null &&
+            !context.isEditingPerComic)
           _SettingsSwitchTile(
             title: t.reader.landscapeReader,
             subtitle: t.reader.landscapeReaderSubtitle,
-            value: globalSettingState.readSetting.landscapeReader,
+            value: effective.landscapeReader,
             onChanged: (value) {
               globalSettingCubit.updateReadSetting(
                 (current) => current.copyWith(landscapeReader: value),
@@ -114,34 +132,39 @@ class _ReadModeSection extends StatelessWidget {
         _SettingsSwitchTile(
           title: t.reader.doublePage,
           subtitle: t.reader.doublePageSubtitle,
-          value: globalSettingState.readSetting.doublePageMode,
+          value: effective.doublePageMode,
           onChanged: (value) {
-            globalSettingCubit.updateReadSetting(
+            HapticFeedback.selectionClick();
+            context.updateEffectiveReadSetting(
+              effective,
               (current) => current.copyWith(doublePageMode: value),
             );
             changePageIndex(0);
           },
         ),
-        if (globalSettingState.readSetting.doublePageMode &&
-            globalSettingState.readSetting.readMode != 0)
+        if (effective.doublePageMode && effective.readMode != 0)
           _SettingsSwitchTile(
             title: t.reader.doublePageSeamless,
             subtitle: t.reader.doublePageSeamlessSubtitle,
-            value: globalSettingState.readSetting.doublePageSeamless,
+            value: effective.doublePageSeamless,
             onChanged: (value) {
-              globalSettingCubit.updateReadSetting(
+              HapticFeedback.selectionClick();
+              context.updateEffectiveReadSetting(
+                effective,
                 (current) => current.copyWith(doublePageSeamless: value),
               );
               changePageIndex(0);
             },
           ),
-        if (globalSettingState.readSetting.doublePageMode)
+        if (effective.doublePageMode)
           _SettingsSwitchTile(
             title: t.reader.doublePageLeadingBlank,
             subtitle: t.reader.doublePageLeadingBlankSubtitle,
-            value: globalSettingState.readSetting.doublePageLeadingBlank,
+            value: effective.doublePageLeadingBlank,
             onChanged: (value) {
-              globalSettingCubit.updateReadSetting(
+              HapticFeedback.selectionClick();
+              context.updateEffectiveReadSetting(
+                effective,
                 (current) => current.copyWith(doublePageLeadingBlank: value),
               );
               changePageIndex(0);
@@ -215,9 +238,7 @@ class _AutoReadSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final globalSettingState = context.watch<GlobalSettingCubit>().state;
-    final globalSettingCubit = context.read<GlobalSettingCubit>();
-    final readSetting = globalSettingState.readSetting;
+    final effective = context.watchTargetReadSetting();
 
     return _SettingsSection(
       title: t.reader.autoRead,
@@ -225,78 +246,90 @@ class _AutoReadSection extends StatelessWidget {
         _SettingsSwitchTile(
           title: t.reader.autoRead,
           subtitle: t.reader.autoReadSubtitle,
-          value: readSetting.autoScroll,
+          value: effective.autoScroll,
           onChanged: (value) {
-            globalSettingCubit.updateReadSetting(
+            HapticFeedback.selectionClick();
+            context.updateEffectiveReadSetting(
+              effective,
               (current) => current.copyWith(autoScroll: value),
             );
           },
         ),
-        if (readSetting.autoScroll)
+        if (effective.autoScroll)
           _SettingsSwitchTile(
             title: t.reader.autoReadHidePauseButton,
             subtitle: t.reader.autoReadHidePauseButtonSubtitle,
-            value: readSetting.autoScrollHidePauseButton,
+            value: effective.autoScrollHidePauseButton,
             onChanged: (value) {
-              globalSettingCubit.updateReadSetting(
+              HapticFeedback.selectionClick();
+              context.updateEffectiveReadSetting(
+                effective,
                 (current) => current.copyWith(autoScrollHidePauseButton: value),
               );
             },
           ),
-        if (readSetting.autoScroll)
+        if (effective.autoScroll)
           _SettingsSwitchTile(
             title: t.reader.autoReadSmooth,
             subtitle: t.reader.autoReadSmoothSubtitle,
-            value: readSetting.autoScrollSmooth,
+            value: effective.autoScrollSmooth,
             onChanged: (value) {
-              globalSettingCubit.updateReadSetting(
+              HapticFeedback.selectionClick();
+              context.updateEffectiveReadSetting(
+                effective,
                 (current) => current.copyWith(autoScrollSmooth: value),
               );
             },
           ),
-        if (readSetting.autoScroll)
+        if (effective.autoScroll)
           _SettingsSliderCard(
             title: t.reader.webtoonScrollDistance,
-            value: readSetting.autoScrollColumnDistancePercent.clamp(10, 100),
+            value: effective.autoScrollColumnDistancePercent.clamp(10, 100),
             min: 10,
             max: 100,
             divisions: 90,
             suffix: t.reader.screenHeightPercent,
             onChanged: (value) {
               final percent = value.clamp(10, 100);
-              globalSettingCubit.updateReadSetting(
+              HapticFeedback.selectionClick();
+              context.updateEffectiveReadSetting(
+                effective,
                 (current) =>
                     current.copyWith(autoScrollColumnDistancePercent: percent),
               );
             },
           ),
-        if (readSetting.autoScroll)
+        if (effective.autoScroll)
           _SettingsSliderCard(
             title: t.reader.webtoonScrollInterval,
-            value: readSetting.autoScrollColumnIntervalMs.clamp(300, 5000),
+            value: effective.autoScrollColumnIntervalMs.clamp(300, 5000),
             min: 300,
             max: 5000,
             divisions: 47,
             suffix: t.reader.milliseconds,
             onChanged: (value) {
               final intervalMs = value.clamp(300, 5000);
-              globalSettingCubit.updateReadSetting(
+              HapticFeedback.selectionClick();
+              context.updateEffectiveReadSetting(
+                effective,
                 (current) =>
                     current.copyWith(autoScrollColumnIntervalMs: intervalMs),
               );
             },
           ),
-        if (readSetting.autoScroll)
+        if (effective.autoScroll)
           _SettingsSliderCard(
             title: t.reader.singlePageScrollInterval,
-            value: readSetting.autoScrollPageIntervalMs.clamp(800, 10000),
+            value: effective.autoScrollPageIntervalMs.clamp(800, 10000),
             min: 800,
             max: 10000,
             divisions: 92,
             suffix: t.reader.milliseconds,
             onChanged: (value) {
               final intervalMs = value.clamp(800, 10000);
-              globalSettingCubit.updateReadSetting(
+              HapticFeedback.selectionClick();
+              context.updateEffectiveReadSetting(
+                effective,
                 (current) =>
                     current.copyWith(autoScrollPageIntervalMs: intervalMs),
               );
@@ -312,8 +345,7 @@ class _PreloadSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final readSetting = context.watch<GlobalSettingCubit>().state.readSetting;
-    final globalSettingCubit = context.read<GlobalSettingCubit>();
+    final effective = context.watchTargetReadSetting();
 
     return _SettingsSection(
       title: t.reader.preload,
@@ -321,10 +353,12 @@ class _PreloadSection extends StatelessWidget {
         _SettingsDropdownTile(
           title: t.reader.preloadImageCount,
           subtitle: t.reader.preloadImageCountSubtitle,
-          value: readSetting.preloadImageCount.clamp(2, 10).toInt(),
+          value: effective.preloadImageCount.clamp(2, 10).toInt(),
           values: List<int>.generate(9, (index) => index + 2),
           onChanged: (value) {
-            globalSettingCubit.updateReadSetting(
+            HapticFeedback.selectionClick();
+            context.updateEffectiveReadSetting(
+              effective,
               (current) => current.copyWith(preloadImageCount: value),
             );
           },
@@ -332,10 +366,12 @@ class _PreloadSection extends StatelessWidget {
         _SettingsDropdownTile(
           title: t.reader.preloadChapterCount,
           subtitle: t.reader.preloadChapterCountSubtitle,
-          value: readSetting.preloadChapterCount.clamp(1, 3).toInt(),
+          value: effective.preloadChapterCount.clamp(1, 3).toInt(),
           values: List<int>.generate(3, (index) => index + 1),
           onChanged: (value) {
-            globalSettingCubit.updateReadSetting(
+            HapticFeedback.selectionClick();
+            context.updateEffectiveReadSetting(
+              effective,
               (current) => current.copyWith(preloadChapterCount: value),
             );
           },
@@ -350,8 +386,16 @@ class _ReadBackgroundSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final readSetting = context.watch<GlobalSettingCubit>().state.readSetting;
-    final globalSettingCubit = context.read<GlobalSettingCubit>();
+    final effective = context.watchTargetReadSetting();
+
+    Future<void> selectBackground(ReaderBackgroundMode mode) async {
+      if (effective.readerBackgroundMode == mode) return;
+      HapticFeedback.selectionClick();
+      await context.updateEffectiveReadSetting(
+        effective,
+        (current) => current.copyWith(readerBackgroundMode: mode),
+      );
+    }
 
     return _SettingsSection(
       title: t.reader.background,
@@ -363,68 +407,26 @@ class _ReadBackgroundSection extends StatelessWidget {
             _SettingsChoiceChip(
               title: t.reader.auto,
               selected:
-                  readSetting.readerBackgroundMode == ReaderBackgroundMode.auto,
-              onTap: () {
-                if (readSetting.readerBackgroundMode ==
-                    ReaderBackgroundMode.auto) {
-                  return;
-                }
-                globalSettingCubit.updateReadSetting(
-                  (current) => current.copyWith(
-                    readerBackgroundMode: ReaderBackgroundMode.auto,
-                  ),
-                );
-              },
+                  effective.readerBackgroundMode == ReaderBackgroundMode.auto,
+              onTap: () => selectBackground(ReaderBackgroundMode.auto),
             ),
             _SettingsChoiceChip(
               title: t.reader.black,
               selected:
-                  readSetting.readerBackgroundMode ==
-                  ReaderBackgroundMode.black,
-              onTap: () {
-                if (readSetting.readerBackgroundMode ==
-                    ReaderBackgroundMode.black) {
-                  return;
-                }
-                globalSettingCubit.updateReadSetting(
-                  (current) => current.copyWith(
-                    readerBackgroundMode: ReaderBackgroundMode.black,
-                  ),
-                );
-              },
+                  effective.readerBackgroundMode == ReaderBackgroundMode.black,
+              onTap: () => selectBackground(ReaderBackgroundMode.black),
             ),
             _SettingsChoiceChip(
               title: t.reader.white,
               selected:
-                  readSetting.readerBackgroundMode ==
-                  ReaderBackgroundMode.white,
-              onTap: () {
-                if (readSetting.readerBackgroundMode ==
-                    ReaderBackgroundMode.white) {
-                  return;
-                }
-                globalSettingCubit.updateReadSetting(
-                  (current) => current.copyWith(
-                    readerBackgroundMode: ReaderBackgroundMode.white,
-                  ),
-                );
-              },
+                  effective.readerBackgroundMode == ReaderBackgroundMode.white,
+              onTap: () => selectBackground(ReaderBackgroundMode.white),
             ),
             _SettingsChoiceChip(
               title: t.reader.grey,
               selected:
-                  readSetting.readerBackgroundMode == ReaderBackgroundMode.grey,
-              onTap: () {
-                if (readSetting.readerBackgroundMode ==
-                    ReaderBackgroundMode.grey) {
-                  return;
-                }
-                globalSettingCubit.updateReadSetting(
-                  (current) => current.copyWith(
-                    readerBackgroundMode: ReaderBackgroundMode.grey,
-                  ),
-                );
-              },
+                  effective.readerBackgroundMode == ReaderBackgroundMode.grey,
+              onTap: () => selectBackground(ReaderBackgroundMode.grey),
             ),
           ],
         ),
@@ -438,9 +440,7 @@ class _ReadExperienceSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final globalSettingState = context.watch<GlobalSettingCubit>().state;
-    final globalSettingCubit = context.read<GlobalSettingCubit>();
-    final readSetting = globalSettingState.readSetting;
+    final effective = context.watchTargetReadSetting();
 
     return _SettingsSection(
       title: t.reader.readingExperience,
@@ -448,9 +448,11 @@ class _ReadExperienceSection extends StatelessWidget {
         _SettingsSwitchTile(
           title: t.reader.disableAnimation,
           subtitle: t.reader.disableAnimationSubtitle,
-          value: readSetting.noAnimation,
+          value: effective.noAnimation,
           onChanged: (value) {
-            globalSettingCubit.updateReadSetting(
+            HapticFeedback.selectionClick();
+            context.updateEffectiveReadSetting(
+              effective,
               (current) => current.copyWith(noAnimation: value),
             );
           },
@@ -458,24 +460,27 @@ class _ReadExperienceSection extends StatelessWidget {
         _SettingsSwitchTile(
           title: t.reader.readFilter,
           subtitle: t.reader.readFilterSubtitle,
-          value: readSetting.readFilterEnabled,
+          value: effective.readFilterEnabled,
           onChanged: (value) {
-            globalSettingCubit.updateReadSetting(
+            HapticFeedback.selectionClick();
+            context.updateEffectiveReadSetting(
+              effective,
               (current) => current.copyWith(readFilterEnabled: value),
             );
           },
         ),
-        if (readSetting.readFilterEnabled)
+        if (effective.readFilterEnabled)
           _SettingsSliderCard(
             title: t.reader.filterIntensity,
-            value: readSetting.readFilterOpacityPercent.clamp(0, 100),
+            value: effective.readFilterOpacityPercent.clamp(0, 100),
             min: 0,
             max: 100,
             divisions: 100,
             suffix: t.reader.percent,
             onChanged: (value) {
               final percent = value.clamp(0, 100);
-              globalSettingCubit.updateReadSetting(
+              context.updateEffectiveReadSetting(
+                effective,
                 (current) =>
                     current.copyWith(readFilterOpacityPercent: percent),
               );
@@ -484,24 +489,27 @@ class _ReadExperienceSection extends StatelessWidget {
         _SettingsSwitchTile(
           title: t.reader.einkOptimization,
           subtitle: t.reader.einkOptimizationSubtitle,
-          value: readSetting.einkOptimization,
+          value: effective.einkOptimization,
           onChanged: (value) {
-            globalSettingCubit.updateReadSetting(
+            HapticFeedback.selectionClick();
+            context.updateEffectiveReadSetting(
+              effective,
               (current) => current.copyWith(einkOptimization: value),
             );
           },
         ),
-        if (readSetting.einkOptimization)
+        if (effective.einkOptimization)
           _SettingsSliderCard(
             title: t.reader.einkDelay,
-            value: readSetting.einkDelayMs.clamp(50, 500),
+            value: effective.einkDelayMs.clamp(50, 500),
             min: 50,
             max: 500,
             divisions: 45,
             suffix: t.reader.milliseconds,
             onChanged: (value) {
               final delayMs = value.clamp(50, 500);
-              globalSettingCubit.updateReadSetting(
+              context.updateEffectiveReadSetting(
+                effective,
                 (current) => current.copyWith(einkDelayMs: delayMs),
               );
             },
@@ -509,24 +517,27 @@ class _ReadExperienceSection extends StatelessWidget {
         _SettingsSwitchTile(
           title: t.reader.sidePadding,
           subtitle: t.reader.sidePaddingSubtitle,
-          value: readSetting.sidePaddingEnabled,
+          value: effective.sidePaddingEnabled,
           onChanged: (value) {
-            globalSettingCubit.updateReadSetting(
+            HapticFeedback.selectionClick();
+            context.updateEffectiveReadSetting(
+              effective,
               (current) => current.copyWith(sidePaddingEnabled: value),
             );
           },
         ),
-        if (readSetting.sidePaddingEnabled)
+        if (effective.sidePaddingEnabled)
           _SettingsSliderCard(
             title: t.reader.sidePaddingPercent,
-            value: readSetting.sidePaddingPercent.clamp(0, 30),
+            value: effective.sidePaddingPercent.clamp(0, 30),
             min: 0,
             max: 30,
             divisions: 30,
             suffix: t.reader.percent,
             onChanged: (value) {
               final percent = value.clamp(0, 30);
-              globalSettingCubit.updateReadSetting(
+              context.updateEffectiveReadSetting(
+                effective,
                 (current) => current.copyWith(sidePaddingPercent: percent),
               );
             },
